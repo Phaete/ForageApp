@@ -34,7 +34,6 @@ These instructions will help you get a copy of the project up and running on you
 
 ### Installation
 1. **Clone the repository**:
-   
     ```sh
     git clone https://github.com/Phaete/ForageApp.git
     cd ForageApp
@@ -42,34 +41,34 @@ These instructions will help you get a copy of the project up and running on you
 
 3. **Backend Setup**:
    
-    Navigate to the `backend` directory:
+    - Navigate to the `backend` directory:
         ```sh
         cd backend
         ```
    
-   Build the Spring Boot application:
+   - Build the Spring Boot application:
         ```sh
         ./mvnw clean install
         ```
    
-   Run the application:
+   - Run the application:
         ```sh
         ./mvnw spring-boot:run
         ```
 
 4. **Frontend Setup**:
    
-   Navigate to the `frontend` directory:
+   - Navigate to the `frontend` directory:
         ```sh
         cd ../frontend
         ```
    
-   Install dependencies:
+   - Install dependencies:
         ```sh
         npm install
         ```
    
-   Start the React application:
+   - Start the React application:
         ```sh
         npm start
         ```
@@ -87,7 +86,7 @@ To run the application using Docker, follow these steps:
     ENTRYPOINT ["java", "-jar", "/app.jar"]
     ```
     
-2. **Next Steps
+2. **Next Steps**
    
 TODO
 
