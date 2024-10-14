@@ -34,12 +34,14 @@ These instructions will help you get a copy of the project up and running on you
 
 ### Installation
 1. **Clone the repository**:
+   
     ```sh
     git clone https://github.com/Phaete/ForageApp.git
     cd ForageApp
     ```
 
-2. **Backend Setup**:
+3. **Backend Setup**:
+   
     Navigate to the `backend` directory:
         ```sh
         cd backend
@@ -56,6 +58,7 @@ These instructions will help you get a copy of the project up and running on you
         ```
 
 4. **Frontend Setup**:
+   
    Navigate to the `frontend` directory:
         ```sh
         cd ../frontend
@@ -75,6 +78,7 @@ These instructions will help you get a copy of the project up and running on you
 To run the application using Docker, follow these steps:
 
 1. **Create Dockerfile for Backend**: In the `backend` directory, create a `Dockerfile`:
+   
     ```dockerfile
     # Backend Dockerfile
     FROM --platform=linux/amd64 openjdk:21
@@ -82,7 +86,9 @@ To run the application using Docker, follow these steps:
     COPY backend/target/ForageApp.jar app.jar
     ENTRYPOINT ["java", "-jar", "/app.jar"]
     ```
+    
 2. **Next Steps
+   
 TODO
 
 ### Usage
