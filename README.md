@@ -40,29 +40,29 @@ These instructions will help you get a copy of the project up and running on you
     ```
 
 2. **Backend Setup**:
-    - Navigate to the `backend` directory:
+    Navigate to the `backend` directory:
         ```sh
         cd backend
         ```
-    - Build the Spring Boot application:
+   Build the Spring Boot application:
         ```sh
         ./mvnw clean install
         ```
-    - Run the application:
+   Run the application:
         ```sh
         ./mvnw spring-boot:run
         ```
 
 3. **Frontend Setup**:
-    - Navigate to the `frontend` directory:
+   Navigate to the `frontend` directory:
         ```sh
         cd ../frontend
         ```
-    - Install dependencies:
+   Install dependencies:
         ```sh
         npm install
         ```
-    - Start the React application:
+   Start the React application:
         ```sh
         npm start
         ```
