@@ -1,89 +1,99 @@
-# React + TypeScript + Vite
+# Forage Tracker - Share your Forage!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to Forage Tracker! This application allows users to track and share their forage finds, such as fruit trees, mushrooms, berry bushes, and more, on an interactive map using geo-location.
 
-Currently, two official plugins are available:
+## Table of Contents
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Docker Setup](#docker-setup)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- 📍 **Geo-location Tracking**: Easily log the locations of your finds on an interactive map.
+- 🍓 **Forage Categories**: Track different types of forages like fruit trees, mushrooms, berry bushes, and others.
+- 🌍 **Share Your Finds**: Share your forage locations with the community.
+- 🔍 **Search Functionality**: Find forage locations shared by others.
+- 🔄 **Circular Routes**: Create and visualize circular routes between selected forage spots.
+- 🗺️ **Optimal Routes**: Select a start- and endpoint, and the app will calculate the best route through chosen forage items to get the best harvest possible.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Getting Started
+These instructions will help you get a copy of the project up and running on your local machine for development and testing purposes.
 
-- Configure the top-level `parserOptions` property like this:
+### Prerequisites
+- **Java 21** or higher
+- **Node.js** and **npm**
+- **Spring Boot**
+- **React**
+- **Docker**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Installation
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/Phaete/ForageApp.git
+    cd ForageApp
+    ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. **Backend Setup**:
+    - Navigate to the `backend` directory:
+        ```sh
+        cd backend
+        ```
+    - Build the Spring Boot application:
+        ```sh
+        ./mvnw clean install
+        ```
+    - Run the application:
+        ```sh
+        ./mvnw spring-boot:run
+        ```
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+3. **Frontend Setup**:
+    - Navigate to the `frontend` directory:
+        ```sh
+        cd ../frontend
+        ```
+    - Install dependencies:
+        ```sh
+        npm install
+        ```
+    - Start the React application:
+        ```sh
+        npm start
+        ```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
----
+### Docker Setup
+To run the application using Docker, follow these steps:
 
----
-# Spring HELP.md
+1. **Create Dockerfile for Backend**: In the `backend` directory, create a `Dockerfile`:
+    ```dockerfile
+    # Backend Dockerfile
+    FROM --platform=linux/amd64 openjdk:21
+    EXPOSE 8080
+    COPY backend/target/ForageApp.jar app.jar
+    ENTRYPOINT ["java", "-jar", "/app.jar"]
+    ```
+2. **Next Steps
+TODO
 
----
+### Usage
+Once the app is running, open your browser and navigate to `http://localhost:5173` to start using Forage Tracker.
 
----
+## Contributing
+Contributions are welcome! Please fork the repository and create a pull request with your changes.
 
-# Getting Started
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-### Reference Documentation
+## Contact
+If you have any questions or suggestions, feel free to reach out!
 
-For further reference, please consider the following sections:
+- **Konstantin Wenig** - PH:[your-email@example.com](mailto:your-email@example.com)
+- **GitHub** - [Phaete](https://github.com/Phaete)
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.3.4/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.3.4/maven-plugin/build-image.html)
-* [Spring Data MongoDB](https://docs.spring.io/spring-boot/docs/3.3.4/reference/htmlsingle/index.html#data.nosql.mongodb)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/3.3.4/reference/htmlsingle/index.html#using.devtools)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/3.3.4/reference/htmlsingle/index.html#web)
-
-### Guides
-
-The following guides illustrate how to use some features concretely:
-
-* [Accessing Data with MongoDB](https://spring.io/guides/gs/accessing-data-mongodb/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-
-### Maven Parent overrides
-
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the
-parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
-
+Happy foraging! 🍄🌲🍎
