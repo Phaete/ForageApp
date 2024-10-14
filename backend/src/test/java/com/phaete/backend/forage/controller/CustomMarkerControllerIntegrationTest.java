@@ -27,7 +27,7 @@ class CustomMarkerControllerIntegrationTest {
 
 	@Test
 	void saveMarker_expectCreated() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post("api/customMarkers")
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/customMarkers")
 				.contentType("application/json")
 				.content("""
 					{
@@ -59,14 +59,14 @@ class CustomMarkerControllerIntegrationTest {
 
 	@Test
 	void findAllMarkers_returnEmptyList_onEmpty_DB() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("api/customMarkers"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/customMarkers"))
 				.andExpect(status().isOk())
 				.andExpect(content().json("[]"));
 	}
 
 	@Test
 	void findMarkerById_expectNoSuchElementException_onEmptyDB() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("api/customMarkers/1"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/customMarkers/1"))
 				.andExpect(status().isNotFound());
 	}
 
@@ -77,7 +77,7 @@ class CustomMarkerControllerIntegrationTest {
 		);
 
 		mockMvc.perform(
-				MockMvcRequestBuilders.put("api/customMarkers/1")
+				MockMvcRequestBuilders.put("/api/customMarkers/1")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content("""
 							{
@@ -113,7 +113,7 @@ class CustomMarkerControllerIntegrationTest {
 				new CustomMarker("1", new double[] {0.0, 0.0}, null, null)
 		);
 
-		mockMvc.perform(MockMvcRequestBuilders.delete("api/customMarkers/1"))
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/customMarkers/1"))
 				.andExpect(status().isOk())
 				.andExpect(content().string("[0.0, 0.0]"));
 	}
