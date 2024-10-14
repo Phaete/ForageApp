@@ -1,0 +1,12 @@
+.idea
+*.iml
+
+# Frontend
+/frontend/node_modules
+
+# Backend
+/backend/mvnw.cmd
+/backend/mvnw
+/backend/.mvn
+/backend/target
+
