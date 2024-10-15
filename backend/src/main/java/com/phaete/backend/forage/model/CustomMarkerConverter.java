@@ -39,7 +39,7 @@ public class CustomMarkerConverter {
 	 * @param customMarker the {@link CustomMarker} to be converted
 	 * @return the converted {@link CustomMarkerDTO}
 	 */
-	public CustomMarkerDTO toDTO(CustomMarker customMarker) {
+	public CustomMarkerDTO toDTO(CustomMarker customMarker) throws MarkerNotFoundException {
 		return new CustomMarkerDTO(
 				customMarker.position(),
 				customMarker.icon(),

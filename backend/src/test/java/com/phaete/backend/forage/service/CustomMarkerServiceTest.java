@@ -3,6 +3,7 @@ package com.phaete.backend.forage.service;
 import com.phaete.backend.forage.model.CustomMarker;
 import com.phaete.backend.forage.model.CustomMarkerConverter;
 import com.phaete.backend.forage.model.CustomMarkerDTO;
+import com.phaete.backend.forage.model.MarkerNotFoundException;
 import com.phaete.backend.forage.repository.CustomMarkerRepository;
 import org.junit.jupiter.api.Test;
 
@@ -78,6 +79,16 @@ class CustomMarkerServiceTest {
 	}
 
 	@Test
+	void findMarkerById_Throws() {
+		when(customMarkerRepository.findById("1")).thenReturn(Optional.empty());
+
+		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new CustomMarkerConverter(idService));
+
+		//verify(customMarkerRepository).findById("1"); // Wanted but not invoked, why?
+		assertThrows(MarkerNotFoundException.class, () -> customMarkerService.findMarkerById("1"));
+	}
+
+	@Test
 	void updateMarker() {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
 				new double[] {0.0, 0.0},
@@ -99,6 +110,23 @@ class CustomMarkerServiceTest {
 	}
 
 	@Test
+	void updateMarker_Throws() {
+		when(customMarkerRepository.findById("1")).thenReturn(Optional.empty());
+
+		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new CustomMarkerConverter(idService));
+
+		//verify(customMarkerRepository).findById("1"); // Wanted but not invoked, why?
+		assertThrows(MarkerNotFoundException.class, () -> customMarkerService.updateMarker(
+				"1",
+				new CustomMarkerDTO(
+						new double[] {0.0, 0.0},
+						null,
+						null
+				)
+		));
+	}
+
+	@Test
 	void deleteMarker() {
 		String expectedPosition = Arrays.toString(new double[]{0.0, 0.0});
 		when(customMarkerRepository.findById("1")).thenReturn(
@@ -110,5 +138,15 @@ class CustomMarkerServiceTest {
 		String actualPosition = customMarkerService.deleteMarker("1");
 		verify(customMarkerRepository).deleteById("1");
 		assertEquals(expectedPosition, actualPosition);
+	}
+
+	@Test
+	void deleteMarker_Throws() {
+		when(customMarkerRepository.findById("1")).thenReturn(Optional.empty());
+
+		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new CustomMarkerConverter(idService));
+
+		//verify(customMarkerRepository).findById("1"); // Wanted but not invoked, why?
+		assertThrows(MarkerNotFoundException.class, () -> customMarkerService.deleteMarker("1"));
 	}
 }
