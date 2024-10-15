@@ -71,6 +71,23 @@ class CustomMarkerControllerIntegrationTest {
 	}
 
 	@Test
+	void findMarkerById_expectCustomMarker_onSuccess() throws Exception {
+		customMarkerRepository.save(
+				new CustomMarker("1", new double[] {0.0, 0.0}, null, null)
+		);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/customMarkers/1"))
+				.andExpect(status().isOk())
+				.andExpect(content().json("""
+					{
+						"position": [0.0, 0.0],
+						"icon": null,
+						"popupText": null
+					}
+					"""));
+	}
+
+	@Test
 	void updateMarker_expectOK() throws Exception {
 		customMarkerRepository.save(
 				new CustomMarker("1", new double[] {0.0, 0.0}, null, null)
