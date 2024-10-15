@@ -12,19 +12,19 @@ import java.util.Objects;
 public record CustomMarkerDTO(
 		double[] position,
 		Icon icon,
-		String popUpText
+		String popupText
 ) {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		CustomMarkerDTO that = (CustomMarkerDTO) o;
-		return Objects.equals(icon, that.icon) && Objects.equals(popUpText, that.popUpText) && Objects.deepEquals(position, that.position);
+		return Objects.equals(icon, that.icon) && Objects.equals(popupText, that.popupText) && Objects.deepEquals(position, that.position);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(Arrays.hashCode(position), icon, popUpText);
+		return Objects.hash(Arrays.hashCode(position), icon, popupText);
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public record CustomMarkerDTO(
 		return "CustomMarkerDTO{" +
 				"position=" + Arrays.toString(position) +
 				", icon=" + icon +
-				", popUpText='" + popUpText + '\'' +
+				", popupText='" + popupText + '\'' +
 				'}';
 	}
 }

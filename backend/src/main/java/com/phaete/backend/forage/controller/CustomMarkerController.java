@@ -1,7 +1,9 @@
 package com.phaete.backend.forage.controller;
 
 import com.phaete.backend.forage.model.CustomMarkerDTO;
+import com.phaete.backend.forage.model.MarkerNotFoundException;
 import com.phaete.backend.forage.service.CustomMarkerService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,7 +54,7 @@ public class CustomMarkerController {
 	 * @return the custom marker with the given id
 	 */
 	@GetMapping("/{id}")
-	public CustomMarkerDTO findMarkerById(@PathVariable String id) {
+	public CustomMarkerDTO findMarkerById(@PathVariable String id) throws MarkerNotFoundException {
 		return customMarkerService.findMarkerById(id);
 	}
 
@@ -67,7 +69,7 @@ public class CustomMarkerController {
 	public CustomMarkerDTO updateMarker(
 			@PathVariable String id,
 			@RequestBody CustomMarkerDTO customMarkerDTO
-	) {
+	) throws MarkerNotFoundException {
 		return customMarkerService.updateMarker(id, customMarkerDTO);
 	}
 
@@ -84,7 +86,13 @@ public class CustomMarkerController {
 	@DeleteMapping("/{id}")
 	public String deleteMarker(
 			@PathVariable String id
-	) {
+	) throws MarkerNotFoundException {
 		return customMarkerService.deleteMarker(id);
+	}
+
+	@ExceptionHandler(MarkerNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public String handleMarkerNotFoundException(MarkerNotFoundException e) {
+		return e.getMessage();
 	}
 }

@@ -18,19 +18,19 @@ public record CustomMarker(
 		String id,
 		double[] position,
 		Icon icon,
-		String popUpText
+		String popupText
 ) {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		CustomMarker that = (CustomMarker) o;
-		return Objects.equals(id, that.id) && Objects.equals(icon, that.icon) && Objects.equals(popUpText, that.popUpText) && Objects.deepEquals(position, that.position);
+		return Objects.equals(id, that.id) && Objects.equals(icon, that.icon) && Objects.equals(popupText, that.popupText) && Objects.deepEquals(position, that.position);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, Arrays.hashCode(position), icon, popUpText);
+		return Objects.hash(id, Arrays.hashCode(position), icon, popupText);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public record CustomMarker(
 				"id='" + id + '\'' +
 				", position=" + Arrays.toString(position) +
 				", icon=" + icon +
-				", popUpText='" + popUpText + '\'' +
+				", popupText='" + popupText + '\'' +
 				'}';
 	}
 }

@@ -76,7 +76,7 @@ public class CustomMarkerService {
 	 * @return the custom marker with the given id converted to a DTO
 	 * @throws MarkerNotFoundException if no custom marker with the given id can be found
 	 */
-	public CustomMarkerDTO findMarkerById(String id) {
+	public CustomMarkerDTO findMarkerById(String id) throws MarkerNotFoundException {
 		return customMarkerConverter.toDTO(
 				customMarkerRepository.findById(id)
 						.orElseThrow(
@@ -96,7 +96,7 @@ public class CustomMarkerService {
 	public CustomMarkerDTO updateMarker(
 			String id,
 			CustomMarkerDTO customMarkerDTO
-	) {
+	) throws MarkerNotFoundException {
 		findMarkerById(id);
 		return customMarkerConverter.toDTO(
 				customMarkerRepository.save(
@@ -104,7 +104,7 @@ public class CustomMarkerService {
 								id,
 								customMarkerDTO.position(),
 								customMarkerDTO.icon(),
-								customMarkerDTO.popUpText()
+								customMarkerDTO.popupText()
 						)
 				)
 		);
@@ -117,7 +117,7 @@ public class CustomMarkerService {
 	 * @return the position of the deleted custom marker as an array of length 2
 	 * @throws MarkerNotFoundException if no custom marker with the given id can be found
 	 */
-	public String deleteMarker(String id) {
+	public String deleteMarker(String id) throws MarkerNotFoundException {
 		CustomMarkerDTO customMarkerToDelete = findMarkerById(id);
 		customMarkerRepository.deleteById(id);
 		return Arrays.toString(customMarkerToDelete.position());

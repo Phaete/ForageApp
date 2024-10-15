@@ -29,7 +29,7 @@ public class CustomMarkerConverter {
 				idService.generateId(),
 				customMarkerDTO.position(),
 				customMarkerDTO.icon(),
-				customMarkerDTO.popUpText()
+				customMarkerDTO.popupText()
 		);
 	}
 
@@ -43,7 +43,7 @@ public class CustomMarkerConverter {
 		return new CustomMarkerDTO(
 				customMarker.position(),
 				customMarker.icon(),
-				customMarker.popUpText()
+				customMarker.popupText()
 		);
 	}
 }
