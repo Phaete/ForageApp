@@ -90,6 +90,13 @@ public class CustomMarkerController {
 		return customMarkerService.deleteMarker(id);
 	}
 
+	/**
+	 * Handles {@link MarkerNotFoundException}s by returning the exception message with a
+	 * {@link HttpStatus#NOT_FOUND} status.
+	 *
+	 * @param e the exception to be handled
+	 * @return the exception message
+	 */
 	@ExceptionHandler(MarkerNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public String handleMarkerNotFoundException(MarkerNotFoundException e) {

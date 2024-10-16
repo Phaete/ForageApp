@@ -51,8 +51,13 @@ public class ForageWikiItemController {
 		return forageWikiItemService.findForageWikiItemById(id);
 	}
 
-
-
+	/**
+	 * Handles {@link ForageWikiItemNotFoundException}s by returning the exception message with a
+	 * {@link HttpStatus#NOT_FOUND} status.
+	 *
+	 * @param e the exception to be handled
+	 * @return the exception message
+	 */
 	@ExceptionHandler(ForageWikiItemNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public String handleForageWikiItemNotFoundException(ForageWikiItemNotFoundException e) {
