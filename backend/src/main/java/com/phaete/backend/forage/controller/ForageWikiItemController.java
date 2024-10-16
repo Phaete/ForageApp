@@ -24,7 +24,7 @@ public class ForageWikiItemController {
 	 * @return the newly created forage wiki item
 	 */
 	@PostMapping
-	public ForageWikiItemDTO createForageWikiItem(ForageWikiItemDTO forageWikiItemDTO) {
+	public ForageWikiItemDTO createForageWikiItem(@RequestBody ForageWikiItemDTO forageWikiItemDTO) {
 		return forageWikiItemService.createForageWikiItem(forageWikiItemDTO);
 	}
 
