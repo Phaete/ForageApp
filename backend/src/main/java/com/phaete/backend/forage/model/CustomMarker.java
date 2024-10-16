@@ -4,15 +4,16 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * This class represents a custom marker in the database.
+ * Representation of a custom marker in the database.
  * A custom marker is a point on the map with a given icon and pop-up text.
- * <ul>
- * <li> The id is a unique identifier for the marker in the database. </li>
- * <li> The position is an array of length 2: [latitude, longitude] </li>
- * <li> The icon is a custom object as described in the IconModel class. </li>
- * <li> The pop-up text is a string that will be displayed in a pop-up when the
- * marker is clicked. </li>
- * </ul>
+ *
+ * @param id a unique identifier for the marker in the database
+ * @param position an array of length 2: [latitude, longitude]
+ * @param icon a custom object as described in the {@link Icon} class
+ * @param popupText a string that will be displayed in a pop-up when the
+ * marker is clicked
+ *
+ * @author -St4n aka Phaete
  */
 public record CustomMarker(
 		String id,

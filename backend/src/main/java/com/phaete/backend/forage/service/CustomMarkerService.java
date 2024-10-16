@@ -1,6 +1,5 @@
 package com.phaete.backend.forage.service;
 
-import com.phaete.backend.forage.model.CustomMarkerConverter;
 import com.phaete.backend.forage.model.CustomMarker;
 import com.phaete.backend.forage.model.CustomMarkerDTO;
 import com.phaete.backend.forage.model.MarkerNotFoundException;
@@ -11,8 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Service class for managing custom markers.
- * It provides methods to interact with the custom marker repository
+ * Service class for managing {@link CustomMarker}.
+ * It provides methods to interact with the {@link CustomMarkerRepository}
  * allowing for CRUD operations on CustomMarker objects.
  * <p>
  * Supported functions as per CRUD:
@@ -25,7 +24,7 @@ import java.util.List;
  * </ul>
  * <p>
  * The service acts as a bridge between the controller and the repository
- * and contains all business logic for the object CustomMarker
+ * and contains all business logic for the CustomMarker objects.
  *
  * @author -St4n aka Phaete
  */
@@ -33,13 +32,13 @@ import java.util.List;
 public class CustomMarkerService {
 
 	private final CustomMarkerRepository customMarkerRepository;
-	private final CustomMarkerConverter customMarkerConverter;
+	private final ConverterService customMarkerConverter;
 
 	public CustomMarkerService(
 			CustomMarkerRepository customMarkerRepository,
-			CustomMarkerConverter customMarkerConverter) {
+			ConverterService converterService) {
 		this.customMarkerRepository = customMarkerRepository;
-		this.customMarkerConverter = customMarkerConverter;
+		this.customMarkerConverter = converterService;
 	}
 
 	/**

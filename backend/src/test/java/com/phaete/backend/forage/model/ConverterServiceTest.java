@@ -1,5 +1,6 @@
 package com.phaete.backend.forage.model;
 
+import com.phaete.backend.forage.service.ConverterService;
 import com.phaete.backend.forage.service.IdService;
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class CustomMarkerConverterTest {
+class ConverterServiceTest {
 
 	IdService idService = mock(IdService.class);
 
@@ -21,9 +22,9 @@ class CustomMarkerConverterTest {
 		);
 		when(idService.generateId()).thenReturn("1");
 
-		CustomMarkerConverter customMarkerConverter = new CustomMarkerConverter(idService);
+		ConverterService converterService = new ConverterService(idService);
 
-		CustomMarker actualCustomMarker = customMarkerConverter.fromDTO(
+		CustomMarker actualCustomMarker = converterService.fromDTO(
 				new CustomMarkerDTO(
 						new double[] {0.0, 0.0},
 						null,
@@ -41,9 +42,9 @@ class CustomMarkerConverterTest {
 				null
 		);
 
-		CustomMarkerConverter customMarkerConverter = new CustomMarkerConverter(idService);
+		ConverterService converterService = new ConverterService(idService);
 
-		CustomMarkerDTO actualCustomMarkerDTO = customMarkerConverter.toDTO(
+		CustomMarkerDTO actualCustomMarkerDTO = converterService.toDTO(
 				new CustomMarker(
 						"1",
 						new double[] {0.0, 0.0},
