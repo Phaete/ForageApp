@@ -37,7 +37,7 @@ public class ConverterService {
 	 * @param customMarker the {@link CustomMarker} to be converted
 	 * @return the converted {@link CustomMarkerDTO}
 	 */
-	public CustomMarkerDTO toDTO(CustomMarker customMarker) throws MarkerNotFoundException {
+	public CustomMarkerDTO toDTO(CustomMarker customMarker){
 		return new CustomMarkerDTO(
 				customMarker.position(),
 				customMarker.icon(),

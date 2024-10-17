@@ -47,7 +47,7 @@ public class CustomMarkerService {
 	 * @param customMarkerDTO the CustomMarkerDTO to be converted and saved as a CustomMarker
 	 * @return the newly created CustomMarker converted to a DTO
 	 */
-	public CustomMarkerDTO createMarker(CustomMarkerDTO customMarkerDTO) {
+	public CustomMarkerDTO createMarker(CustomMarkerDTO customMarkerDTO){
 		return converterService.toDTO(
 				customMarkerRepository.save(
 						converterService.fromDTO(
@@ -62,10 +62,8 @@ public class CustomMarkerService {
 	 *
 	 * @return a list of all custom markers converted to DTOs
 	 */
-	public List<CustomMarkerDTO> findAllMarkers() {
-		return customMarkerRepository.findAll().stream()
-				.map(converterService::toDTO)
-				.toList();
+	public List<CustomMarker> findAllMarkers() {
+		return customMarkerRepository.findAll();
 	}
 
 	/**

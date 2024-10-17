@@ -1,5 +1,6 @@
 package com.phaete.backend.forage.controller;
 
+import com.phaete.backend.forage.model.CustomMarker;
 import com.phaete.backend.forage.model.CustomMarkerDTO;
 import com.phaete.backend.forage.model.MarkerNotFoundException;
 import com.phaete.backend.forage.service.CustomMarkerService;
@@ -43,7 +44,7 @@ public class CustomMarkerController {
 	 * @return a list of all custom markers
 	 */
 	@GetMapping
-	public List<CustomMarkerDTO> findAllMarkers() {
+	public List<CustomMarker> findAllMarkers() {
 		return customMarkerService.findAllMarkers();
 	}
 

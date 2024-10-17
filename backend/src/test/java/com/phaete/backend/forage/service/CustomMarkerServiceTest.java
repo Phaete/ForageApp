@@ -40,9 +40,10 @@ class CustomMarkerServiceTest {
 	}
 
 	@Test
-	void findAllMarkers_expectList_onSucecss() {
-		List<CustomMarkerDTO> expectedCustomMarkerDTOs = List.of(
-				new CustomMarkerDTO(
+	void findAllMarkers_expectList_onSuccess() {
+		List<CustomMarker> expectedCustomMarkers = List.of(
+				new CustomMarker(
+						"1",
 						new double[] {0.0, 0.0},
 						null,
 						null
@@ -54,13 +55,13 @@ class CustomMarkerServiceTest {
 
 		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
-		List<CustomMarkerDTO> actualCustomMarkerDTOs = customMarkerService.findAllMarkers();
+		List<CustomMarker> actualCustomMarkers = customMarkerService.findAllMarkers();
 		verify(customMarkerRepository).findAll();
-		assertEquals(expectedCustomMarkerDTOs, actualCustomMarkerDTOs);
+		assertEquals(expectedCustomMarkers, actualCustomMarkers);
 	}
 
 	@Test
-	void findMarkerById_expectDTO_onSuccess() {
+	void findMarkerById_expectDTO_onSuccess() throws MarkerNotFoundException {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
 				new double[] {0.0, 0.0},
 				null,
@@ -83,12 +84,11 @@ class CustomMarkerServiceTest {
 
 		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
-		//verify(customMarkerRepository).findById("1"); // Wanted but not invoked, why?
 		assertThrows(MarkerNotFoundException.class, () -> customMarkerService.findMarkerById("1"));
 	}
 
 	@Test
-	void updateMarker_expectDTO_onSuccess() {
+	void updateMarker_expectDTO_onSuccess() throws MarkerNotFoundException {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
 				new double[] {0.0, 0.0},
 				null,
@@ -114,7 +114,6 @@ class CustomMarkerServiceTest {
 
 		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
-		//verify(customMarkerRepository).findById("1"); // Wanted but not invoked, why?
 		assertThrows(MarkerNotFoundException.class, () -> customMarkerService.updateMarker(
 				"1",
 				new CustomMarkerDTO(
@@ -126,7 +125,7 @@ class CustomMarkerServiceTest {
 	}
 
 	@Test
-	void deleteMarker_expectPositionOfDeletedMarker_onSuccess() {
+	void deleteMarker_expectPositionOfDeletedMarker_onSuccess() throws MarkerNotFoundException {
 		String expectedPosition = Arrays.toString(new double[]{0.0, 0.0});
 		when(customMarkerRepository.findById("1")).thenReturn(
 				Optional.of(new CustomMarker("1", new double[] {0.0, 0.0}, null, null))
@@ -145,7 +144,6 @@ class CustomMarkerServiceTest {
 
 		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
-		//verify(customMarkerRepository).findById("1"); // Wanted but not invoked, why?
 		assertThrows(MarkerNotFoundException.class, () -> customMarkerService.deleteMarker("1"));
 	}
 }
