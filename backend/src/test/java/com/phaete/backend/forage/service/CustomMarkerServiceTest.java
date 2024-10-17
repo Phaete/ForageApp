@@ -1,7 +1,6 @@
 package com.phaete.backend.forage.service;
 
 import com.phaete.backend.forage.model.CustomMarker;
-import com.phaete.backend.forage.model.CustomMarkerConverter;
 import com.phaete.backend.forage.model.CustomMarkerDTO;
 import com.phaete.backend.forage.model.MarkerNotFoundException;
 import com.phaete.backend.forage.repository.CustomMarkerRepository;
@@ -22,7 +21,7 @@ class CustomMarkerServiceTest {
 
 
 	@Test
-	void createMarker() {
+	void createMarker_expectDTO_onSuccess() {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
 				new double[] {0.0, 0.0},
 				null,
@@ -33,7 +32,7 @@ class CustomMarkerServiceTest {
 		);
 		when(idService.generateId()).thenReturn("1");
 
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new CustomMarkerConverter(idService));
+		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
 		CustomMarkerDTO actualCustomMarkerDTO = customMarkerService.createMarker(expectedCustomMarkerDTO);
 		verify(customMarkerRepository).save(any(CustomMarker.class));
@@ -41,7 +40,7 @@ class CustomMarkerServiceTest {
 	}
 
 	@Test
-	void findAllMarkers() {
+	void findAllMarkers_expectList_onSucecss() {
 		List<CustomMarkerDTO> expectedCustomMarkerDTOs = List.of(
 				new CustomMarkerDTO(
 						new double[] {0.0, 0.0},
@@ -53,7 +52,7 @@ class CustomMarkerServiceTest {
 				List.of(new CustomMarker("1", new double[] {0.0, 0.0}, null, null))
 		);
 
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new CustomMarkerConverter(idService));
+		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
 		List<CustomMarkerDTO> actualCustomMarkerDTOs = customMarkerService.findAllMarkers();
 		verify(customMarkerRepository).findAll();
@@ -61,7 +60,7 @@ class CustomMarkerServiceTest {
 	}
 
 	@Test
-	void findMarkerById() {
+	void findMarkerById_expectDTO_onSuccess() {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
 				new double[] {0.0, 0.0},
 				null,
@@ -71,7 +70,7 @@ class CustomMarkerServiceTest {
 				Optional.of(new CustomMarker("1", new double[] {0.0, 0.0}, null, null))
 		);
 
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new CustomMarkerConverter(idService));
+		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
 		CustomMarkerDTO actualCustomMarkerDTO = customMarkerService.findMarkerById("1");
 		verify(customMarkerRepository).findById("1");
@@ -79,17 +78,17 @@ class CustomMarkerServiceTest {
 	}
 
 	@Test
-	void findMarkerById_Throws() {
+	void findMarkerById_expectThrows_onNotFound() {
 		when(customMarkerRepository.findById("1")).thenReturn(Optional.empty());
 
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new CustomMarkerConverter(idService));
+		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
 		//verify(customMarkerRepository).findById("1"); // Wanted but not invoked, why?
 		assertThrows(MarkerNotFoundException.class, () -> customMarkerService.findMarkerById("1"));
 	}
 
 	@Test
-	void updateMarker() {
+	void updateMarker_expectDTO_onSuccess() {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
 				new double[] {0.0, 0.0},
 				null,
@@ -102,7 +101,7 @@ class CustomMarkerServiceTest {
 				new CustomMarker("1", new double[] {0.0, 0.0}, null, null)
 		);
 
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new CustomMarkerConverter(idService));
+		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
 		CustomMarkerDTO actualCustomMarkerDTO = customMarkerService.updateMarker("1", expectedCustomMarkerDTO);
 		verify(customMarkerRepository).save(any(CustomMarker.class));
@@ -110,10 +109,10 @@ class CustomMarkerServiceTest {
 	}
 
 	@Test
-	void updateMarker_Throws() {
+	void updateMarker_expectThrows_onNotFound() {
 		when(customMarkerRepository.findById("1")).thenReturn(Optional.empty());
 
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new CustomMarkerConverter(idService));
+		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
 		//verify(customMarkerRepository).findById("1"); // Wanted but not invoked, why?
 		assertThrows(MarkerNotFoundException.class, () -> customMarkerService.updateMarker(
@@ -127,13 +126,13 @@ class CustomMarkerServiceTest {
 	}
 
 	@Test
-	void deleteMarker() {
+	void deleteMarker_expectPositionOfDeletedMarker_onSuccess() {
 		String expectedPosition = Arrays.toString(new double[]{0.0, 0.0});
 		when(customMarkerRepository.findById("1")).thenReturn(
 				Optional.of(new CustomMarker("1", new double[] {0.0, 0.0}, null, null))
 		);
 
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new CustomMarkerConverter(idService));
+		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
 		String actualPosition = customMarkerService.deleteMarker("1");
 		verify(customMarkerRepository).deleteById("1");
@@ -141,10 +140,10 @@ class CustomMarkerServiceTest {
 	}
 
 	@Test
-	void deleteMarker_Throws() {
+	void deleteMarker_expectThrows_onNotFound() {
 		when(customMarkerRepository.findById("1")).thenReturn(Optional.empty());
 
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new CustomMarkerConverter(idService));
+		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
 		//verify(customMarkerRepository).findById("1"); // Wanted but not invoked, why?
 		assertThrows(MarkerNotFoundException.class, () -> customMarkerService.deleteMarker("1"));
