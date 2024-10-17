@@ -28,7 +28,7 @@ public class CloudinaryService {
 	 * @throws IOException If the upload fails.
 	 */
 	public String uploadImage(MultipartFile image) throws IOException {
-		File fileToUpload = File.createTempFile("file", null);
+		File fileToUpload = File.createTempFile("file", null, new File("."));
 		image.transferTo(fileToUpload);
 		Map response = cloudinary.uploader().upload(fileToUpload, Map.of());
 		return response.get("url").toString();
