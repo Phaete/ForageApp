@@ -1,6 +1,5 @@
 package com.phaete.backend.forage.service;
 
-import com.phaete.backend.forage.model.CustomMarkerConverter;
 import com.phaete.backend.forage.model.CustomMarker;
 import com.phaete.backend.forage.model.CustomMarkerDTO;
 import com.phaete.backend.forage.model.MarkerNotFoundException;
@@ -33,13 +32,13 @@ import java.util.List;
 public class CustomMarkerService {
 
 	private final CustomMarkerRepository customMarkerRepository;
-	private final CustomMarkerConverter customMarkerConverter;
+	private final ConverterService converterService;
 
 	public CustomMarkerService(
 			CustomMarkerRepository customMarkerRepository,
-			CustomMarkerConverter customMarkerConverter) {
+			ConverterService converterService) {
 		this.customMarkerRepository = customMarkerRepository;
-		this.customMarkerConverter = customMarkerConverter;
+		this.converterService = converterService;
 	}
 
 	/**
@@ -48,10 +47,10 @@ public class CustomMarkerService {
 	 * @param customMarkerDTO the CustomMarkerDTO to be converted and saved as a CustomMarker
 	 * @return the newly created CustomMarker converted to a DTO
 	 */
-	public CustomMarkerDTO createMarker(CustomMarkerDTO customMarkerDTO) {
-		return customMarkerConverter.toDTO(
+	public CustomMarkerDTO createMarker(CustomMarkerDTO customMarkerDTO){
+		return converterService.toDTO(
 				customMarkerRepository.save(
-						customMarkerConverter.fromDTO(
+						converterService.fromDTO(
 								customMarkerDTO
 						)
 				)
@@ -63,10 +62,8 @@ public class CustomMarkerService {
 	 *
 	 * @return a list of all custom markers converted to DTOs
 	 */
-	public List<CustomMarkerDTO> findAllMarkers() {
-		return customMarkerRepository.findAll().stream()
-				.map(customMarkerConverter::toDTO)
-				.toList();
+	public List<CustomMarker> findAllMarkers() {
+		return customMarkerRepository.findAll();
 	}
 
 	/**
@@ -77,7 +74,7 @@ public class CustomMarkerService {
 	 * @throws MarkerNotFoundException if no custom marker with the given id can be found
 	 */
 	public CustomMarkerDTO findMarkerById(String id) throws MarkerNotFoundException {
-		return customMarkerConverter.toDTO(
+		return converterService.toDTO(
 				customMarkerRepository.findById(id)
 						.orElseThrow(
 								() -> new MarkerNotFoundException("Could not find marker with the id: " + id)
@@ -98,7 +95,7 @@ public class CustomMarkerService {
 			CustomMarkerDTO customMarkerDTO
 	) throws MarkerNotFoundException {
 		findMarkerById(id);
-		return customMarkerConverter.toDTO(
+		return converterService.toDTO(
 				customMarkerRepository.save(
 						new CustomMarker(
 								id,
