@@ -1,4 +1,3 @@
-import "./AdminDashboard.css/"
 import {AdminDashboardProps} from "./AdminDashboardProps.ts"
 
 
