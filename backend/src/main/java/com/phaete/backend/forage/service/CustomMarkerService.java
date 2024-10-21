@@ -100,7 +100,10 @@ public class CustomMarkerService {
 						new CustomMarker(
 								id,
 								customMarkerDTO.position(),
-								customMarkerDTO.icon(),
+								customMarkerDTO.iconUrl(),
+								customMarkerDTO.iconSize(),
+								customMarkerDTO.iconAnchor(),
+								customMarkerDTO.popupAnchor(),
 								customMarkerDTO.popupText()
 						)
 				)

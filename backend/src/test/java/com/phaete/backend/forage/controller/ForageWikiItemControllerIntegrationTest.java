@@ -1,6 +1,7 @@
 package com.phaete.backend.forage.controller;
 
 import com.phaete.backend.forage.model.ForageCategory;
+import com.phaete.backend.forage.model.ForageSeason;
 import com.phaete.backend.forage.model.ForageSource;
 import com.phaete.backend.forage.model.ForageWikiItem;
 import com.phaete.backend.forage.repository.ForageWikiItemRepository;
@@ -39,7 +40,7 @@ class ForageWikiItemControllerIntegrationTest {
 						"category": "FRUIT",
 						"source": "TREE",
 						"description": "Apple Tree",
-						"season": "Autumn",
+						"season": "FALL",
 						"imageURLs": ["test"]
 					}
 				"""))
@@ -50,7 +51,7 @@ class ForageWikiItemControllerIntegrationTest {
 						"category": "FRUIT",
 						"source": "TREE",
 						"description": "Apple Tree",
-						"season": "Autumn",
+						"season": "FALL",
 						"imageURLs": ["test"]
 					}
 				"""));
@@ -72,7 +73,7 @@ class ForageWikiItemControllerIntegrationTest {
 	@Test
 	void findForageWikiItemById_expectForageWikiItem_onSuccess() throws Exception {
 		forageWikiItemRepository.save(
-				new ForageWikiItem("1", "Apple Tree", ForageCategory.FRUIT, ForageSource.TREE, "Apple Tree", "Autumn", List.of("test"))
+				new ForageWikiItem("1", "Apple Tree", ForageCategory.FRUIT, ForageSource.TREE, "Apple Tree", ForageSeason.FALL, List.of("test"))
 		);
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageWikiItems/1"))
@@ -83,7 +84,7 @@ class ForageWikiItemControllerIntegrationTest {
 						"category": "FRUIT",
 						"source": "TREE",
 						"description": "Apple Tree",
-						"season": "Autumn",
+						"season": "FALL",
 						"imageURLs": ["test"]
 					}
 				"""));

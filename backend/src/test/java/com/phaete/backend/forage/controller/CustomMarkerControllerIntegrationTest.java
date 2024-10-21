@@ -32,12 +32,10 @@ class CustomMarkerControllerIntegrationTest {
 				.content("""
 					{
 						"position": [0.0, 0.0],
-						"icon": {
-							"iconUrl": "https://example.com/icon.png",
-							"iconSize": [32, 32],
-							"iconAnchor": [16, 16],
-							"popupAnchor": [0, -16]
-						},
+						"iconUrl": "https://example.com/icon.png",
+						"iconSize": [32, 32],
+						"iconAnchor": [16, 16],
+						"popupAnchor": [0, -16],
 						"popupText": "Test Marker"
 					}
 				""")
@@ -46,12 +44,10 @@ class CustomMarkerControllerIntegrationTest {
 				.andExpect(content().json("""
 					{
 						"position": [0.0, 0.0],
-						"icon": {
-							"iconUrl": "https://example.com/icon.png",
-							"iconSize": [32, 32],
-							"iconAnchor": [16, 16],
-							"popupAnchor": [0, -16]
-						},
+						"iconUrl": "https://example.com/icon.png",
+						"iconSize": [32, 32],
+						"iconAnchor": [16, 16],
+						"popupAnchor": [0, -16],
 						"popupText": "Test Marker"
 					}
 				"""));
@@ -73,7 +69,7 @@ class CustomMarkerControllerIntegrationTest {
 	@Test
 	void findMarkerById_expectCustomMarker_onSuccess() throws Exception {
 		customMarkerRepository.save(
-				new CustomMarker("1", new double[] {0.0, 0.0}, null, null)
+				new CustomMarker("1", new double[] {0.0, 0.0}, "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0}, "")
 		);
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/customMarkers/1"))
@@ -81,8 +77,11 @@ class CustomMarkerControllerIntegrationTest {
 				.andExpect(content().json("""
 					{
 						"position": [0.0, 0.0],
-						"icon": null,
-						"popupText": null
+						"iconUrl": "",
+						"iconSize": [0, 0],
+						"iconAnchor": [0, 0],
+						"popupAnchor": [0, 0],
+						"popupText": ""
 					}
 					"""));
 	}
@@ -90,7 +89,8 @@ class CustomMarkerControllerIntegrationTest {
 	@Test
 	void updateMarker_expectOK() throws Exception {
 		customMarkerRepository.save(
-				new CustomMarker("1", new double[] {0.0, 0.0}, null, null)
+				new CustomMarker("1", new double[] {0.0, 0.0}, "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0}, "")
+
 		);
 
 		mockMvc.perform(
@@ -99,35 +99,32 @@ class CustomMarkerControllerIntegrationTest {
 						.content("""
 							{
 								"position": [0.0, 0.0],
-								"icon": {
-									"iconUrl": "https://example.com/icon.png",
-									"iconSize": [32, 32],
-									"iconAnchor": [16, 16],
-									"popupAnchor": [0, -16]
-								},
-								"popupText": "Test Marker"
+								"iconUrl": "",
+								"iconSize": [0, 0],
+								"iconAnchor": [0, 0],
+								"popupAnchor": [0, 0],
+								"popupText": ""
 							}
 						""")
 		)
 				.andExpect(status().isOk())
 				.andExpect(content().json("""
 					{
-								"position": [0.0, 0.0],
-								"icon": {
-									"iconUrl": "https://example.com/icon.png",
-									"iconSize": [32, 32],
-									"iconAnchor": [16, 16],
-									"popupAnchor": [0, -16]
-								},
-								"popupText": "Test Marker"
-							}
+						"position": [0.0, 0.0],
+						"iconUrl": "",
+						"iconSize": [0, 0],
+						"iconAnchor": [0, 0],
+						"popupAnchor": [0, 0],
+						"popupText": ""
+					}
 				"""));
 	}
 
 	@Test
 	void deleteMarker_expectPositionOfMarker_onSuccess() throws Exception {
 		customMarkerRepository.save(
-				new CustomMarker("1", new double[] {0.0, 0.0}, null, null)
+				new CustomMarker("1", new double[] {0.0, 0.0}, "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0}, "")
+
 		);
 
 		mockMvc.perform(MockMvcRequestBuilders.delete("/api/customMarkers/1"))

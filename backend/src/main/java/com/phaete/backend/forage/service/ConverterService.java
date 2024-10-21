@@ -26,7 +26,10 @@ public class ConverterService {
 		return new CustomMarker(
 				idService.generateId(),
 				customMarkerDTO.position(),
-				customMarkerDTO.icon(),
+				customMarkerDTO.iconUrl(),
+				customMarkerDTO.iconSize(),
+				customMarkerDTO.iconAnchor(),
+				customMarkerDTO.popupAnchor(),
 				customMarkerDTO.popupText()
 		);
 	}
@@ -40,7 +43,10 @@ public class ConverterService {
 	public CustomMarkerDTO toDTO(CustomMarker customMarker){
 		return new CustomMarkerDTO(
 				customMarker.position(),
-				customMarker.icon(),
+				customMarker.iconUrl(),
+				customMarker.iconSize(),
+				customMarker.iconAnchor(),
+				customMarker.popupAnchor(),
 				customMarker.popupText()
 		);
 	}

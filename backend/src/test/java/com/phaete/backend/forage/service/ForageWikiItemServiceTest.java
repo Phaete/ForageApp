@@ -23,7 +23,7 @@ class ForageWikiItemServiceTest {
 				ForageCategory.FRUIT,
 				ForageSource.TREE,
 				"Apple Tree",
-				"Autumn",
+				ForageSeason.FALL,
 				List.of("test")
 		);
 		when(forageWikiItemRepository.save(any(ForageWikiItem.class))).thenReturn(
@@ -33,7 +33,7 @@ class ForageWikiItemServiceTest {
 						ForageCategory.FRUIT,
 						ForageSource.TREE,
 						"Apple Tree",
-						"Autumn",
+						ForageSeason.FALL,
 						List.of("test")
 				)
 		);
@@ -58,7 +58,7 @@ class ForageWikiItemServiceTest {
 						ForageCategory.FRUIT,
 						ForageSource.TREE,
 						"Apple Tree",
-						"Autumn",
+						ForageSeason.FALL,
 						List.of("test")
 				)
 		);
@@ -70,7 +70,7 @@ class ForageWikiItemServiceTest {
 								ForageCategory.FRUIT,
 								ForageSource.TREE,
 								"Apple Tree",
-								"Autumn",
+								ForageSeason.FALL,
 								List.of("test")
 						)
 				)
@@ -93,7 +93,7 @@ class ForageWikiItemServiceTest {
 			ForageCategory.FRUIT,
 			ForageSource.TREE,
 			"Apple Tree",
-			"Autumn",
+				ForageSeason.FALL,
 			List.of("test")
 		);
 		when(forageWikiItemRepository.findById("1")).thenReturn(
@@ -103,7 +103,7 @@ class ForageWikiItemServiceTest {
 						ForageCategory.FRUIT,
 						ForageSource.TREE,
 						"Apple Tree",
-						"Autumn",
+						ForageSeason.FALL,
 						List.of("test")
 				))
 		);
