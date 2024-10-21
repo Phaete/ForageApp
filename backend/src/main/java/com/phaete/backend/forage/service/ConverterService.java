@@ -42,12 +42,12 @@ public class ConverterService {
 	 */
 	public CustomMarkerDTO toDTO(CustomMarker customMarker){
 		return new CustomMarkerDTO(
-				customMarker.position(),
-				customMarker.iconUrl(),
-				customMarker.iconSize(),
-				customMarker.iconAnchor(),
-				customMarker.popupAnchor(),
-				customMarker.popupText()
+				customMarker.getPosition(),
+				customMarker.getIconUrl(),
+				customMarker.getIconSize(),
+				customMarker.getIconAnchor(),
+				customMarker.getPopupAnchor(),
+				customMarker.getPopupText()
 		);
 	}
 
@@ -78,12 +78,48 @@ public class ConverterService {
 	 */
 	public ForageWikiItemDTO toDTO(ForageWikiItem forageWikiItem) {
 		return new ForageWikiItemDTO(
-				forageWikiItem.name(),
-				forageWikiItem.category(),
-				forageWikiItem.source(),
-				forageWikiItem.description(),
-				forageWikiItem.season(),
-				forageWikiItem.imageURLs()
+				forageWikiItem.getName(),
+				forageWikiItem.getCategory(),
+				forageWikiItem.getSource(),
+				forageWikiItem.getDescription(),
+				forageWikiItem.getSeason(),
+				forageWikiItem.getImageURLs()
+		);
+	}
+
+	/**
+	 * Converts a {@link ForageMapItemDTO} to a {@link ForageMapItem} with a random ID.
+	 * <p>
+	 * @param forageMapItemDTO the {@link ForageMapItemDTO} to be converted
+	 * @return the converted {@link ForageMapItem}
+	 */
+	public ForageMapItem fromDTO(ForageMapItemDTO forageMapItemDTO) {
+		return new ForageMapItem(
+				idService.generateId(),
+				forageMapItemDTO.forageWikiItem(),
+				forageMapItemDTO.customMarker(),
+				forageMapItemDTO.quantity(),
+				forageMapItemDTO.quality(),
+				forageMapItemDTO.dateFound(),
+				forageMapItemDTO.notes()
+		);
+	}
+
+
+	/**
+	 * Converts a {@link ForageMapItem} to a {@link ForageMapItemDTO}.
+	 *
+	 * @param forageMapItem the {@link ForageMapItem} to be converted
+	 * @return the converted {@link ForageMapItemDTO}
+	 */
+	public ForageMapItemDTO toDTO(ForageMapItem forageMapItem) {
+		return new ForageMapItemDTO(
+				forageMapItem.getForageWikiItem(),
+				forageMapItem.getCustomMarker(),
+				forageMapItem.getQuantity(),
+				forageMapItem.getQuality(),
+				forageMapItem.getDateFound(),
+				forageMapItem.getNotes()
 		);
 	}
 }
