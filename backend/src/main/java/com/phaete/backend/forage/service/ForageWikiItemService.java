@@ -79,4 +79,38 @@ public class ForageWikiItemService {
 								() -> new ForageWikiItemNotFoundException("Could not find forage wiki item with the id: " + id))
 						);
 	}
+
+	/**
+	 * Updates an existing forage wiki item in the database.
+	 *
+	 * @param id the id of the forage wiki item to be updated
+	 * @param forageWikiItemDTO the updated forage wiki item data
+	 * @return the updated forage wiki item converted to a DTO
+	 * @throws ForageWikiItemNotFoundException if no forage wiki item with the given id was found
+	 */
+	public ForageWikiItemDTO updateForageWikiItem(
+			String id,
+			ForageWikiItemDTO forageWikiItemDTO
+	) throws ForageWikiItemNotFoundException {
+		findForageWikiItemById(id);
+		return converterService.toDTO(
+				forageWikiItemRepository.save(
+						new ForageWikiItem(
+								id,
+								forageWikiItemDTO.name(),
+								forageWikiItemDTO.category(),
+								forageWikiItemDTO.source(),
+								forageWikiItemDTO.description(),
+								forageWikiItemDTO.season(),
+								forageWikiItemDTO.imageURLs()
+						)
+				)
+		);
+	}
+
+	public String deleteForageWikiItem(String id) throws ForageWikiItemNotFoundException {
+		String name = findForageWikiItemById(id).name();
+		forageWikiItemRepository.deleteById(id);
+		return name;
+	}
 }

@@ -127,7 +127,7 @@ class CustomMarkerServiceTest {
 				new int[] {0, 0},
 				new int[] {0, 0},
 				new int[] {0, 0},
-				""
+				"expected"
 		);
 		when(customMarkerRepository.findById("1")).thenReturn(
 				Optional.of(new CustomMarker(
@@ -148,7 +148,7 @@ class CustomMarkerServiceTest {
 						new int[] {0, 0},
 						new int[] {0, 0},
 						new int[] {0, 0},
-						""
+						"expected"
 				)
 		);
 
