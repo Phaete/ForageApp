@@ -1,4 +1,3 @@
-import './App.css'
 import {Route, Routes} from "react-router-dom";
 import ForageWiki from "./forage/pages/forageWiki/ForageWiki.tsx";
 import {useEffect, useState} from "react";
@@ -6,7 +5,10 @@ import {ForageWikiItem} from "./forage/types/ForageWikiItem.ts";
 import axios from "axios";
 import AdminDashboard from "./forage/pages/adminDashboard/AdminDashboard.tsx";
 import {CustomMarker} from "./forage/types/CustomMarker.ts";
-import MapComponent from "./forage/components/mapComponent/MapComponent.tsx";
+import Navbar from "./forage/components/navbar/Navbar.tsx";
+import Content from "./forage/components/content/Content.tsx";
+import LandingPage from "./forage/pages/landingPage/LandingPage.tsx";
+import MapView from "./forage/pages/mapView/MapView.tsx";
 
 function App() {
 
@@ -41,27 +43,38 @@ function App() {
 
 	return (
 		<>
+			<Navbar />
 			Forage Tracker - Share your Forage!
-			<Routes>
-				<Route path={"/"} element={
-					<>
-						<p>Map</p>
-						<MapComponent />
-					</>
-				} />
-				<Route path={"/wiki"} element={
-					<>
-						<p>Wiki</p>
-						<ForageWiki forageWikiItems={forageWikiItems}/>
-					</>
-				} />
-				<Route path={"/admin"} element={
-					<>
-						<p>Admin</p>
-						<AdminDashboard forageWikiItems={forageWikiItems} customMarker={customMarker}/>
-					</>
-				} />
-			</Routes>
+			<Content>
+				<Routes>
+					<Route path={"/"} element={
+						<>
+							<p>Landing Page </p>
+							<LandingPage />
+						</>
+					} />
+					<Route path={"/map"} element={
+						<>
+							<p>Map</p>
+							<MapView />
+						</>
+					} />
+					<Route path={"/wiki"} element={
+						<>
+							<p>Wiki</p>
+							<ForageWiki forageWikiItems={forageWikiItems}/>
+						</>
+					} />
+					<Route path={"/admin"} element={
+						<>
+							<p>Admin</p>
+							<AdminDashboard forageWikiItems={forageWikiItems} customMarker={customMarker}/>
+						</>
+					} />
+				</Routes>
+			</Content>
+			{/*<Footer />*/}
+
 		</>
 	)
 }

@@ -1,4 +1,3 @@
-import "./ForageWiki.css/"
 import {ForageWikiProps} from "./ForageWikiProps.ts"
 
 export default function ForageWiki(props: Readonly<ForageWikiProps>) {
