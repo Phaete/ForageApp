@@ -123,4 +123,123 @@ class ConverterServiceTest {
 		);
 		assertEquals(expectedForageWikiItemDTO, actualForageWikiItemDTO);
 	}
+
+	@Test
+	void fromDTO_ForageMapItemDTO_toForageMapItem() {
+		when(idService.generateId()).thenReturn("1");
+		ForageMapItem expectedForageItem = new ForageMapItem(
+				"1",
+				new ForageWikiItem(
+						"1",
+						"Apple Tree",
+						ForageCategory.FRUIT,
+						ForageSource.TREE,
+						"Apple Tree",
+						ForageSeason.FALL,
+						List.of("test")
+				),
+				new CustomMarker(
+						"1",
+						new double[] {0.0, 0.0},
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0},
+						""
+				),
+				ForageQuantity.ABUNDANT,
+				ForageQuality.EXCELLENT,
+				"never",
+				"notes"
+		);
+
+		ConverterService converterService = new ConverterService(idService);
+
+		ForageMapItem actualForageItem = converterService.fromDTO(
+				new ForageMapItemDTO(
+						new ForageWikiItem(
+								"1",
+								"Apple Tree",
+								ForageCategory.FRUIT,
+								ForageSource.TREE,
+								"Apple Tree",
+								ForageSeason.FALL,
+								List.of("test")
+						),
+						new CustomMarker(
+								"1",
+								new double[] {0.0, 0.0},
+								"",
+								new int[] {0, 0},
+								new int[] {0, 0},
+								new int[] {0, 0},
+								""
+						),
+						ForageQuantity.ABUNDANT,
+						ForageQuality.EXCELLENT,
+						"never",
+						"notes"
+				)
+		);
+		assertEquals(expectedForageItem, actualForageItem);
+	}
+
+	@Test
+	void toDTO_ForageMapItem_toForageMapItemDTO() {
+		ForageMapItemDTO expectedForageMapItemDTO = new ForageMapItemDTO(
+				new ForageWikiItem(
+						"1",
+						"Apple Tree",
+						ForageCategory.FRUIT,
+						ForageSource.TREE,
+						"Apple Tree",
+						ForageSeason.FALL,
+						List.of("test")
+				),
+				new CustomMarker(
+						"1",
+						new double[] {0.0, 0.0},
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0},
+						""
+				),
+				ForageQuantity.ABUNDANT,
+				ForageQuality.EXCELLENT,
+				"never",
+				"notes"
+		);
+
+		ConverterService converterService = new ConverterService(idService);
+
+		ForageMapItemDTO actualForageMapItemDTO = converterService.toDTO(
+				new ForageMapItem(
+						"1",
+						new ForageWikiItem(
+								"1",
+								"Apple Tree",
+								ForageCategory.FRUIT,
+								ForageSource.TREE,
+								"Apple Tree",
+								ForageSeason.FALL,
+								List.of("test")
+						),
+						new CustomMarker(
+								"1",
+								new double[] {0.0, 0.0},
+								"",
+								new int[] {0, 0},
+								new int[] {0, 0},
+								new int[] {0, 0},
+								""
+						),
+						ForageQuantity.ABUNDANT,
+						ForageQuality.EXCELLENT,
+						"never",
+						"notes"
+				)
+		);
+		assertEquals(expectedForageMapItemDTO, actualForageMapItemDTO);
+	}
 }
