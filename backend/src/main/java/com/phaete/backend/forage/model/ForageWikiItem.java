@@ -20,7 +20,7 @@ public record ForageWikiItem(
 		ForageCategory category,
 		ForageSource source,
 		String description,
-		String season,
+		ForageSeason season,
 		java.util.List<String> imageURLs
 ) {
 

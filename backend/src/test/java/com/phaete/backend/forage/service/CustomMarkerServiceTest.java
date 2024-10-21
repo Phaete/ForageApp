@@ -24,11 +24,21 @@ class CustomMarkerServiceTest {
 	void createMarker_expectDTO_onSuccess() {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
 				new double[] {0.0, 0.0},
-				null,
-				null
+				"",
+				new int[] {0, 0},
+				new int[] {0, 0},
+				new int[] {0, 0},
+				""
 		);
 		when(customMarkerRepository.save(any(CustomMarker.class))).thenReturn(
-				new CustomMarker("1", new double[] {0.0, 0.0}, null, null)
+				new CustomMarker(
+						"1",
+						new double[] {0.0, 0.0},
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0},
+						"")
 		);
 		when(idService.generateId()).thenReturn("1");
 
@@ -45,12 +55,23 @@ class CustomMarkerServiceTest {
 				new CustomMarker(
 						"1",
 						new double[] {0.0, 0.0},
-						null,
-						null
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0},
+						""
 				)
 		);
 		when(customMarkerRepository.findAll()).thenReturn(
-				List.of(new CustomMarker("1", new double[] {0.0, 0.0}, null, null))
+				List.of(new CustomMarker(
+						"1",
+						new double[] {0.0, 0.0},
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0},
+						""
+				))
 		);
 
 		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
@@ -64,11 +85,22 @@ class CustomMarkerServiceTest {
 	void findMarkerById_expectDTO_onSuccess() throws MarkerNotFoundException {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
 				new double[] {0.0, 0.0},
-				null,
-				null
+				"",
+				new int[] {0, 0},
+				new int[] {0, 0},
+				new int[] {0, 0},
+				""
 		);
 		when(customMarkerRepository.findById("1")).thenReturn(
-				Optional.of(new CustomMarker("1", new double[] {0.0, 0.0}, null, null))
+				Optional.of(new CustomMarker(
+						"1",
+						new double[] {0.0, 0.0},
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0},
+						""
+				))
 		);
 
 		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
@@ -91,14 +123,33 @@ class CustomMarkerServiceTest {
 	void updateMarker_expectDTO_onSuccess() throws MarkerNotFoundException {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
 				new double[] {0.0, 0.0},
-				null,
-				null
+				"",
+				new int[] {0, 0},
+				new int[] {0, 0},
+				new int[] {0, 0},
+				""
 		);
 		when(customMarkerRepository.findById("1")).thenReturn(
-				Optional.of(new CustomMarker("1", new double[] {0.0, 0.0}, null, ""))
+				Optional.of(new CustomMarker(
+						"1",
+						new double[] {0.0, 0.0},
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0},
+						""
+				))
 		);
 		when(customMarkerRepository.save(any(CustomMarker.class))).thenReturn(
-				new CustomMarker("1", new double[] {0.0, 0.0}, null, null)
+				new CustomMarker(
+						"1",
+						new double[] {0.0, 0.0},
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0},
+						""
+				)
 		);
 
 		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
@@ -118,8 +169,11 @@ class CustomMarkerServiceTest {
 				"1",
 				new CustomMarkerDTO(
 						new double[] {0.0, 0.0},
-						null,
-						null
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0},
+						""
 				)
 		));
 	}
@@ -128,7 +182,15 @@ class CustomMarkerServiceTest {
 	void deleteMarker_expectPositionOfDeletedMarker_onSuccess() throws MarkerNotFoundException {
 		String expectedPosition = Arrays.toString(new double[]{0.0, 0.0});
 		when(customMarkerRepository.findById("1")).thenReturn(
-				Optional.of(new CustomMarker("1", new double[] {0.0, 0.0}, null, null))
+				Optional.of(new CustomMarker(
+						"1",
+						new double[] {0.0, 0.0},
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0},
+						""
+				))
 		);
 
 		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));

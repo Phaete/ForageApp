@@ -20,7 +20,7 @@ public record ForageWikiItemDTO(
 		ForageCategory category,
 		ForageSource source,
 		String description,
-		String season,
+		ForageSeason season,
 		List<String> imageURLs
 ) {
 

@@ -11,7 +11,10 @@ import java.util.Objects;
  */
 public record CustomMarkerDTO(
 		double[] position,
-		Icon icon,
+		String iconUrl,
+		int[] iconSize,
+		int[] iconAnchor,
+		int[] popupAnchor,
 		String popupText
 ) {
 	@Override
@@ -19,19 +22,22 @@ public record CustomMarkerDTO(
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		CustomMarkerDTO that = (CustomMarkerDTO) o;
-		return Objects.equals(icon, that.icon) && Objects.equals(popupText, that.popupText) && Objects.deepEquals(position, that.position);
+		return Objects.equals(iconUrl, that.iconUrl) && Objects.deepEquals(iconSize, that.iconSize) && Objects.deepEquals(iconAnchor, that.iconAnchor) && Objects.equals(popupText, that.popupText) && Objects.deepEquals(position, that.position) && Objects.deepEquals(popupAnchor, that.popupAnchor);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(Arrays.hashCode(position), icon, popupText);
+		return Objects.hash(Arrays.hashCode(position), iconUrl, Arrays.hashCode(iconSize), Arrays.hashCode(iconAnchor), Arrays.hashCode(popupAnchor), popupText);
 	}
 
 	@Override
 	public String toString() {
 		return "CustomMarkerDTO{" +
 				"position=" + Arrays.toString(position) +
-				", icon=" + icon +
+				", iconUrl='" + iconUrl + '\'' +
+				", iconSize=" + Arrays.toString(iconSize) +
+				", iconAnchor=" + Arrays.toString(iconAnchor) +
+				", popupAnchor=" + Arrays.toString(popupAnchor) +
 				", popupText='" + popupText + '\'' +
 				'}';
 	}

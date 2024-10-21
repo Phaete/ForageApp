@@ -18,9 +18,13 @@ class ConverterServiceTest {
 		CustomMarker expectedCustomMarker = new CustomMarker(
 				"1",
 				new double[] {0.0, 0.0},
-				null,
-				null
+				"",
+				new int[] {0, 0},
+				new int[] {0, 0},
+				new int[] {0, 0},
+				""
 		);
+
 		when(idService.generateId()).thenReturn("1");
 
 		ConverterService converterService = new ConverterService(idService);
@@ -28,8 +32,11 @@ class ConverterServiceTest {
 		CustomMarker actualCustomMarker = converterService.fromDTO(
 				new CustomMarkerDTO(
 						new double[] {0.0, 0.0},
-						null,
-						null
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0},
+						""
 				)
 		);
 		assertEquals(expectedCustomMarker, actualCustomMarker);
@@ -39,8 +46,11 @@ class ConverterServiceTest {
 	void toDTO_CustomMarker_toCustomMarkerDTO() {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
 				new double[] {0.0, 0.0},
-				null,
-				null
+				"",
+				new int[] {0, 0},
+				new int[] {0, 0},
+				new int[] {0, 0},
+				""
 		);
 
 		ConverterService converterService = new ConverterService(idService);
@@ -49,8 +59,11 @@ class ConverterServiceTest {
 				new CustomMarker(
 						"1",
 						new double[] {0.0, 0.0},
-						null,
-						null
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0},
+						""
 				)
 		);
 		assertEquals(expectedCustomMarkerDTO, actualCustomMarkerDTO);
@@ -64,7 +77,7 @@ class ConverterServiceTest {
 				ForageCategory.FRUIT,
 				ForageSource.TREE,
 				"Apple Tree",
-				"Autumn",
+				ForageSeason.FALL,
 				List.of("test")
 		);
 		when(idService.generateId()).thenReturn("1");
@@ -77,7 +90,7 @@ class ConverterServiceTest {
 						ForageCategory.FRUIT,
 						ForageSource.TREE,
 						"Apple Tree",
-						"Autumn",
+						ForageSeason.FALL,
 						List.of("test")
 				)
 		);
@@ -91,7 +104,7 @@ class ConverterServiceTest {
 				ForageCategory.FRUIT,
 				ForageSource.TREE,
 				"Apple Tree",
-				"Autumn",
+				ForageSeason.FALL,
 				List.of("test")
 		);
 
@@ -104,7 +117,7 @@ class ConverterServiceTest {
 						ForageCategory.FRUIT,
 						ForageSource.TREE,
 						"Apple Tree",
-						"Autumn",
+						ForageSeason.FALL,
 						List.of("test")
 				)
 		);

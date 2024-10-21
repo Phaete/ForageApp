@@ -4,20 +4,28 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * This class represents a custom marker in the database.
- * A custom marker is a point on the map with a given icon and pop-up text.
+ * A model for a custom marker.
+ * <p>
+ * It contains the following information about a custom marker:
  * <ul>
- * <li> The id is a unique identifier for the marker in the database. </li>
- * <li> The position is an array of length 2: [latitude, longitude] </li>
- * <li> The icon is a custom object as described in the IconModel class. </li>
- * <li> The pop-up text is a string that will be displayed in a pop-up when the
- * marker is clicked. </li>
+ * 	<li> id - the id of the custom marker </li>
+ * 	<li> position - the position of the custom marker as a double array with length 2 </li>
+ * 	<li> iconUrl - the URL of the icon image </li>
+ * 	<li> iconSize - the size of the icon image </li>
+ * 	<li> iconAnchor - the anchor position of the icon image </li>
+ * 	<li> popupAnchor - the anchor position of the popup text </li>
+ * 	<li> popupText - the text to be displayed in the popup </li>
  * </ul>
+ *
+ * @author -St4n aka Phaete
  */
 public record CustomMarker(
 		String id,
 		double[] position,
-		Icon icon,
+		String iconUrl,
+		int[] iconSize,
+		int[] iconAnchor,
+		int[] popupAnchor,
 		String popupText
 ) {
 	@Override
@@ -25,12 +33,12 @@ public record CustomMarker(
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		CustomMarker that = (CustomMarker) o;
-		return Objects.equals(id, that.id) && Objects.equals(icon, that.icon) && Objects.equals(popupText, that.popupText) && Objects.deepEquals(position, that.position);
+		return Objects.equals(id, that.id) && Objects.equals(iconUrl, that.iconUrl) && Objects.deepEquals(iconSize, that.iconSize) && Objects.deepEquals(iconAnchor, that.iconAnchor) && Objects.equals(popupText, that.popupText) && Objects.deepEquals(position, that.position) && Objects.deepEquals(popupAnchor, that.popupAnchor);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, Arrays.hashCode(position), icon, popupText);
+		return Objects.hash(id, Arrays.hashCode(position), iconUrl, Arrays.hashCode(iconSize), Arrays.hashCode(iconAnchor), Arrays.hashCode(popupAnchor), popupText);
 	}
 
 	@Override
@@ -38,7 +46,10 @@ public record CustomMarker(
 		return "CustomMarker{" +
 				"id='" + id + '\'' +
 				", position=" + Arrays.toString(position) +
-				", icon=" + icon +
+				", iconUrl='" + iconUrl + '\'' +
+				", iconSize=" + Arrays.toString(iconSize) +
+				", iconAnchor=" + Arrays.toString(iconAnchor) +
+				", popupAnchor=" + Arrays.toString(popupAnchor) +
 				", popupText='" + popupText + '\'' +
 				'}';
 	}
