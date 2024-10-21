@@ -53,6 +53,31 @@ public class ForageWikiItemController {
 	}
 
 	/**
+	 * Accepts a put request on the /api/forageWikiItems/{id} endpoint and updates the forage wiki item with the given id.
+	 *
+	 * @param id the id of the forage wiki item to be updated
+	 * @param forageWikiItemDTO the updated forage wiki item data
+	 * @return the updated forage wiki item converted to a DTO
+	 * @throws ForageWikiItemNotFoundException if no forage wiki item with the given id was found
+	 */
+	@PutMapping("/{id}")
+	public ForageWikiItemDTO updateForageWikiItem(@PathVariable String id, @RequestBody ForageWikiItemDTO forageWikiItemDTO) throws ForageWikiItemNotFoundException {
+		return forageWikiItemService.updateForageWikiItem(id, forageWikiItemDTO);
+	}
+
+	/**
+	 * Accepts a delete request on the /api/forageWikiItems/{id} endpoint and deletes the forage wiki item with the given id.
+	 *
+	 * @param id the id of the forage wiki item to be deleted
+	 * @return the deleted forage wiki item as a string
+	 * @throws ForageWikiItemNotFoundException if no forage wiki item with the given id was found
+	 */
+	@DeleteMapping("/{id}")
+	public String deleteForageWikiItem(@PathVariable String id) throws ForageWikiItemNotFoundException {
+		return forageWikiItemService.deleteForageWikiItem(id);
+	}
+
+	/**
 	 * Handles {@link ForageWikiItemNotFoundException}s by returning the exception message with a
 	 * {@link HttpStatus#NOT_FOUND} status.
 	 *

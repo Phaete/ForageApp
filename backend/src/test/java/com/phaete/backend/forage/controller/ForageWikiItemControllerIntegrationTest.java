@@ -89,4 +89,85 @@ class ForageWikiItemControllerIntegrationTest {
 					}
 				"""));
 	}
+
+	@Test
+	void updateForageWikiItem_expectStatusNotFound_onEmptyDB() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.put("/api/forageWikiItems/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("""
+					{
+						"name": "Apple Tree",
+						"category": "FRUIT",
+						"source": "TREE",
+						"description": "Apple Tree",
+						"season": "FALL",
+						"imageURLs": ["test"]
+					}
+				"""))
+				.andExpect(status().isNotFound());
+	}
+
+	@Test
+	void updateForageWikiItem_expectForageWikiItemDTO_onSuccess() throws Exception {
+		forageWikiItemRepository.save(
+				new ForageWikiItem(
+						"1",
+						"Apple Tree",
+						ForageCategory.FRUIT,
+						ForageSource.TREE,
+						"Apple Tree",
+						ForageSeason.FALL,
+						List.of("test")
+				)
+		);
+
+		mockMvc.perform(MockMvcRequestBuilders.put("/api/forageWikiItems/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("""
+					{
+						"name": "Apple Tree",
+						"category": "FRUIT",
+						"source": "TREE",
+						"description": "Apple Tree",
+						"season": "FALL",
+						"imageURLs": ["different_test"]
+					}
+				"""))
+				.andExpect(status().isOk())
+				.andExpect(content().json("""
+					{
+						"name": "Apple Tree",
+						"category": "FRUIT",
+						"source": "TREE",
+						"description": "Apple Tree",
+						"season": "FALL",
+						"imageURLs": ["different_test"]
+					}
+				"""));
+	}
+
+	@Test
+	void deleteForageWikiItem_expectStatusNotFound_onEmptyDB() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/forageWikiItems/1"))
+				.andExpect(status().isNotFound());
+	}
+
+	@Test
+	void deleteForageWikiItem_expectName_onSuccess() throws Exception {
+		forageWikiItemRepository.save(
+				new ForageWikiItem(
+						"1",
+						"Apple Tree",
+						ForageCategory.FRUIT,
+						ForageSource.TREE,
+						"Apple Tree",
+						ForageSeason.FALL,
+						List.of("test")
+				)
+		);
+
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/forageWikiItems/1"))
+				.andExpect(status().isOk())
+				.andExpect(content().string("Apple Tree"));
+	}
 }
