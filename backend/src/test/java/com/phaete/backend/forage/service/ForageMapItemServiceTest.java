@@ -89,13 +89,13 @@ class ForageMapItemServiceTest {
 				new ForageMapItem(
 					"1",
 					new ForageWikiItem(
-					"1",
-					"Apple Tree",
-					ForageCategory.FRUIT,
-					ForageSource.TREE,
-					"Apple Tree",
-					ForageSeason.FALL,
-					List.of("test")
+							"1",
+							"Apple Tree",
+							ForageCategory.FRUIT,
+							ForageSource.TREE,
+							"Apple Tree",
+							ForageSeason.FALL,
+							List.of("test")
 					),
 					new CustomMarker(
 							"1",

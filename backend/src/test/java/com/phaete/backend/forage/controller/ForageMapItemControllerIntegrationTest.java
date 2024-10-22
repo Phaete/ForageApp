@@ -34,7 +34,7 @@ class ForageMapItemControllerIntegrationTest {
 				.content("""
 					{
 						"forageWikiItem": {
-							"id": "ea23323e-cead-406e-b898-5612f127a731",
+							"id": "1",
 							"name": "Apple",
 							"category": "FRUIT",
 							"source": "TREE",
@@ -45,7 +45,7 @@ class ForageMapItemControllerIntegrationTest {
 							]
 						},
 						"customMarker": {
-							"id": "233684d7-40a7-455a-b7b0-c7411f128f34",
+							"id": "1",
 							"position": [
 								51.0,
 								10.0
@@ -76,7 +76,7 @@ class ForageMapItemControllerIntegrationTest {
 				.andExpect(content().json("""
 					{
 						"forageWikiItem": {
-							"id": "ea23323e-cead-406e-b898-5612f127a731",
+							"id": "1",
 							"name": "Apple",
 							"category": "FRUIT",
 							"source": "TREE",
@@ -87,7 +87,7 @@ class ForageMapItemControllerIntegrationTest {
 							]
 						},
 						"customMarker": {
-							"id": "233684d7-40a7-455a-b7b0-c7411f128f34",
+							"id": "1",
 							"position": [
 								51.0,
 								10.0
