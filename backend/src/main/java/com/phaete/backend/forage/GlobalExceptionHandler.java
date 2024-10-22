@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
 			{MarkerNotFoundException.class, ForageWikiItemNotFoundException.class, ForageMapItemNotFoundException.class}
 	)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public ResponseEntity<String> handleMarkerNotFoundException(MarkerNotFoundException e) {
+	public ResponseEntity<String> handleNotFoundExceptions(Exception e) {
 		return new ResponseEntity<>(
 				String.format("%s: %s with Stacktrace:%n %s",
 						e.getClass().getSimpleName(),
