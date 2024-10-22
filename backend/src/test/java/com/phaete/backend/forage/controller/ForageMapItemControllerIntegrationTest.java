@@ -320,14 +320,16 @@ class ForageMapItemControllerIntegrationTest {
 
 	@Test
 	void findForageMapItemById_returnForageMapItem_onSuccess() throws Exception {
-		new ForageWikiItem(
-				"1",
-				"Apple Tree",
-				ForageCategory.FRUIT,
-				ForageSource.TREE,
-				"Apple Tree",
-				ForageSeason.FALL,
-				List.of("url-to-apple-tree-image")
+		forageWikiItemRepository.save(
+				new ForageWikiItem(
+						"1",
+						"Apple Tree",
+						ForageCategory.FRUIT,
+						ForageSource.TREE,
+						"Apple Tree",
+						ForageSeason.FALL,
+						List.of("url-to-apple-tree-image")
+				)
 		);
 		customMarkerRepository.save(
 				new CustomMarker(
