@@ -1,7 +1,9 @@
 package com.phaete.backend.forage.controller;
 
 import com.phaete.backend.forage.model.*;
+import com.phaete.backend.forage.repository.CustomMarkerRepository;
 import com.phaete.backend.forage.repository.ForageMapItemRepository;
+import com.phaete.backend.forage.repository.ForageWikiItemRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -26,6 +28,12 @@ class ForageMapItemControllerIntegrationTest {
 
 	@Autowired
 	private ForageMapItemRepository forageMapItemRepository;
+
+	@Autowired
+	private CustomMarkerRepository customMarkerRepository;
+
+	@Autowired
+	private ForageWikiItemRepository forageWikiItemRepository;
 
 	@Test
 	void createForageMapItem_expectCreated() throws Exception {
@@ -124,6 +132,28 @@ class ForageMapItemControllerIntegrationTest {
 
 	@Test
 	void findAllForageMapItems_returnsForageMapItems_onSuccess() throws Exception {
+		forageWikiItemRepository.save(
+				new ForageWikiItem(
+						"1",
+						"Apple Tree",
+						ForageCategory.FRUIT,
+						ForageSource.TREE,
+						"Apple Tree",
+						ForageSeason.FALL,
+						List.of("url-to-apple-tree-image")
+				)
+		);
+		customMarkerRepository.save(
+				new CustomMarker(
+						"1",
+						new double[] {51.0, 10.0},
+						"test-icon",
+						new int[] {64, 64},
+						new int[] {32, 64},
+						new int[] {0, 64},
+						"Test popup"
+				)
+		);
 		forageMapItemRepository.save(
 				new ForageMapItem(
 						"1",
@@ -197,6 +227,17 @@ class ForageMapItemControllerIntegrationTest {
 
 	@Test
 	void findAllForageMapItems_returnsForageMapItems_withoutInvalidCustomMarker() throws Exception {
+		forageWikiItemRepository.save(
+				new ForageWikiItem(
+						"1",
+						"Apple Tree",
+						ForageCategory.FRUIT,
+						ForageSource.TREE,
+						"Apple Tree",
+						ForageSeason.FALL,
+						List.of("url-to-apple-tree-image")
+				)
+		);
 		forageMapItemRepository.save(
 				new ForageMapItem(
 						"1",
@@ -211,12 +252,12 @@ class ForageMapItemControllerIntegrationTest {
 						),
 						new CustomMarker(
 								"1",
-								null,
-								null,
-								null,
-								null,
-								null,
-								null
+								new double[] {51.0, 10.0},
+								"test-icon",
+								new int[] {64, 64},
+								new int[] {32, 64},
+								new int[] {0, 64},
+								"Test popup"
 						),
 						ForageQuantity.ABUNDANT,
 						ForageQuality.EXCELLENT,
@@ -233,17 +274,28 @@ class ForageMapItemControllerIntegrationTest {
 
 	@Test
 	void findAllForageMapItems_returnsForageMapItems_withoutInvalidForageWikiItem() throws Exception {
+		customMarkerRepository.save(
+				new CustomMarker(
+						"1",
+						new double[] {51.0, 10.0},
+						"test-icon",
+						new int[] {64, 64},
+						new int[] {32, 64},
+						new int[] {0, 64},
+						"Test popup"
+				)
+		);
 		forageMapItemRepository.save(
 				new ForageMapItem(
 						"1",
 						new ForageWikiItem(
 								"1",
-								null,
-								null,
-								null,
-								null,
-								null,
-								null
+								"Apple Tree",
+								ForageCategory.FRUIT,
+								ForageSource.TREE,
+								"Apple Tree",
+								ForageSeason.FALL,
+								List.of("url-to-apple-tree-image")
 						),
 						new CustomMarker(
 								"1",
@@ -268,6 +320,26 @@ class ForageMapItemControllerIntegrationTest {
 
 	@Test
 	void findForageMapItemById_returnForageMapItem_onSuccess() throws Exception {
+		new ForageWikiItem(
+				"1",
+				"Apple Tree",
+				ForageCategory.FRUIT,
+				ForageSource.TREE,
+				"Apple Tree",
+				ForageSeason.FALL,
+				List.of("url-to-apple-tree-image")
+		);
+		customMarkerRepository.save(
+				new CustomMarker(
+						"1",
+						new double[] {51.0, 10.0},
+						"test-icon",
+						new int[] {64, 64},
+						new int[] {32, 64},
+						new int[] {0, 64},
+						"Test popup"
+				)
+		);
 		forageMapItemRepository.save(
 				new ForageMapItem(
 						"1",

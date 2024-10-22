@@ -130,15 +130,7 @@ class ForageMapItemServiceTest {
 				List.of(
 						new ForageMapItem(
 								"1",
-								new ForageWikiItem(
-										"1",
-										null,
-										null,
-										null,
-										null,
-										null,
-										null
-								),
+								null,
 								new CustomMarker(
 										"1",
 										new double[] {0.0, 0.0},
@@ -181,15 +173,7 @@ class ForageMapItemServiceTest {
 										ForageSeason.FALL,
 										List.of("test")
 								),
-								new CustomMarker(
-										"1",
-										null,
-										null,
-										null,
-										null,
-										null,
-										null
-								),
+								null,
 								ForageQuantity.ABUNDANT,
 								ForageQuality.EXCELLENT,
 								"never",
@@ -280,15 +264,7 @@ class ForageMapItemServiceTest {
 				Optional.of(
 						new ForageMapItem(
 								"1",
-								new ForageWikiItem(
-										"1",
-										null,
-										null,
-										null,
-										null,
-										null,
-										null
-								),
+								null,
 								new CustomMarker(
 										"1",
 										new double[] {0.0, 0.0},
@@ -329,15 +305,7 @@ class ForageMapItemServiceTest {
 										ForageSeason.FALL,
 										List.of("test")
 								),
-								new CustomMarker(
-										"1",
-										null,
-										null,
-										null,
-										null,
-										null,
-										null
-								),
+								null,
 								ForageQuantity.ABUNDANT,
 								ForageQuality.EXCELLENT,
 								"never",

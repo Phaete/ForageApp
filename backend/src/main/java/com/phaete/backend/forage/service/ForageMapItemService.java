@@ -51,9 +51,7 @@ public class ForageMapItemService {
 						Collectors.partitioningBy(
 								forageMapItem -> (
 										forageMapItem.getForageWikiItem() != null &&
-										forageMapItem.getForageWikiItem().name() != null &&
-										forageMapItem.getCustomMarker() != null &&
-										forageMapItem.getCustomMarker().position() != null
+										forageMapItem.getCustomMarker() != null
 								)
 						)
 				);
@@ -78,9 +76,9 @@ public class ForageMapItemService {
 					() -> new ForageMapItemNotFoundException("Could not find forage map item with the id: " + "id")
 				)
 		);
-		if (forageMapItemDTO.forageWikiItem().name() == null) {
+		if (forageMapItemDTO.forageWikiItem() == null) {
 			throw new ForageWikiItemNotFoundException("Could not find marker with the id: " + forageMapItemDTO.customMarker().id());
-		} else if (forageMapItemDTO.customMarker().position() == null) {
+		} else if (forageMapItemDTO.customMarker() == null) {
 			throw new MarkerNotFoundException("Could not find forage wiki item with the id: " + forageMapItemDTO.forageWikiItem().id());
 		}
 		return forageMapItemDTO;
