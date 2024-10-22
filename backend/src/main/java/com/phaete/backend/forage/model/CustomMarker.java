@@ -23,90 +23,15 @@ import java.util.Objects;
  * @author -St4n aka Phaete
  */
 @Document()
-public class CustomMarker {
-	@Id private	String id;
-	private double[] position;
-	private String iconUrl;
-	private int[] iconSize;
-	private int[] iconAnchor;
-	private int[] popupAnchor;
-	private String popupText;
-
-
-	public CustomMarker(
-			String id,
-			double[] position,
-			String iconUrl,
-			int[] iconSize,
-			int[] iconAnchor,
-			int[] popupAnchor,
-			String popupText
-	) {
-		this.id = id;
-		this.position = position;
-		this.iconUrl = iconUrl;
-		this.iconSize = iconSize;
-		this.iconAnchor = iconAnchor;
-		this.popupAnchor = popupAnchor;
-		this.popupText = popupText;
-	}
-
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public double[] getPosition() {
-		return position;
-	}
-
-	public void setPosition(double[] position) {
-		this.position = position;
-	}
-
-	public String getIconUrl() {
-		return iconUrl;
-	}
-
-	public void setIconUrl(String iconUrl) {
-		this.iconUrl = iconUrl;
-	}
-
-	public int[] getIconSize() {
-		return iconSize;
-	}
-
-	public void setIconSize(int[] iconSize) {
-		this.iconSize = iconSize;
-	}
-
-	public int[] getIconAnchor() {
-		return iconAnchor;
-	}
-
-	public void setIconAnchor(int[] iconAnchor) {
-		this.iconAnchor = iconAnchor;
-	}
-
-	public int[] getPopupAnchor() {
-		return popupAnchor;
-	}
-
-	public void setPopupAnchor(int[] popupAnchor) {
-		this.popupAnchor = popupAnchor;
-	}
-
-	public String getPopupText() {
-		return popupText;
-	}
-
-	public void setPopupText(String popupText) {
-		this.popupText = popupText;
-	}
+public record CustomMarker(
+		@Id String id,
+		double[] position,
+		String iconUrl,
+		int[] iconSize,
+		int[] iconAnchor,
+		int[] popupAnchor,
+		String popupText
+) {
 
 	@Override
 	public boolean equals(Object o) {

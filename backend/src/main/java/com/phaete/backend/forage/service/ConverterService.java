@@ -42,12 +42,12 @@ public class ConverterService {
 	 */
 	public CustomMarkerDTO toDTO(CustomMarker customMarker){
 		return new CustomMarkerDTO(
-				customMarker.getPosition(),
-				customMarker.getIconUrl(),
-				customMarker.getIconSize(),
-				customMarker.getIconAnchor(),
-				customMarker.getPopupAnchor(),
-				customMarker.getPopupText()
+				customMarker.position(),
+				customMarker.iconUrl(),
+				customMarker.iconSize(),
+				customMarker.iconAnchor(),
+				customMarker.popupAnchor(),
+				customMarker.popupText()
 		);
 	}
 
@@ -78,12 +78,12 @@ public class ConverterService {
 	 */
 	public ForageWikiItemDTO toDTO(ForageWikiItem forageWikiItem) {
 		return new ForageWikiItemDTO(
-				forageWikiItem.getName(),
-				forageWikiItem.getCategory(),
-				forageWikiItem.getSource(),
-				forageWikiItem.getDescription(),
-				forageWikiItem.getSeason(),
-				forageWikiItem.getImageURLs()
+				forageWikiItem.name(),
+				forageWikiItem.category(),
+				forageWikiItem.source(),
+				forageWikiItem.description(),
+				forageWikiItem.season(),
+				forageWikiItem.imageURLs()
 		);
 	}
 
@@ -104,7 +104,6 @@ public class ConverterService {
 				forageMapItemDTO.notes()
 		);
 	}
-
 
 	/**
 	 * Converts a {@link ForageMapItem} to a {@link ForageMapItemDTO}.
