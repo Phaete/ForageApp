@@ -1,5 +1,7 @@
 package com.phaete.backend.forage.model;
 
+import org.springframework.data.annotation.Id;
+
 /**
  * Representation of a forage wiki item in the database.
  * A ForageWikiItem is an object representing the static attributes of a forage item.
@@ -15,7 +17,7 @@ package com.phaete.backend.forage.model;
  * @author -St4n aka Phaete
  */
 public record ForageWikiItem(
-		String id,
+		@Id String id,
 		String name,
 		ForageCategory category,
 		ForageSource source,

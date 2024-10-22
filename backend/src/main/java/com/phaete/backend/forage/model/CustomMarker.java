@@ -1,5 +1,8 @@
 package com.phaete.backend.forage.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -19,8 +22,9 @@ import java.util.Objects;
  *
  * @author -St4n aka Phaete
  */
+@Document()
 public record CustomMarker(
-		String id,
+		@Id String id,
 		double[] position,
 		String iconUrl,
 		int[] iconSize,
@@ -28,6 +32,7 @@ public record CustomMarker(
 		int[] popupAnchor,
 		String popupText
 ) {
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

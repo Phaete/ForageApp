@@ -4,7 +4,6 @@ import com.phaete.backend.forage.model.ForageWikiItem;
 import com.phaete.backend.forage.model.ForageWikiItemDTO;
 import com.phaete.backend.forage.model.ForageWikiItemNotFoundException;
 import com.phaete.backend.forage.service.ForageWikiItemService;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -75,18 +74,5 @@ public class ForageWikiItemController {
 	@DeleteMapping("/{id}")
 	public String deleteForageWikiItem(@PathVariable String id) throws ForageWikiItemNotFoundException {
 		return forageWikiItemService.deleteForageWikiItem(id);
-	}
-
-	/**
-	 * Handles {@link ForageWikiItemNotFoundException}s by returning the exception message with a
-	 * {@link HttpStatus#NOT_FOUND} status.
-	 *
-	 * @param e the exception to be handled
-	 * @return the exception message
-	 */
-	@ExceptionHandler(ForageWikiItemNotFoundException.class)
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public String handleForageWikiItemNotFoundException(ForageWikiItemNotFoundException e) {
-		return e.getMessage();
 	}
 }

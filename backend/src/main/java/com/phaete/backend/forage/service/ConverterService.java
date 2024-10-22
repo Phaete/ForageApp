@@ -86,4 +86,39 @@ public class ConverterService {
 				forageWikiItem.imageURLs()
 		);
 	}
+
+	/**
+	 * Converts a {@link ForageMapItemDTO} to a {@link ForageMapItem} with a random ID.
+	 * <p>
+	 * @param forageMapItemDTO the {@link ForageMapItemDTO} to be converted
+	 * @return the converted {@link ForageMapItem}
+	 */
+	public ForageMapItem fromDTO(ForageMapItemDTO forageMapItemDTO) {
+		return new ForageMapItem(
+				idService.generateId(),
+				forageMapItemDTO.forageWikiItem(),
+				forageMapItemDTO.customMarker(),
+				forageMapItemDTO.quantity(),
+				forageMapItemDTO.quality(),
+				forageMapItemDTO.dateFound(),
+				forageMapItemDTO.notes()
+		);
+	}
+
+	/**
+	 * Converts a {@link ForageMapItem} to a {@link ForageMapItemDTO}.
+	 *
+	 * @param forageMapItem the {@link ForageMapItem} to be converted
+	 * @return the converted {@link ForageMapItemDTO}
+	 */
+	public ForageMapItemDTO toDTO(ForageMapItem forageMapItem) {
+		return new ForageMapItemDTO(
+				forageMapItem.getForageWikiItem(),
+				forageMapItem.getCustomMarker(),
+				forageMapItem.getQuantity(),
+				forageMapItem.getQuality(),
+				forageMapItem.getDateFound(),
+				forageMapItem.getNotes()
+		);
+	}
 }

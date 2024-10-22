@@ -4,7 +4,6 @@ import com.phaete.backend.forage.model.CustomMarker;
 import com.phaete.backend.forage.model.CustomMarkerDTO;
 import com.phaete.backend.forage.model.MarkerNotFoundException;
 import com.phaete.backend.forage.service.CustomMarkerService;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -89,11 +88,5 @@ public class CustomMarkerController {
 			@PathVariable String id
 	) throws MarkerNotFoundException {
 		return customMarkerService.deleteMarker(id);
-	}
-
-	@ExceptionHandler(MarkerNotFoundException.class)
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public String handleMarkerNotFoundException(MarkerNotFoundException e) {
-		return e.getMessage();
 	}
 }
