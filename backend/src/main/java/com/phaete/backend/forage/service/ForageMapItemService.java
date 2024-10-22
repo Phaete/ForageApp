@@ -49,10 +49,15 @@ public class ForageMapItemService {
 				.stream()
 				.collect(
 						Collectors.partitioningBy(
-								forageMapItem -> (forageMapItem.getForageWikiItem().name() == null || forageMapItem.getCustomMarker().position() == null)
+								forageMapItem -> (
+										forageMapItem.getForageWikiItem() != null &&
+										forageMapItem.getForageWikiItem().name() != null &&
+										forageMapItem.getCustomMarker() != null &&
+										forageMapItem.getCustomMarker().position() != null
+								)
 						)
 				);
-		return forageMapItemMap.get(false);
+		return forageMapItemMap.get(true);
 	}
 
 
