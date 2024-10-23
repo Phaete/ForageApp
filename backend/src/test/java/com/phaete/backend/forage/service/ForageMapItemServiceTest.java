@@ -100,7 +100,23 @@ class ForageMapItemServiceTest {
 	void findAllForageMapItems_expectList_excludeItemsWithoutWikiItemInDB() {
 		when(forageMapItemRepository.findAll()).thenReturn(
 				List.of(
-						expectedForageMapItem
+						new ForageMapItem(
+								"1",
+								null,
+								new CustomMarker(
+										"1",
+										new double[] {0.0, 0.0},
+										"",
+										new int[] {0, 0},
+										new int[] {0, 0},
+										new int[] {0, 0},
+										""
+								),
+								ForageQuantity.ABUNDANT,
+								ForageQuality.EXCELLENT,
+								"never",
+								"notes"
+						)
 				)
 		);
 
