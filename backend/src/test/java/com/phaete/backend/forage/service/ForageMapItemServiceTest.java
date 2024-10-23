@@ -16,7 +16,6 @@ class ForageMapItemServiceTest {
 	private final ForageMapItemRepository forageMapItemRepository = mock(ForageMapItemRepository.class);
 	private final IdService idService = mock(IdService.class);
 
-
 	@Test
 	void createForageMapItem_expectDTO_onSuccess() {
 		ForageMapItemDTO expectedForageMapItemDTO = new ForageMapItemDTO(
@@ -125,7 +124,7 @@ class ForageMapItemServiceTest {
 	}
 
 	@Test
-	void findAllForageMapItems_expectList_WithoutInvalidWikiItem() {
+	void findAllForageMapItems_expectList_excludeItemsWithoutWikiItemInDB() {
 		when(forageMapItemRepository.findAll()).thenReturn(
 				List.of(
 						new ForageMapItem(
@@ -159,7 +158,7 @@ class ForageMapItemServiceTest {
 	}
 
 	@Test
-	void findAllForageMapItems_expectList_WithoutInvalidCustomMarker() {
+	void findAllForageMapItems_expectList_excludeItemsWithoutCustomMarkerInDB() {
 		when(forageMapItemRepository.findAll()).thenReturn(
 				List.of(
 						new ForageMapItem(

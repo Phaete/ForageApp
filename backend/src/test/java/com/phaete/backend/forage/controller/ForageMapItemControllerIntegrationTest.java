@@ -35,92 +35,85 @@ class ForageMapItemControllerIntegrationTest {
 	@Autowired
 	private ForageWikiItemRepository forageWikiItemRepository;
 
+	private final String forageMapItemDTOJsonObject = """
+			{
+						"forageWikiItem": {
+							"id": "1",
+							"name": "Apple",
+							"category": "FRUIT",
+							"source": "TREE",
+							"description": "Apple from an Apple Tree",
+							"season": "FALL",
+							"imageURLs": [
+							  "url-to-apple-tree-image"
+							]
+						},
+						"customMarker": {
+							"id": "1",
+							"position": [
+								51.0,
+								10.0
+							],
+							"iconUrl": "test-icon",
+							"iconSize": [
+								64,
+								64
+							],
+							"iconAnchor": [
+								32,
+								64
+							],
+							"popupAnchor": [
+								0,
+								64
+							],
+							"popupText": "Test popup"
+						},
+						"quantity": "ABUNDANT",
+						"quality": "EXCELLENT",
+						"dateFound": "never",
+						"notes": "test"
+					}
+			""";
+
+	private final ForageWikiItem forageWikiItem = new ForageWikiItem(
+			"1",
+			"Apple Tree",
+			ForageCategory.FRUIT,
+			ForageSource.TREE,
+			"Apple Tree",
+			ForageSeason.FALL,
+			List.of("url-to-apple-tree-image")
+	);
+
+	private final CustomMarker customMarker = new CustomMarker(
+			"1",
+			new double[] {51.0, 10.0},
+			"test-icon",
+			new int[] {64, 64},
+			new int[] {32, 64},
+			new int[] {0, 64},
+			"Test popup"
+	);
+
+	private final ForageMapItem forageMapItem = new ForageMapItem(
+			"1",
+			forageWikiItem,
+			customMarker,
+			ForageQuantity.ABUNDANT,
+			ForageQuality.EXCELLENT,
+			"never",
+			"test"
+	);
+
 	@Test
 	void createForageMapItem_expectCreated() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.post("/api/forageMapItems")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("""
-					{
-						"forageWikiItem": {
-							"id": "1",
-							"name": "Apple",
-							"category": "FRUIT",
-							"source": "TREE",
-							"description": "Apple from an Apple Tree",
-							"season": "FALL",
-							"imageURLs": [
-							  "url-to-apple-tree-image"
-							]
-						},
-						"customMarker": {
-							"id": "1",
-							"position": [
-								51.0,
-								10.0
-							],
-							"iconUrl": "test-icon",
-							"iconSize": [
-								64,
-								64
-							],
-							"iconAnchor": [
-								32,
-								64
-							],
-							"popupAnchor": [
-								0,
-								64
-							],
-							"popupText": "Test popup"
-						},
-						"quantity": "ABUNDANT",
-						"quality": "EXCELLENT",
-						"dateFound": "never",
-						"notes": "test"
-					}
-				""")
+				.content(forageMapItemDTOJsonObject)
 		)
 				.andExpect(status().isOk())
-				.andExpect(content().json("""
-					{
-						"forageWikiItem": {
-							"id": "1",
-							"name": "Apple",
-							"category": "FRUIT",
-							"source": "TREE",
-							"description": "Apple from an Apple Tree",
-							"season": "FALL",
-							"imageURLs": [
-							  "url-to-apple-tree-image"
-							]
-						},
-						"customMarker": {
-							"id": "1",
-							"position": [
-								51.0,
-								10.0
-							],
-							"iconUrl": "test-icon",
-							"iconSize": [
-								64,
-								64
-							],
-							"iconAnchor": [
-								32,
-								64
-							],
-							"popupAnchor": [
-								0,
-								64
-							],
-							"popupText": "Test popup"
-						},
-						"quantity": "ABUNDANT",
-						"quality": "EXCELLENT",
-						"dateFound": "never",
-						"notes": "test"
-					}
-				"""));
+				.andExpect(content().json(forageMapItemDTOJsonObject));
 	}
 
 	@Test
@@ -132,254 +125,19 @@ class ForageMapItemControllerIntegrationTest {
 
 	@Test
 	void findAllForageMapItems_returnsForageMapItems_onSuccess() throws Exception {
-		forageWikiItemRepository.save(
-				new ForageWikiItem(
-						"1",
-						"Apple Tree",
-						ForageCategory.FRUIT,
-						ForageSource.TREE,
-						"Apple Tree",
-						ForageSeason.FALL,
-						List.of("url-to-apple-tree-image")
-				)
-		);
-		customMarkerRepository.save(
-				new CustomMarker(
-						"1",
-						new double[] {51.0, 10.0},
-						"test-icon",
-						new int[] {64, 64},
-						new int[] {32, 64},
-						new int[] {0, 64},
-						"Test popup"
-				)
-		);
-		forageMapItemRepository.save(
-				new ForageMapItem(
-						"1",
-						new ForageWikiItem(
-								"1",
-								"Apple Tree",
-								ForageCategory.FRUIT,
-								ForageSource.TREE,
-								"Apple Tree",
-								ForageSeason.FALL,
-								List.of("url-to-apple-tree-image")
-						),
-						new CustomMarker(
-								"1",
-								new double[] {51.0, 10.0},
-								"test-icon",
-								new int[] {64, 64},
-								new int[] {32, 64},
-								new int[] {0, 64},
-								"Test popup"
-						),
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
-						"never",
-						"test"
-				)
-		);
+		forageWikiItemRepository.save(forageWikiItem);
+		customMarkerRepository.save(customMarker);
+		forageMapItemRepository.save(forageMapItem);
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
-				.andExpect(status().isOk())
-				.andExpect(content().json("""
-					[
-						{
-							"forageWikiItem": {
-								"id": "1",
-								"name": "Apple Tree",
-								"category": "FRUIT",
-								"source": "TREE",
-								"description": "Apple Tree",
-								"season": "FALL",
-								"imageURLs": [
-								  "url-to-apple-tree-image"
-								]
-							},
-							"customMarker": {
-								"id": "1",
-								"position": [
-									51.0,
-									10.0
-								],
-								"iconUrl": "test-icon",
-								"iconSize": [
-									64, 64
-								],
-								"iconAnchor": [
-									32, 64
-								],
-								"popupAnchor": [
-									0, 64
-								],
-								"popupText": "Test popup"
-							},
-							"quantity": "ABUNDANT",
-							"quality": "EXCELLENT",
-							"dateFound": "never",
-							"notes": "test"
-						}
-					]
-				"""));
-	}
-
-	@Test
-	void findAllForageMapItems_returnsForageMapItems_withoutInvalidCustomMarker() throws Exception {
-		forageWikiItemRepository.save(
-				new ForageWikiItem(
-						"1",
-						"Apple Tree",
-						ForageCategory.FRUIT,
-						ForageSource.TREE,
-						"Apple Tree",
-						ForageSeason.FALL,
-						List.of("url-to-apple-tree-image")
-				)
-		);
-		forageMapItemRepository.save(
-				new ForageMapItem(
-						"1",
-						new ForageWikiItem(
-								"1",
-								"Apple Tree",
-								ForageCategory.FRUIT,
-								ForageSource.TREE,
-								"Apple Tree",
-								ForageSeason.FALL,
-								List.of("url-to-apple-tree-image")
-						),
-						new CustomMarker(
-								"1",
-								new double[] {51.0, 10.0},
-								"test-icon",
-								new int[] {64, 64},
-								new int[] {32, 64},
-								new int[] {0, 64},
-								"Test popup"
-						),
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
-						"never",
-						"test"
-				)
-		);
-
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
-				.andExpect(status().isOk())
-				.andExpect(content().json("[]"));
-
-	}
-
-	@Test
-	void findAllForageMapItems_returnsForageMapItems_withoutInvalidForageWikiItem() throws Exception {
-		customMarkerRepository.save(
-				new CustomMarker(
-						"1",
-						new double[] {51.0, 10.0},
-						"test-icon",
-						new int[] {64, 64},
-						new int[] {32, 64},
-						new int[] {0, 64},
-						"Test popup"
-				)
-		);
-		forageMapItemRepository.save(
-				new ForageMapItem(
-						"1",
-						new ForageWikiItem(
-								"1",
-								"Apple Tree",
-								ForageCategory.FRUIT,
-								ForageSource.TREE,
-								"Apple Tree",
-								ForageSeason.FALL,
-								List.of("url-to-apple-tree-image")
-						),
-						new CustomMarker(
-								"1",
-								new double[] {51.0, 10.0},
-								"test-icon",
-								new int[] {64, 64},
-								new int[] {32, 64},
-								new int[] {0, 64},
-								"Test popup"
-						),
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
-						"never",
-						"test"
-				)
-		);
-
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
-				.andExpect(status().isOk())
-				.andExpect(content().json("[]"));
-	}
-
-	@Test
-	void findForageMapItemById_returnForageMapItem_onSuccess() throws Exception {
-		forageWikiItemRepository.save(
-				new ForageWikiItem(
-						"1",
-						"Apple Tree",
-						ForageCategory.FRUIT,
-						ForageSource.TREE,
-						"Apple Tree",
-						ForageSeason.FALL,
-						List.of("url-to-apple-tree-image")
-				)
-		);
-		customMarkerRepository.save(
-				new CustomMarker(
-						"1",
-						new double[] {51.0, 10.0},
-						"test-icon",
-						new int[] {64, 64},
-						new int[] {32, 64},
-						new int[] {0, 64},
-						"Test popup"
-				)
-		);
-		forageMapItemRepository.save(
-				new ForageMapItem(
-						"1",
-						new ForageWikiItem(
-								"1",
-								"Apple Tree",
-								ForageCategory.FRUIT,
-								ForageSource.TREE,
-								"Apple Tree",
-								ForageSeason.FALL,
-								List.of("url-to-apple-tree-image")
-						),
-						new CustomMarker(
-								"1",
-								new double[] {51.0, 10.0},
-								"test-icon",
-								new int[] {64, 64},
-								new int[] {32, 64},
-								new int[] {0, 64},
-								"Test popup"
-						),
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
-						"never",
-						"test"
-				)
-		);
-
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems/1"))
-				.andExpect(status().isOk())
-				.andExpect(content().json("""
+		String forageMapItemsDTOJsonObject = """
+				[
 					{
 						"forageWikiItem": {
 							"id": "1",
-							"name": "Apple Tree",
+							"name": "Apple",
 							"category": "FRUIT",
 							"source": "TREE",
-							"description": "Apple Tree",
+							"description": "Apple from an Apple Tree",
 							"season": "FALL",
 							"imageURLs": [
 							  "url-to-apple-tree-image"
@@ -393,13 +151,16 @@ class ForageMapItemControllerIntegrationTest {
 							],
 							"iconUrl": "test-icon",
 							"iconSize": [
-								64, 64
+								64,
+								64
 							],
 							"iconAnchor": [
-								32, 64
+								32,
+								64
 							],
 							"popupAnchor": [
-								0, 64
+								0,
+								64
 							],
 							"popupText": "Test popup"
 						},
@@ -408,6 +169,43 @@ class ForageMapItemControllerIntegrationTest {
 						"dateFound": "never",
 						"notes": "test"
 					}
-				"""));
+				]
+				""";
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
+				.andExpect(status().isOk())
+				.andExpect(content().json(forageMapItemsDTOJsonObject));
+	}
+
+	@Test
+	void findAllForageMapItems_returnsAllForageMapItems_excludeItemsWithCustomMarkerNotInDB() throws Exception {
+		forageWikiItemRepository.save(forageWikiItem);
+		forageMapItemRepository.save(forageMapItem);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
+				.andExpect(status().isOk())
+				.andExpect(content().json("[]"));
+
+	}
+
+	@Test
+	void findAllForageMapItems_returnsForageMapItems_excludeItemsWithForageWikiItemNotInDB() throws Exception {
+		customMarkerRepository.save(customMarker);
+		forageMapItemRepository.save(forageMapItem);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
+				.andExpect(status().isOk())
+				.andExpect(content().json("[]"));
+	}
+
+	@Test
+	void findForageMapItemById_returnForageMapItem_onSuccess() throws Exception {
+		forageWikiItemRepository.save(forageWikiItem);
+		customMarkerRepository.save(customMarker);
+		forageMapItemRepository.save(forageMapItem);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems/1"))
+				.andExpect(status().isOk())
+				.andExpect(content().json(forageMapItemDTOJsonObject));
 	}
 }

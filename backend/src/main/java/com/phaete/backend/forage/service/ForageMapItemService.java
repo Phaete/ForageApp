@@ -24,6 +24,7 @@ public class ForageMapItemService {
 		this.converterService = converterService;
 	}
 
+
 	/**
 	 * Creates a new forage map item and saves it to the database.
 	 *
@@ -59,7 +60,6 @@ public class ForageMapItemService {
 	}
 
 
-
 	/**
 	 * Retrieves a forage map item from the database by its id.
 	 *
@@ -73,15 +73,15 @@ public class ForageMapItemService {
 			throws ForageMapItemNotFoundException, MarkerNotFoundException, ForageWikiItemNotFoundException {
 		ForageMapItemDTO forageMapItemDTO = converterService.toDTO(
 				forageMapItemRepository.findById(id).orElseThrow(
-					() -> new ForageMapItemNotFoundException("Could not find forage map item with the id: " + "id")
+					() -> new ForageMapItemNotFoundException("Could not find forage map item with the id: " + id)
 				)
 		);
 		if (forageMapItemDTO.forageWikiItem() == null) {
-			throw new ForageWikiItemNotFoundException("Could not find marker with the id: " + forageMapItemDTO.customMarker().id());
-		} else if (forageMapItemDTO.customMarker() == null) {
-			throw new MarkerNotFoundException("Could not find forage wiki item with the id: " + forageMapItemDTO.forageWikiItem().id());
+			throw new ForageWikiItemNotFoundException("Could not find marker for forage map item with the id: " + id);
+		}
+		if (forageMapItemDTO.customMarker() == null) {
+			throw new MarkerNotFoundException("Could not find forage wiki item for forage map item with the id: " + id);
 		}
 		return forageMapItemDTO;
 	}
-
 }
