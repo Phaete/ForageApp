@@ -21,63 +21,63 @@ class ForageMapItemServiceTest {
 			new ConverterService(idService)
 	);
 
-	ForageMapItemDTO expectedForageMapItemDTO = new ForageMapItemDTO(
-			new ForageWikiItem(
-					"1",
-					"Apple Tree",
-					ForageCategory.FRUIT,
-					ForageSource.TREE,
-					"Apple Tree",
-					ForageSeason.FALL,
-					List.of("test")
-			),
-			new CustomMarker(
-					"1",
-					new double[] {0.0, 0.0},
-					"",
-					new int[] {0, 0},
-					new int[] {0, 0},
-					new int[] {0, 0},
-					""
-			),
-			ForageQuantity.ABUNDANT,
-			ForageQuality.EXCELLENT,
-			"never",
-			"notes"
-	);
-
-	ForageMapItem expectedForageMapItem = new ForageMapItem(
-		"1",
-			new ForageWikiItem(
-					"1",
-					"Apple Tree",
-					ForageCategory.FRUIT,
-					ForageSource.TREE,
-					"Apple Tree",
-					ForageSeason.FALL,
-					List.of("test")
-			),
-			new CustomMarker(
-					"1",
-					new double[] {0.0, 0.0},
-					"",
-					new int[] {0, 0},
-					new int[] {0, 0},
-					new int[] {0, 0},
-					""
-			),
-			ForageQuantity.ABUNDANT,
-			ForageQuality.EXCELLENT,
-			"never",
-			"notes"
-	);
-
 	@Test
 	void createForageMapItem_expectDTO_onSuccess() {
+		ForageMapItemDTO expectedForageMapItemDTO = new ForageMapItemDTO(
+				new ForageWikiItem(
+						"1",
+						"Apple Tree",
+						ForageCategory.FRUIT,
+						ForageSource.TREE,
+						"Apple Tree",
+						ForageSeason.FALL,
+						List.of("test")
+				),
+				new CustomMarker(
+						"1",
+						new double[] {0.0, 0.0},
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0},
+						""
+				),
+				ForageQuantity.ABUNDANT,
+				ForageQuality.EXCELLENT,
+				"never",
+				"notes"
+		);
+
 		when(forageMapItemRepository.save(any(ForageMapItem.class))).thenReturn(
-				expectedForageMapItem
+				new ForageMapItem(
+						"1",
+						new ForageWikiItem(
+								"1",
+								"Apple Tree",
+								ForageCategory.FRUIT,
+								ForageSource.TREE,
+								"Apple Tree",
+								ForageSeason.FALL,
+								List.of("test")
+						),
+						new CustomMarker(
+								"1",
+								new double[] {0.0, 0.0},
+								"",
+								new int[] {0, 0},
+								new int[] {0, 0},
+								new int[] {0, 0},
+								""
+						),
+						ForageQuantity.ABUNDANT,
+						ForageQuality.EXCELLENT,
+						"never",
+						"notes"
+				)
 		);
 		when(idService.generateId()).thenReturn("1");
+
+
 
 		ForageMapItemDTO actualForageMapItemDTO = forageMapItemService.createForageMapItem(expectedForageMapItemDTO);
 		verify(forageMapItemRepository).save(any(ForageMapItem.class));
@@ -87,11 +87,35 @@ class ForageMapItemServiceTest {
 	@Test
 	void findAllForageMapItems_expectList_onSuccess() {
 		List<ForageMapItem> expectedForageMapItems = List.of(
-				expectedForageMapItem
+				new ForageMapItem(
+						"1",
+						new ForageWikiItem(
+								"1",
+								"Apple Tree",
+								ForageCategory.FRUIT,
+								ForageSource.TREE,
+								"Apple Tree",
+								ForageSeason.FALL,
+								List.of("test")
+						),
+						new CustomMarker(
+								"1",
+								new double[] {0.0, 0.0},
+								"",
+								new int[] {0, 0},
+								new int[] {0, 0},
+								new int[] {0, 0},
+								""
+						),
+						ForageQuantity.ABUNDANT,
+						ForageQuality.EXCELLENT,
+						"never",
+						"notes"
+				)
 		);
 		when(forageMapItemRepository.findAll()).thenReturn(expectedForageMapItems);
 
-		List<ForageMapItem> actualForageMapItems = forageMapItemService.findAllForageMapItems();
+		List<ForageMapItem> actualForageMapItems = forageMapItemService.findAllForageMapItems().get(true);
 		verify(forageMapItemRepository).findAll();
 		assertEquals(expectedForageMapItems, actualForageMapItems);
 	}
@@ -120,7 +144,7 @@ class ForageMapItemServiceTest {
 				)
 		);
 
-		List<ForageMapItem> actualForageMapItems = forageMapItemService.findAllForageMapItems();
+		List<ForageMapItem> actualForageMapItems = forageMapItemService.findAllForageMapItems().get(true);
 		verify(forageMapItemRepository).findAll();
 		assertEquals(List.of(), actualForageMapItems);
 	}
@@ -149,7 +173,7 @@ class ForageMapItemServiceTest {
 				)
 		);
 
-		List<ForageMapItem> actualForageMapItems = forageMapItemService.findAllForageMapItems();
+		List<ForageMapItem> actualForageMapItems = forageMapItemService.findAllForageMapItems().get(true);
 		verify(forageMapItemRepository).findAll();
 		assertEquals(List.of(), actualForageMapItems);
 	}
@@ -157,10 +181,58 @@ class ForageMapItemServiceTest {
 	@Test
 	void findForageMapItemById_expectDTO_onSuccess()
 			throws ForageMapItemNotFoundException, MarkerNotFoundException, ForageWikiItemNotFoundException {
+		ForageMapItemDTO expectedForageMapItemDTO = new ForageMapItemDTO(
+				new ForageWikiItem(
+						"1",
+						"Apple Tree",
+						ForageCategory.FRUIT,
+						ForageSource.TREE,
+						"Apple Tree",
+						ForageSeason.FALL,
+						List.of("test")
+				),
+				new CustomMarker(
+						"1",
+						new double[] {0.0, 0.0},
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0},
+						""
+				),
+				ForageQuantity.ABUNDANT,
+				ForageQuality.EXCELLENT,
+				"never",
+				"notes"
+		);
 
 		when(forageMapItemRepository.findById("1")).thenReturn(
 				Optional.of(
-						expectedForageMapItem
+						new ForageMapItem(
+								"1",
+								new ForageWikiItem(
+										"1",
+										"Apple Tree",
+										ForageCategory.FRUIT,
+										ForageSource.TREE,
+										"Apple Tree",
+										ForageSeason.FALL,
+										List.of("test")
+								),
+								new CustomMarker(
+										"1",
+										new double[] {0.0, 0.0},
+										"",
+										new int[] {0, 0},
+										new int[] {0, 0},
+										new int[] {0, 0},
+										""
+								),
+								ForageQuantity.ABUNDANT,
+								ForageQuality.EXCELLENT,
+								"never",
+								"notes"
+						)
 				)
 		);
 
