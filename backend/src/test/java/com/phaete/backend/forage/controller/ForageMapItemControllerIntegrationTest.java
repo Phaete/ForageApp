@@ -127,7 +127,12 @@ class ForageMapItemControllerIntegrationTest {
 	void findAllForageMapItems_returnEmptyList_onEmpty_DB() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
 				.andExpect(status().isOk())
-				.andExpect(content().json("[]"));
+				.andExpect(content().json("""
+					{
+						"true": [],
+						"false" : []
+					}
+				"""));
 	}
 
 	@Test
@@ -185,43 +190,47 @@ class ForageMapItemControllerIntegrationTest {
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
 				.andExpect(status().isOk())
 				.andExpect(content().json("""
-					[
-						{
-							"forageWikiItem": {
-								"id": "1",
-								"name": "Apple Tree",
-								"category": "FRUIT",
-								"source": "TREE",
-								"description": "Apple Tree",
-								"season": "FALL",
-								"imageURLs": [
-								  "url-to-apple-tree-image"
-								]
-							},
-							"customMarker": {
-								"id": "1",
-								"position": [
-									51.0,
-									10.0
-								],
-								"iconUrl": "test-icon",
-								"iconSize": [
-									64, 64
-								],
-								"iconAnchor": [
-									32, 64
-								],
-								"popupAnchor": [
-									0, 64
-								],
-								"popupText": "Test popup"
-							},
-							"quantity": "ABUNDANT",
-							"quality": "EXCELLENT",
-							"dateFound": "never",
-							"notes": "test"
-						}
-					]
+					{
+						"true":
+							[
+								{
+									"forageWikiItem": {
+										"id": "1",
+										"name": "Apple Tree",
+										"category": "FRUIT",
+										"source": "TREE",
+										"description": "Apple Tree",
+										"season": "FALL",
+										"imageURLs": [
+										  "url-to-apple-tree-image"
+										]
+									},
+									"customMarker": {
+										"id": "1",
+										"position": [
+											51.0,
+											10.0
+										],
+										"iconUrl": "test-icon",
+										"iconSize": [
+											64, 64
+										],
+										"iconAnchor": [
+											32, 64
+										],
+										"popupAnchor": [
+											0, 64
+										],
+										"popupText": "Test popup"
+									},
+									"quantity": "ABUNDANT",
+									"quality": "EXCELLENT",
+									"dateFound": "never",
+									"notes": "test"
+								}
+							],
+						"false" : []
+					}
 				"""));
 	}
 
@@ -268,7 +277,12 @@ class ForageMapItemControllerIntegrationTest {
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
 				.andExpect(status().isOk())
-				.andExpect(content().json("[]"));
+				.andExpect(content().json("""
+						{
+								"true": [],
+								"false": []
+						}
+				"""));
 
 	}
 
@@ -315,7 +329,12 @@ class ForageMapItemControllerIntegrationTest {
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
 				.andExpect(status().isOk())
-				.andExpect(content().json("[]"));
+				.andExpect(content().json("""
+						{
+								"true": [],
+								"false": []
+						}
+				"""));
 	}
 
 	@Test
