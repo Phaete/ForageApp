@@ -280,7 +280,26 @@ class ForageMapItemControllerIntegrationTest {
 				.andExpect(content().json("""
 						{
 								"true": [],
-								"false": []
+								"false": [
+										{
+												"forageWikiItem": {
+													"id": "1",
+													"name": "Apple Tree",
+													"category": "FRUIT",
+													"source": "TREE",
+													"description": "Apple Tree",
+													"season": "FALL",
+													"imageURLs": [
+													  "url-to-apple-tree-image"
+													]
+												},
+												"customMarker": null,
+												"quantity": "ABUNDANT",
+												"quality": "EXCELLENT",
+												"dateFound": "never",
+												"notes": "test"
+										}
+				]
 						}
 				"""));
 
@@ -332,7 +351,33 @@ class ForageMapItemControllerIntegrationTest {
 				.andExpect(content().json("""
 						{
 								"true": [],
-								"false": []
+								"false": [
+										{
+												"forageWikiItem": null,
+												"customMarker": {
+													"id": "1",
+													"position": [
+														51.0,
+														10.0
+													],
+													"iconUrl": "test-icon",
+													"iconSize": [
+														64, 64
+													],
+													"iconAnchor": [
+														32, 64
+													],
+													"popupAnchor": [
+														0, 64
+													],
+													"popupText": "Test popup"
+												},
+												"quantity": "ABUNDANT",
+												"quality": "EXCELLENT",
+												"dateFound": "never",
+												"notes": "test"
+										}
+				]
 						}
 				"""));
 	}
