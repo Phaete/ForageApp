@@ -19,6 +19,8 @@ class CustomMarkerServiceTest {
 	private final CustomMarkerRepository customMarkerRepository = mock(CustomMarkerRepository.class);
 	private final IdService idService = mock(IdService.class);
 
+	CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
+
 
 	@Test
 	void createMarker_expectDTO_onSuccess() {
@@ -41,8 +43,6 @@ class CustomMarkerServiceTest {
 						"")
 		);
 		when(idService.generateId()).thenReturn("1");
-
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
 		CustomMarkerDTO actualCustomMarkerDTO = customMarkerService.createMarker(expectedCustomMarkerDTO);
 		verify(customMarkerRepository).save(any(CustomMarker.class));
@@ -74,8 +74,6 @@ class CustomMarkerServiceTest {
 				))
 		);
 
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
-
 		List<CustomMarker> actualCustomMarkers = customMarkerService.findAllMarkers();
 		verify(customMarkerRepository).findAll();
 		assertEquals(expectedCustomMarkers, actualCustomMarkers);
@@ -103,8 +101,6 @@ class CustomMarkerServiceTest {
 				))
 		);
 
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
-
 		CustomMarkerDTO actualCustomMarkerDTO = customMarkerService.findMarkerById("1");
 		verify(customMarkerRepository).findById("1");
 		assertEquals(expectedCustomMarkerDTO, actualCustomMarkerDTO);
@@ -113,8 +109,6 @@ class CustomMarkerServiceTest {
 	@Test
 	void findMarkerById_expectThrows_onNotFound() {
 		when(customMarkerRepository.findById("1")).thenReturn(Optional.empty());
-
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
 		assertThrows(MarkerNotFoundException.class, () -> customMarkerService.findMarkerById("1"));
 	}
@@ -152,8 +146,6 @@ class CustomMarkerServiceTest {
 				)
 		);
 
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
-
 		CustomMarkerDTO actualCustomMarkerDTO = customMarkerService.updateMarker("1", expectedCustomMarkerDTO);
 		verify(customMarkerRepository).save(any(CustomMarker.class));
 		assertEquals(expectedCustomMarkerDTO, actualCustomMarkerDTO);
@@ -162,8 +154,6 @@ class CustomMarkerServiceTest {
 	@Test
 	void updateMarker_expectThrows_onNotFound() {
 		when(customMarkerRepository.findById("1")).thenReturn(Optional.empty());
-
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
 		assertThrows(MarkerNotFoundException.class, () -> customMarkerService.updateMarker(
 				"1",
@@ -193,8 +183,6 @@ class CustomMarkerServiceTest {
 				))
 		);
 
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
-
 		String actualPosition = customMarkerService.deleteMarker("1");
 		verify(customMarkerRepository).deleteById("1");
 		assertEquals(expectedPosition, actualPosition);
@@ -203,8 +191,6 @@ class CustomMarkerServiceTest {
 	@Test
 	void deleteMarker_expectThrows_onNotFound() {
 		when(customMarkerRepository.findById("1")).thenReturn(Optional.empty());
-
-		CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
 
 		assertThrows(MarkerNotFoundException.class, () -> customMarkerService.deleteMarker("1"));
 	}

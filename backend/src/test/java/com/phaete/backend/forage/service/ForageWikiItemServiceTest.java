@@ -16,6 +16,11 @@ class ForageWikiItemServiceTest {
 	private final ForageWikiItemRepository forageWikiItemRepository = mock(ForageWikiItemRepository.class);
 	private final IdService idService = mock(IdService.class);
 
+	ForageWikiItemService forageWikiItemService = new ForageWikiItemService(
+			forageWikiItemRepository,
+			new ConverterService(idService)
+	);
+
 	@Test
 	void createForageWikiItem() {
 		ForageWikiItemDTO expectedForageWikiItemDTO = new ForageWikiItemDTO(
@@ -38,11 +43,6 @@ class ForageWikiItemServiceTest {
 				)
 		);
 		when(idService.generateId()).thenReturn("1");
-
-		ForageWikiItemService forageWikiItemService = new ForageWikiItemService(
-				forageWikiItemRepository,
-				new ConverterService(idService)
-		);
 
 		ForageWikiItemDTO actualForageWikiItemDTO = forageWikiItemService.createForageWikiItem(
 				expectedForageWikiItemDTO
@@ -78,11 +78,6 @@ class ForageWikiItemServiceTest {
 				)
 		);
 
-		ForageWikiItemService forageWikiItemService = new ForageWikiItemService(
-				forageWikiItemRepository,
-				new ConverterService(idService)
-		);
-
 		List<ForageWikiItem> actualForageWikiItemDTOs = forageWikiItemService.findAllForageWikiItems();
 		verify(forageWikiItemRepository).findAll();
 		assertEquals(expectedForageWikiItemDTOs, actualForageWikiItemDTOs);
@@ -110,11 +105,6 @@ class ForageWikiItemServiceTest {
 				))
 		);
 
-		ForageWikiItemService forageWikiItemService = new ForageWikiItemService(
-			forageWikiItemRepository,
-			new ConverterService(idService)
-		);
-
 		ForageWikiItemDTO actualForageWikiItemDTO = forageWikiItemService.findForageWikiItemById("1");
 		verify(forageWikiItemRepository).findById("1");
 		assertEquals(expectedForageWikiItemDTO, actualForageWikiItemDTO);
@@ -123,11 +113,6 @@ class ForageWikiItemServiceTest {
 	@Test
 	void findForageWikiItemById_Throws() {
 		when(forageWikiItemRepository.findById("1")).thenReturn(Optional.empty());
-
-		ForageWikiItemService forageWikiItemService = new ForageWikiItemService(
-			forageWikiItemRepository,
-			new ConverterService(idService)
-		);
 
 		assertThrows(ForageWikiItemNotFoundException.class, () -> forageWikiItemService.findForageWikiItemById("1"));
 	}
@@ -163,11 +148,6 @@ class ForageWikiItemServiceTest {
 				)
 		);
 
-		ForageWikiItemService forageWikiItemService = new ForageWikiItemService(
-			forageWikiItemRepository,
-			new ConverterService(idService)
-		);
-
 		ForageWikiItemDTO actualForageWikiItemDTO = forageWikiItemService.updateForageWikiItem(
 				"1",
 				expectedForageWikiItemDTO
@@ -179,11 +159,6 @@ class ForageWikiItemServiceTest {
 	@Test
 	void updateForageWikiItem_Throws() {
 		when(forageWikiItemRepository.findById("1")).thenReturn(Optional.empty());
-
-		ForageWikiItemService forageWikiItemService = new ForageWikiItemService(
-			forageWikiItemRepository,
-			new ConverterService(idService)
-		);
 
 		assertThrows(ForageWikiItemNotFoundException.class, () -> forageWikiItemService.updateForageWikiItem(
 				"1",
@@ -210,11 +185,6 @@ class ForageWikiItemServiceTest {
 				List.of("test")
 		)));
 
-		ForageWikiItemService forageWikiItemService = new ForageWikiItemService(
-				forageWikiItemRepository,
-				new ConverterService(idService)
-		);
-
 		String actualForageWikiItemName = forageWikiItemService.deleteForageWikiItem("1");
 		verify(forageWikiItemRepository).deleteById("1");
 		assertEquals("Apple Tree", actualForageWikiItemName);
@@ -223,11 +193,6 @@ class ForageWikiItemServiceTest {
 	@Test
 	void deleteForageWikiItem_Throws() {
 		when(forageWikiItemRepository.findById("1")).thenReturn(Optional.empty());
-
-		ForageWikiItemService forageWikiItemService = new ForageWikiItemService(
-				forageWikiItemRepository,
-				new ConverterService(idService)
-		);
 
 		assertThrows(ForageWikiItemNotFoundException.class, () -> forageWikiItemService.deleteForageWikiItem("1"));
 	}
