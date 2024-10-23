@@ -16,6 +16,11 @@ class ForageMapItemServiceTest {
 	private final ForageMapItemRepository forageMapItemRepository = mock(ForageMapItemRepository.class);
 	private final IdService idService = mock(IdService.class);
 
+	ForageMapItemService forageMapItemService = new ForageMapItemService(
+			forageMapItemRepository,
+			new ConverterService(idService)
+	);
+
 	@Test
 	void createForageMapItem_expectDTO_onSuccess() {
 		ForageMapItemDTO expectedForageMapItemDTO = new ForageMapItemDTO(
@@ -72,10 +77,7 @@ class ForageMapItemServiceTest {
 		);
 		when(idService.generateId()).thenReturn("1");
 
-		ForageMapItemService forageMapItemService = new ForageMapItemService(
-				forageMapItemRepository,
-				new ConverterService(idService)
-		);
+
 
 		ForageMapItemDTO actualForageMapItemDTO = forageMapItemService.createForageMapItem(expectedForageMapItemDTO);
 		verify(forageMapItemRepository).save(any(ForageMapItem.class));
@@ -113,11 +115,6 @@ class ForageMapItemServiceTest {
 		);
 		when(forageMapItemRepository.findAll()).thenReturn(expectedForageMapItems);
 
-		ForageMapItemService forageMapItemService = new ForageMapItemService(
-				forageMapItemRepository,
-				new ConverterService(idService)
-		);
-
 		List<ForageMapItem> actualForageMapItems = forageMapItemService.findAllForageMapItems();
 		verify(forageMapItemRepository).findAll();
 		assertEquals(expectedForageMapItems, actualForageMapItems);
@@ -147,11 +144,6 @@ class ForageMapItemServiceTest {
 				)
 		);
 
-		ForageMapItemService forageMapItemService = new ForageMapItemService(
-				forageMapItemRepository,
-				new ConverterService(idService)
-		);
-
 		List<ForageMapItem> actualForageMapItems = forageMapItemService.findAllForageMapItems();
 		verify(forageMapItemRepository).findAll();
 		assertEquals(List.of(), actualForageMapItems);
@@ -179,11 +171,6 @@ class ForageMapItemServiceTest {
 								"notes"
 						)
 				)
-		);
-
-		ForageMapItemService forageMapItemService = new ForageMapItemService(
-				forageMapItemRepository,
-				new ConverterService(idService)
 		);
 
 		List<ForageMapItem> actualForageMapItems = forageMapItemService.findAllForageMapItems();
@@ -249,11 +236,6 @@ class ForageMapItemServiceTest {
 				)
 		);
 
-		ForageMapItemService forageMapItemService = new ForageMapItemService(
-				forageMapItemRepository,
-				new ConverterService(idService)
-		);
-
 		assertEquals(expectedForageMapItemDTO, forageMapItemService.findForageMapItemById("1"));
 	}
 
@@ -279,11 +261,6 @@ class ForageMapItemServiceTest {
 								"notes"
 						)
 				)
-		);
-
-		ForageMapItemService forageMapItemService = new ForageMapItemService(
-				forageMapItemRepository,
-				new ConverterService(idService)
 		);
 
 		assertThrows(ForageWikiItemNotFoundException.class, () -> forageMapItemService.findForageMapItemById("1"));
@@ -313,22 +290,12 @@ class ForageMapItemServiceTest {
 				)
 		);
 
-		ForageMapItemService forageMapItemService = new ForageMapItemService(
-				forageMapItemRepository,
-				new ConverterService(idService)
-		);
-
 		assertThrows(MarkerNotFoundException.class, () -> forageMapItemService.findForageMapItemById("1"));
 	}
 
 	@Test
 	void findForageMapItemById_expectThrows_onForageMapItemNotFound() {
 		when(forageMapItemRepository.findById("1")).thenReturn(Optional.empty());
-
-		ForageMapItemService forageMapItemService = new ForageMapItemService(
-				forageMapItemRepository,
-				new ConverterService(idService)
-		);
 
 		assertThrows(ForageMapItemNotFoundException.class, () -> forageMapItemService.findForageMapItemById("1"));
 	}

@@ -13,6 +13,8 @@ class ConverterServiceTest {
 
 	IdService idService = mock(IdService.class);
 
+	ConverterService converterService = new ConverterService(idService);
+
 	@Test
 	void fromDTO_CustomMarkerDTO_toCustomMarker() {
 		CustomMarker expectedCustomMarker = new CustomMarker(
@@ -26,8 +28,6 @@ class ConverterServiceTest {
 		);
 
 		when(idService.generateId()).thenReturn("1");
-
-		ConverterService converterService = new ConverterService(idService);
 
 		CustomMarker actualCustomMarker = converterService.fromDTO(
 				new CustomMarkerDTO(
@@ -52,8 +52,6 @@ class ConverterServiceTest {
 				new int[] {0, 0},
 				""
 		);
-
-		ConverterService converterService = new ConverterService(idService);
 
 		CustomMarkerDTO actualCustomMarkerDTO = converterService.toDTO(
 				new CustomMarker(
@@ -82,8 +80,6 @@ class ConverterServiceTest {
 		);
 		when(idService.generateId()).thenReturn("1");
 
-		ConverterService converterService = new ConverterService(idService);
-
 		ForageWikiItem actualForageWikiItem = converterService.fromDTO(
 				new ForageWikiItemDTO(
 						"Apple Tree",
@@ -107,8 +103,6 @@ class ConverterServiceTest {
 				ForageSeason.FALL,
 				List.of("test")
 		);
-
-		ConverterService converterService = new ConverterService(idService);
 
 		ForageWikiItemDTO actualForageWikiItemDTO = converterService.toDTO(
 				new ForageWikiItem(
@@ -152,8 +146,6 @@ class ConverterServiceTest {
 				"never",
 				"notes"
 		);
-
-		ConverterService converterService = new ConverterService(idService);
 
 		ForageMapItem actualForageItem = converterService.fromDTO(
 				new ForageMapItemDTO(
@@ -210,8 +202,6 @@ class ConverterServiceTest {
 				"never",
 				"notes"
 		);
-
-		ConverterService converterService = new ConverterService(idService);
 
 		ForageMapItemDTO actualForageMapItemDTO = converterService.toDTO(
 				new ForageMapItem(
