@@ -133,7 +133,6 @@ class ForageMapItemControllerIntegrationTest {
 				[
 					{
 						"forageWikiItem": {
-							"id": "1",
 							"name": "Apple",
 							"category": "FRUIT",
 							"source": "TREE",
