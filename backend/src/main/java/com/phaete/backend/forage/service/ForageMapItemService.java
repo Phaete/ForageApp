@@ -2,6 +2,8 @@ package com.phaete.backend.forage.service;
 
 import com.phaete.backend.forage.model.*;
 import com.phaete.backend.forage.repository.ForageMapItemRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,6 +17,8 @@ public class ForageMapItemService {
 
 	private final ForageMapItemRepository forageMapItemRepository;
 	private final ConverterService converterService;
+
+	private static final Logger logger = LoggerFactory.getLogger(ForageMapItemService.class);
 
 	public ForageMapItemService(
 			ForageMapItemRepository forageMapItemRepository,
@@ -43,9 +47,9 @@ public class ForageMapItemService {
 	/**
 	 * Retrieves all forage map items from the database.
 	 * <p>
-	 * @return a list of all forage map items that contain valid customMarkers and forageWikiItems
+	 * @return a map of all forage map items that are split into valid and invalid map items
 	 */
-	public List<ForageMapItem> findAllForageMapItems() {
+	public Map<Boolean, List<ForageMapItem>> findAllForageMapItems() {
 		Map<Boolean, List<ForageMapItem>> forageMapItemMap = forageMapItemRepository.findAll()
 				.stream()
 				.collect(
@@ -56,7 +60,18 @@ public class ForageMapItemService {
 								)
 						)
 				);
-		return forageMapItemMap.get(true);
+		forageMapItemMap.get(false).forEach(
+				invalidForageMapItem -> {
+					if (invalidForageMapItem.getForageWikiItem() == null) {
+						logger.warn("ForageMapItem with id {} is missing the forageWikiItem", invalidForageMapItem.getId());
+					}
+					if (invalidForageMapItem.getCustomMarker() == null) {
+						logger.warn("ForageMapItem with id {} is missing the customMarker", invalidForageMapItem.getId());
+					}
+					logger.warn("Invalid ForageMapItem details: {}", invalidForageMapItem);
+				}
+		);
+		return forageMapItemMap;
 	}
 
 

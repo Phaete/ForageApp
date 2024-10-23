@@ -5,6 +5,7 @@ import com.phaete.backend.forage.service.ForageMapItemService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/forageMapItems")
@@ -29,7 +30,7 @@ public class ForageMapItemController {
 	}
 
 	@GetMapping
-	public List<ForageMapItem> findAllForageMapItems() {
+	public Map<Boolean, List<ForageMapItem>> findAllForageMapItems() {
 		return forageMapItemService.findAllForageMapItems();
 	}
 
