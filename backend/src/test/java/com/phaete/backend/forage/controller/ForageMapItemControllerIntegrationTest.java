@@ -137,7 +137,7 @@ class ForageMapItemControllerIntegrationTest {
 							"name": "Apple",
 							"category": "FRUIT",
 							"source": "TREE",
-							"description": "Apple from an Apple Tree",
+							"description": "Apple Tree",
 							"season": "FALL",
 							"imageURLs": [
 							  "url-to-apple-tree-image"
