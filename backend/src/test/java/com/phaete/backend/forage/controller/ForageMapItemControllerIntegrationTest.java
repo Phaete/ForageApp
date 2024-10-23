@@ -42,7 +42,7 @@ class ForageMapItemControllerIntegrationTest {
 							"name": "Apple",
 							"category": "FRUIT",
 							"source": "TREE",
-							"description": "Apple from an Apple Tree",
+							"description": "Apple Tree",
 							"season": "FALL",
 							"imageURLs": [
 							  "url-to-apple-tree-image"
@@ -78,7 +78,7 @@ class ForageMapItemControllerIntegrationTest {
 
 	private final ForageWikiItem forageWikiItem = new ForageWikiItem(
 			"1",
-			"Apple Tree",
+			"Apple",
 			ForageCategory.FRUIT,
 			ForageSource.TREE,
 			"Apple Tree",
@@ -129,9 +129,10 @@ class ForageMapItemControllerIntegrationTest {
 		customMarkerRepository.save(customMarker);
 		forageMapItemRepository.save(forageMapItem);
 
-		String forageMapItemsDTOJsonObject = """
+		String forageMapItemsJsonObject = """
 				[
 					{
+						"id": "1",
 						"forageWikiItem": {
 							"name": "Apple",
 							"category": "FRUIT",
@@ -173,7 +174,7 @@ class ForageMapItemControllerIntegrationTest {
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
 				.andExpect(status().isOk())
-				.andExpect(content().json(forageMapItemsDTOJsonObject));
+				.andExpect(content().json(forageMapItemsJsonObject));
 	}
 
 	@Test
