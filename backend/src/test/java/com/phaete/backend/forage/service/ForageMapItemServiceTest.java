@@ -36,16 +36,15 @@ class ForageMapItemServiceTest {
 				new CustomMarker(
 						"1",
 						"test",
-						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
 						new int[] {0, 0},
 						""
 				),
+				new double[] {0.0, 0.0},
 				ForageQuantity.ABUNDANT,
 				ForageQuality.EXCELLENT,
-				"never",
 				"notes"
 		);
 
@@ -64,16 +63,15 @@ class ForageMapItemServiceTest {
 						new CustomMarker(
 								"1",
 								"test",
-								new double[] {0.0, 0.0},
 								"",
 								new int[] {0, 0},
 								new int[] {0, 0},
 								new int[] {0, 0},
 								""
 						),
+						new double[] {0.0, 0.0},
 						ForageQuantity.ABUNDANT,
 						ForageQuality.EXCELLENT,
-						"never",
 						"notes"
 				)
 		);
@@ -103,16 +101,15 @@ class ForageMapItemServiceTest {
 						new CustomMarker(
 								"1",
 								"test",
-								new double[] {0.0, 0.0},
 								"",
 								new int[] {0, 0},
 								new int[] {0, 0},
 								new int[] {0, 0},
 								""
 						),
+						new double[] {0.0, 0.0},
 						ForageQuantity.ABUNDANT,
 						ForageQuality.EXCELLENT,
-						"never",
 						"notes"
 				)
 		);
@@ -133,16 +130,15 @@ class ForageMapItemServiceTest {
 								new CustomMarker(
 										"1",
 										"test",
-										new double[] {0.0, 0.0},
 										"",
 										new int[] {0, 0},
 										new int[] {0, 0},
 										new int[] {0, 0},
 										""
 								),
+								new double[] {0.0, 0.0},
 								ForageQuantity.ABUNDANT,
 								ForageQuality.EXCELLENT,
-								"never",
 								"notes"
 						)
 				)
@@ -169,9 +165,9 @@ class ForageMapItemServiceTest {
 										List.of("test")
 								),
 								null,
+								new double[] {0.0, 0.0},
 								ForageQuantity.ABUNDANT,
 								ForageQuality.EXCELLENT,
-								"never",
 								"notes"
 						)
 				)
@@ -198,16 +194,15 @@ class ForageMapItemServiceTest {
 				new CustomMarker(
 						"1",
 						"test",
-						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
 						new int[] {0, 0},
 						""
 				),
+				new double[] {0.0, 0.0},
 				ForageQuantity.ABUNDANT,
 				ForageQuality.EXCELLENT,
-				"never",
 				"notes"
 		);
 
@@ -227,16 +222,15 @@ class ForageMapItemServiceTest {
 								new CustomMarker(
 										"1",
 										"test",
-										new double[] {0.0, 0.0},
 										"",
 										new int[] {0, 0},
 										new int[] {0, 0},
 										new int[] {0, 0},
 										""
 								),
+								new double[] {0.0, 0.0},
 								ForageQuantity.ABUNDANT,
 								ForageQuality.EXCELLENT,
-								"never",
 								"notes"
 						)
 				)
@@ -255,16 +249,15 @@ class ForageMapItemServiceTest {
 								new CustomMarker(
 										"1",
 										"test",
-										new double[] {0.0, 0.0},
 										"",
 										new int[] {0, 0},
 										new int[] {0, 0},
 										new int[] {0, 0},
 										""
 								),
+								new double[] {0.0, 0.0},
 								ForageQuantity.ABUNDANT,
 								ForageQuality.EXCELLENT,
-								"never",
 								"notes"
 						)
 				)
@@ -289,9 +282,9 @@ class ForageMapItemServiceTest {
 										List.of("test")
 								),
 								null,
+								new double[] {0.0, 0.0},
 								ForageQuantity.ABUNDANT,
 								ForageQuality.EXCELLENT,
-								"never",
 								"notes"
 						)
 				)

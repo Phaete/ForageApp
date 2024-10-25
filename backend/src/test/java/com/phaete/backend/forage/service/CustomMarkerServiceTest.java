@@ -6,7 +6,6 @@ import com.phaete.backend.forage.model.MarkerNotFoundException;
 import com.phaete.backend.forage.repository.CustomMarkerRepository;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +25,6 @@ class CustomMarkerServiceTest {
 	void createMarker_expectDTO_onSuccess() {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
 				"test",
-				new double[] {0.0, 0.0},
 				"",
 				new int[] {0, 0},
 				new int[] {0, 0},
@@ -37,7 +35,6 @@ class CustomMarkerServiceTest {
 				new CustomMarker(
 						"1",
 						"test",
-						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
@@ -57,7 +54,6 @@ class CustomMarkerServiceTest {
 				new CustomMarker(
 						"1",
 						"test",
-						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
@@ -69,7 +65,6 @@ class CustomMarkerServiceTest {
 				List.of(new CustomMarker(
 						"1",
 						"test",
-						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
@@ -87,7 +82,6 @@ class CustomMarkerServiceTest {
 	void findMarkerById_expectDTO_onSuccess() throws MarkerNotFoundException {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
 				"test",
-				new double[] {0.0, 0.0},
 				"",
 				new int[] {0, 0},
 				new int[] {0, 0},
@@ -98,7 +92,6 @@ class CustomMarkerServiceTest {
 				Optional.of(new CustomMarker(
 						"1",
 						"test",
-						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
@@ -123,7 +116,6 @@ class CustomMarkerServiceTest {
 	void updateMarker_expectDTO_onSuccess() throws MarkerNotFoundException {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
 				"test",
-				new double[] {0.0, 0.0},
 				"",
 				new int[] {0, 0},
 				new int[] {0, 0},
@@ -134,7 +126,6 @@ class CustomMarkerServiceTest {
 				Optional.of(new CustomMarker(
 						"1",
 						"test",
-						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
@@ -146,7 +137,6 @@ class CustomMarkerServiceTest {
 				new CustomMarker(
 						"1",
 						"test",
-						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
@@ -168,7 +158,6 @@ class CustomMarkerServiceTest {
 				"1",
 				new CustomMarkerDTO(
 						"test",
-						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
@@ -180,12 +169,11 @@ class CustomMarkerServiceTest {
 
 	@Test
 	void deleteMarker_expectPositionOfDeletedMarker_onSuccess() throws MarkerNotFoundException {
-		String expectedPosition = Arrays.toString(new double[]{0.0, 0.0});
+		String expectedName = "test";
 		when(customMarkerRepository.findById("1")).thenReturn(
 				Optional.of(new CustomMarker(
 						"1",
 						"test",
-						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
@@ -196,7 +184,7 @@ class CustomMarkerServiceTest {
 
 		String actualPosition = customMarkerService.deleteMarker("1");
 		verify(customMarkerRepository).deleteById("1");
-		assertEquals(expectedPosition, actualPosition);
+		assertEquals(expectedName, actualPosition);
 	}
 
 	@Test
