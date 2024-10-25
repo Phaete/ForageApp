@@ -32,7 +32,6 @@ class CustomMarkerControllerIntegrationTest {
 				.content("""
 					{
 						"name": "test",
-						"position": [0.0, 0.0],
 						"iconUrl": "https://example.com/icon.png",
 						"iconSize": [32, 32],
 						"iconAnchor": [16, 16],
@@ -45,7 +44,6 @@ class CustomMarkerControllerIntegrationTest {
 				.andExpect(content().json("""
 					{
 						"name": "test",
-						"position": [0.0, 0.0],
 						"iconUrl": "https://example.com/icon.png",
 						"iconSize": [32, 32],
 						"iconAnchor": [16, 16],
@@ -79,7 +77,6 @@ class CustomMarkerControllerIntegrationTest {
 				.andExpect(content().json("""
 					{
 						"name": "test",
-						"position": [0.0, 0.0],
 						"iconUrl": "",
 						"iconSize": [0, 0],
 						"iconAnchor": [0, 0],
@@ -102,7 +99,6 @@ class CustomMarkerControllerIntegrationTest {
 						.content("""
 							{
 								"name": "test",
-								"position": [0.0, 0.0],
 								"iconUrl": "",
 								"iconSize": [0, 0],
 								"iconAnchor": [0, 0],
@@ -115,7 +111,6 @@ class CustomMarkerControllerIntegrationTest {
 				.andExpect(content().json("""
 					{
 						"name": "test",
-						"position": [0.0, 0.0],
 						"iconUrl": "",
 						"iconSize": [0, 0],
 						"iconAnchor": [0, 0],
@@ -134,6 +129,6 @@ class CustomMarkerControllerIntegrationTest {
 
 		mockMvc.perform(MockMvcRequestBuilders.delete("/api/customMarkers/1"))
 				.andExpect(status().isOk())
-				.andExpect(content().string("[0.0, 0.0]"));
+				.andExpect(content().string("test"));
 	}
 }
