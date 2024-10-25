@@ -31,6 +31,7 @@ class CustomMarkerControllerIntegrationTest {
 				.contentType("application/json")
 				.content("""
 					{
+						"name": "test",
 						"position": [0.0, 0.0],
 						"iconUrl": "https://example.com/icon.png",
 						"iconSize": [32, 32],
@@ -43,6 +44,7 @@ class CustomMarkerControllerIntegrationTest {
 				.andExpect(status().isOk())
 				.andExpect(content().json("""
 					{
+						"name": "test",
 						"position": [0.0, 0.0],
 						"iconUrl": "https://example.com/icon.png",
 						"iconSize": [32, 32],
@@ -69,13 +71,14 @@ class CustomMarkerControllerIntegrationTest {
 	@Test
 	void findMarkerById_expectCustomMarker_onSuccess() throws Exception {
 		customMarkerRepository.save(
-				new CustomMarker("1", new double[] {0.0, 0.0}, "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0}, "")
+				new CustomMarker("1", "test", new double[] {0.0, 0.0}, "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0}, "")
 		);
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/customMarkers/1"))
 				.andExpect(status().isOk())
 				.andExpect(content().json("""
 					{
+						"name": "test",
 						"position": [0.0, 0.0],
 						"iconUrl": "",
 						"iconSize": [0, 0],
@@ -89,7 +92,7 @@ class CustomMarkerControllerIntegrationTest {
 	@Test
 	void updateMarker_expectOK() throws Exception {
 		customMarkerRepository.save(
-				new CustomMarker("1", new double[] {0.0, 0.0}, "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0}, "")
+				new CustomMarker("1", "test", new double[] {0.0, 0.0}, "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0}, "")
 
 		);
 
@@ -98,6 +101,7 @@ class CustomMarkerControllerIntegrationTest {
 						.contentType(MediaType.APPLICATION_JSON)
 						.content("""
 							{
+								"name": "test",
 								"position": [0.0, 0.0],
 								"iconUrl": "",
 								"iconSize": [0, 0],
@@ -110,6 +114,7 @@ class CustomMarkerControllerIntegrationTest {
 				.andExpect(status().isOk())
 				.andExpect(content().json("""
 					{
+						"name": "test",
 						"position": [0.0, 0.0],
 						"iconUrl": "",
 						"iconSize": [0, 0],
@@ -123,7 +128,7 @@ class CustomMarkerControllerIntegrationTest {
 	@Test
 	void deleteMarker_expectPositionOfMarker_onSuccess() throws Exception {
 		customMarkerRepository.save(
-				new CustomMarker("1", new double[] {0.0, 0.0}, "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0}, "")
+				new CustomMarker("1", "test", new double[] {0.0, 0.0}, "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0}, "")
 
 		);
 

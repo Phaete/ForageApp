@@ -35,6 +35,7 @@ class ForageMapItemServiceTest {
 				),
 				new CustomMarker(
 						"1",
+						"test",
 						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
@@ -62,6 +63,7 @@ class ForageMapItemServiceTest {
 						),
 						new CustomMarker(
 								"1",
+								"test",
 								new double[] {0.0, 0.0},
 								"",
 								new int[] {0, 0},
@@ -100,6 +102,7 @@ class ForageMapItemServiceTest {
 						),
 						new CustomMarker(
 								"1",
+								"test",
 								new double[] {0.0, 0.0},
 								"",
 								new int[] {0, 0},
@@ -129,6 +132,7 @@ class ForageMapItemServiceTest {
 								null,
 								new CustomMarker(
 										"1",
+										"test",
 										new double[] {0.0, 0.0},
 										"",
 										new int[] {0, 0},
@@ -193,6 +197,7 @@ class ForageMapItemServiceTest {
 				),
 				new CustomMarker(
 						"1",
+						"test",
 						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
@@ -221,6 +226,7 @@ class ForageMapItemServiceTest {
 								),
 								new CustomMarker(
 										"1",
+										"test",
 										new double[] {0.0, 0.0},
 										"",
 										new int[] {0, 0},
@@ -248,6 +254,7 @@ class ForageMapItemServiceTest {
 								null,
 								new CustomMarker(
 										"1",
+										"test",
 										new double[] {0.0, 0.0},
 										"",
 										new int[] {0, 0},

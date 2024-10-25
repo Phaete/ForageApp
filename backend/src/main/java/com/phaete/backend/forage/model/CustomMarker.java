@@ -25,6 +25,7 @@ import java.util.Objects;
 @Document()
 public record CustomMarker(
 		@Id String id,
+		String name,
 		double[] position,
 		String iconUrl,
 		int[] iconSize,

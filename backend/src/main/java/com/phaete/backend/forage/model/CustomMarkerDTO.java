@@ -10,6 +10,7 @@ import java.util.Objects;
  * @author -St4n aka Phaete
  */
 public record CustomMarkerDTO(
+		String name,
 		double[] position,
 		String iconUrl,
 		int[] iconSize,
