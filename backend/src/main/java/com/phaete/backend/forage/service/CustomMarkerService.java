@@ -99,6 +99,7 @@ public class CustomMarkerService {
 				customMarkerRepository.save(
 						new CustomMarker(
 								id,
+								customMarkerDTO.name(),
 								customMarkerDTO.position(),
 								customMarkerDTO.iconUrl(),
 								customMarkerDTO.iconSize(),

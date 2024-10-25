@@ -25,6 +25,7 @@ public class ConverterService {
 	public CustomMarker fromDTO(CustomMarkerDTO customMarkerDTO) {
 		return new CustomMarker(
 				idService.generateId(),
+				customMarkerDTO.name(),
 				customMarkerDTO.position(),
 				customMarkerDTO.iconUrl(),
 				customMarkerDTO.iconSize(),
@@ -42,6 +43,7 @@ public class ConverterService {
 	 */
 	public CustomMarkerDTO toDTO(CustomMarker customMarker){
 		return new CustomMarkerDTO(
+				customMarker.name(),
 				customMarker.position(),
 				customMarker.iconUrl(),
 				customMarker.iconSize(),

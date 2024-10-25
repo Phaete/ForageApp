@@ -25,6 +25,7 @@ class CustomMarkerServiceTest {
 	@Test
 	void createMarker_expectDTO_onSuccess() {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
+				"test",
 				new double[] {0.0, 0.0},
 				"",
 				new int[] {0, 0},
@@ -35,6 +36,7 @@ class CustomMarkerServiceTest {
 		when(customMarkerRepository.save(any(CustomMarker.class))).thenReturn(
 				new CustomMarker(
 						"1",
+						"test",
 						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
@@ -54,6 +56,7 @@ class CustomMarkerServiceTest {
 		List<CustomMarker> expectedCustomMarkers = List.of(
 				new CustomMarker(
 						"1",
+						"test",
 						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
@@ -65,6 +68,7 @@ class CustomMarkerServiceTest {
 		when(customMarkerRepository.findAll()).thenReturn(
 				List.of(new CustomMarker(
 						"1",
+						"test",
 						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
@@ -82,6 +86,7 @@ class CustomMarkerServiceTest {
 	@Test
 	void findMarkerById_expectDTO_onSuccess() throws MarkerNotFoundException {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
+				"test",
 				new double[] {0.0, 0.0},
 				"",
 				new int[] {0, 0},
@@ -92,6 +97,7 @@ class CustomMarkerServiceTest {
 		when(customMarkerRepository.findById("1")).thenReturn(
 				Optional.of(new CustomMarker(
 						"1",
+						"test",
 						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
@@ -116,6 +122,7 @@ class CustomMarkerServiceTest {
 	@Test
 	void updateMarker_expectDTO_onSuccess() throws MarkerNotFoundException {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
+				"test",
 				new double[] {0.0, 0.0},
 				"",
 				new int[] {0, 0},
@@ -126,6 +133,7 @@ class CustomMarkerServiceTest {
 		when(customMarkerRepository.findById("1")).thenReturn(
 				Optional.of(new CustomMarker(
 						"1",
+						"test",
 						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
@@ -137,6 +145,7 @@ class CustomMarkerServiceTest {
 		when(customMarkerRepository.save(any(CustomMarker.class))).thenReturn(
 				new CustomMarker(
 						"1",
+						"test",
 						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
@@ -158,6 +167,7 @@ class CustomMarkerServiceTest {
 		assertThrows(MarkerNotFoundException.class, () -> customMarkerService.updateMarker(
 				"1",
 				new CustomMarkerDTO(
+						"test",
 						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
@@ -174,6 +184,7 @@ class CustomMarkerServiceTest {
 		when(customMarkerRepository.findById("1")).thenReturn(
 				Optional.of(new CustomMarker(
 						"1",
+						"test",
 						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},

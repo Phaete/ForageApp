@@ -19,6 +19,7 @@ class ConverterServiceTest {
 	void fromDTO_CustomMarkerDTO_toCustomMarker() {
 		CustomMarker expectedCustomMarker = new CustomMarker(
 				"1",
+				"test",
 				new double[] {0.0, 0.0},
 				"",
 				new int[] {0, 0},
@@ -31,6 +32,7 @@ class ConverterServiceTest {
 
 		CustomMarker actualCustomMarker = converterService.fromDTO(
 				new CustomMarkerDTO(
+						"test",
 						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
@@ -45,6 +47,7 @@ class ConverterServiceTest {
 	@Test
 	void toDTO_CustomMarker_toCustomMarkerDTO() {
 		CustomMarkerDTO expectedCustomMarkerDTO = new CustomMarkerDTO(
+				"test",
 				new double[] {0.0, 0.0},
 				"",
 				new int[] {0, 0},
@@ -56,6 +59,7 @@ class ConverterServiceTest {
 		CustomMarkerDTO actualCustomMarkerDTO = converterService.toDTO(
 				new CustomMarker(
 						"1",
+						"test",
 						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
@@ -134,6 +138,7 @@ class ConverterServiceTest {
 				),
 				new CustomMarker(
 						"1",
+						"test",
 						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
@@ -160,6 +165,7 @@ class ConverterServiceTest {
 						),
 						new CustomMarker(
 								"1",
+								"test",
 								new double[] {0.0, 0.0},
 								"",
 								new int[] {0, 0},
@@ -190,6 +196,7 @@ class ConverterServiceTest {
 				),
 				new CustomMarker(
 						"1",
+						"test",
 						new double[] {0.0, 0.0},
 						"",
 						new int[] {0, 0},
@@ -217,6 +224,7 @@ class ConverterServiceTest {
 						),
 						new CustomMarker(
 								"1",
+								"test",
 								new double[] {0.0, 0.0},
 								"",
 								new int[] {0, 0},

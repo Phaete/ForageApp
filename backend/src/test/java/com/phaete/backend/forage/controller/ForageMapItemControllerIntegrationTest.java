@@ -151,6 +151,7 @@ class ForageMapItemControllerIntegrationTest {
 		customMarkerRepository.save(
 				new CustomMarker(
 						"1",
+						"test",
 						new double[] {51.0, 10.0},
 						"test-icon",
 						new int[] {64, 64},
@@ -173,6 +174,7 @@ class ForageMapItemControllerIntegrationTest {
 						),
 						new CustomMarker(
 								"1",
+								"test",
 								new double[] {51.0, 10.0},
 								"test-icon",
 								new int[] {64, 64},
@@ -207,6 +209,7 @@ class ForageMapItemControllerIntegrationTest {
 									},
 									"customMarker": {
 										"id": "1",
+										"name": "test",
 										"position": [
 											51.0,
 											10.0
@@ -261,6 +264,7 @@ class ForageMapItemControllerIntegrationTest {
 						),
 						new CustomMarker(
 								"1",
+								"test",
 								new double[] {51.0, 10.0},
 								"test-icon",
 								new int[] {64, 64},
@@ -310,6 +314,7 @@ class ForageMapItemControllerIntegrationTest {
 		customMarkerRepository.save(
 				new CustomMarker(
 						"1",
+						"test",
 						new double[] {51.0, 10.0},
 						"test-icon",
 						new int[] {64, 64},
@@ -332,6 +337,7 @@ class ForageMapItemControllerIntegrationTest {
 						),
 						new CustomMarker(
 								"1",
+								"test",
 								new double[] {51.0, 10.0},
 								"test-icon",
 								new int[] {64, 64},
@@ -356,6 +362,7 @@ class ForageMapItemControllerIntegrationTest {
 												"forageWikiItem": null,
 												"customMarker": {
 													"id": "1",
+													"name":"test",
 													"position": [
 														51.0,
 														10.0
@@ -398,6 +405,7 @@ class ForageMapItemControllerIntegrationTest {
 		customMarkerRepository.save(
 				new CustomMarker(
 						"1",
+						"test",
 						new double[] {51.0, 10.0},
 						"test-icon",
 						new int[] {64, 64},
@@ -420,6 +428,7 @@ class ForageMapItemControllerIntegrationTest {
 						),
 						new CustomMarker(
 								"1",
+								"test",
 								new double[] {51.0, 10.0},
 								"test-icon",
 								new int[] {64, 64},
@@ -451,6 +460,7 @@ class ForageMapItemControllerIntegrationTest {
 						},
 						"customMarker": {
 							"id": "1",
+							"name": "test",
 							"position": [
 								51.0,
 								10.0
