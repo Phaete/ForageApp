@@ -3,6 +3,7 @@ package com.phaete.backend.forage.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 
@@ -10,26 +11,26 @@ public class ForageMapItem {
 	@Id private String id;
 	@DocumentReference private ForageWikiItem forageWikiItem;
 	@DocumentReference private CustomMarker customMarker;
+	private double[] position;
 	private ForageQuantity quantity;
 	private ForageQuality quality;
-	private String dateFound;
 	private String notes;
 
 	public ForageMapItem(
 			String id,
 			ForageWikiItem forageWikiItem,
 			CustomMarker customMarker,
+			double[] position,
 			ForageQuantity quantity,
 			ForageQuality quality,
-			String dateFound,
 			String notes
 	) {
 		this.id = id;
 		this.forageWikiItem = forageWikiItem;
 		this.customMarker = customMarker;
+		this.position = position;
 		this.quantity = quantity;
 		this.quality = quality;
-		this.dateFound = dateFound;
 		this.notes = notes;
 	}
 
@@ -57,6 +58,14 @@ public class ForageMapItem {
 		this.customMarker = customMarker;
 	}
 
+	public double[] getPosition() {
+		return position;
+	}
+
+	public void setPosition(double[] position) {
+		this.position = position;
+	}
+
 	public ForageQuantity getQuantity() {
 		return quantity;
 	}
@@ -73,14 +82,6 @@ public class ForageMapItem {
 		this.quality = quality;
 	}
 
-	public String getDateFound() {
-		return dateFound;
-	}
-
-	public void setDateFound(String dateFound) {
-		this.dateFound = dateFound;
-	}
-
 	public String getNotes() {
 		return notes;
 	}
@@ -94,12 +95,12 @@ public class ForageMapItem {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		ForageMapItem that = (ForageMapItem) o;
-		return Objects.equals(id, that.id) && Objects.equals(forageWikiItem, that.forageWikiItem) && Objects.equals(customMarker, that.customMarker) && quantity == that.quantity && quality == that.quality && Objects.equals(dateFound, that.dateFound) && Objects.equals(notes, that.notes);
+		return Objects.equals(id, that.id) && Objects.equals(forageWikiItem, that.forageWikiItem) && Objects.equals(customMarker, that.customMarker) && Objects.deepEquals(position, that.position) && quantity == that.quantity && quality == that.quality && Objects.equals(notes, that.notes);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, forageWikiItem, customMarker, quantity, quality, dateFound, notes);
+		return Objects.hash(id, forageWikiItem, customMarker, Arrays.hashCode(position), quantity, quality, notes);
 	}
 
 	@Override
@@ -108,9 +109,9 @@ public class ForageMapItem {
 				"id='" + id + '\'' +
 				", forageWikiItem=" + forageWikiItem +
 				", customMarker=" + customMarker +
+				", position=" + Arrays.toString(position) +
 				", quantity=" + quantity +
 				", quality=" + quality +
-				", dateFound='" + dateFound + '\'' +
 				", notes='" + notes + '\'' +
 				'}';
 	}

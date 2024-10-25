@@ -26,7 +26,6 @@ public class ConverterService {
 		return new CustomMarker(
 				idService.generateId(),
 				customMarkerDTO.name(),
-				customMarkerDTO.position(),
 				customMarkerDTO.iconUrl(),
 				customMarkerDTO.iconSize(),
 				customMarkerDTO.iconAnchor(),
@@ -44,7 +43,6 @@ public class ConverterService {
 	public CustomMarkerDTO toDTO(CustomMarker customMarker){
 		return new CustomMarkerDTO(
 				customMarker.name(),
-				customMarker.position(),
 				customMarker.iconUrl(),
 				customMarker.iconSize(),
 				customMarker.iconAnchor(),
@@ -100,9 +98,9 @@ public class ConverterService {
 				idService.generateId(),
 				forageMapItemDTO.forageWikiItem(),
 				forageMapItemDTO.customMarker(),
+				forageMapItemDTO.position(),
 				forageMapItemDTO.quantity(),
 				forageMapItemDTO.quality(),
-				forageMapItemDTO.dateFound(),
 				forageMapItemDTO.notes()
 		);
 	}
@@ -117,9 +115,9 @@ public class ConverterService {
 		return new ForageMapItemDTO(
 				forageMapItem.getForageWikiItem(),
 				forageMapItem.getCustomMarker(),
+				forageMapItem.getPosition(),
 				forageMapItem.getQuantity(),
 				forageMapItem.getQuality(),
-				forageMapItem.getDateFound(),
 				forageMapItem.getNotes()
 		);
 	}

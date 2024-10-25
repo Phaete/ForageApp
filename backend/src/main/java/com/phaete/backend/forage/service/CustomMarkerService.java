@@ -6,7 +6,6 @@ import com.phaete.backend.forage.model.MarkerNotFoundException;
 import com.phaete.backend.forage.repository.CustomMarkerRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -100,7 +99,6 @@ public class CustomMarkerService {
 						new CustomMarker(
 								id,
 								customMarkerDTO.name(),
-								customMarkerDTO.position(),
 								customMarkerDTO.iconUrl(),
 								customMarkerDTO.iconSize(),
 								customMarkerDTO.iconAnchor(),
@@ -121,6 +119,6 @@ public class CustomMarkerService {
 	public String deleteMarker(String id) throws MarkerNotFoundException {
 		CustomMarkerDTO customMarkerToDelete = findMarkerById(id);
 		customMarkerRepository.deleteById(id);
-		return Arrays.toString(customMarkerToDelete.position());
+		return customMarkerToDelete.name();
 	}
 }

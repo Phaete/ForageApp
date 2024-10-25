@@ -54,10 +54,6 @@ class ForageMapItemControllerIntegrationTest {
 						},
 						"customMarker": {
 							"id": "1",
-							"position": [
-								51.0,
-								10.0
-							],
 							"iconUrl": "test-icon",
 							"iconSize": [
 								64,
@@ -73,9 +69,11 @@ class ForageMapItemControllerIntegrationTest {
 							],
 							"popupText": "Test popup"
 						},
+						"position": [
+							0.0, 0.0
+						],
 						"quantity": "ABUNDANT",
 						"quality": "EXCELLENT",
-						"dateFound": "never",
 						"notes": "test"
 					}
 				""")
@@ -96,10 +94,6 @@ class ForageMapItemControllerIntegrationTest {
 						},
 						"customMarker": {
 							"id": "1",
-							"position": [
-								51.0,
-								10.0
-							],
 							"iconUrl": "test-icon",
 							"iconSize": [
 								64,
@@ -115,9 +109,11 @@ class ForageMapItemControllerIntegrationTest {
 							],
 							"popupText": "Test popup"
 						},
+						"position": [
+							0.0, 0.0
+						],
 						"quantity": "ABUNDANT",
 						"quality": "EXCELLENT",
-						"dateFound": "never",
 						"notes": "test"
 					}
 				"""));
@@ -152,7 +148,6 @@ class ForageMapItemControllerIntegrationTest {
 				new CustomMarker(
 						"1",
 						"test",
-						new double[] {51.0, 10.0},
 						"test-icon",
 						new int[] {64, 64},
 						new int[] {32, 64},
@@ -175,16 +170,15 @@ class ForageMapItemControllerIntegrationTest {
 						new CustomMarker(
 								"1",
 								"test",
-								new double[] {51.0, 10.0},
 								"test-icon",
 								new int[] {64, 64},
 								new int[] {32, 64},
 								new int[] {0, 64},
 								"Test popup"
 						),
+						new double[] {0.0, 0.0},
 						ForageQuantity.ABUNDANT,
 						ForageQuality.EXCELLENT,
-						"never",
 						"test"
 				)
 		);
@@ -210,10 +204,6 @@ class ForageMapItemControllerIntegrationTest {
 									"customMarker": {
 										"id": "1",
 										"name": "test",
-										"position": [
-											51.0,
-											10.0
-										],
 										"iconUrl": "test-icon",
 										"iconSize": [
 											64, 64
@@ -226,9 +216,11 @@ class ForageMapItemControllerIntegrationTest {
 										],
 										"popupText": "Test popup"
 									},
+									"position": [
+										0.0, 0.0
+									],
 									"quantity": "ABUNDANT",
 									"quality": "EXCELLENT",
-									"dateFound": "never",
 									"notes": "test"
 								}
 							],
@@ -265,16 +257,15 @@ class ForageMapItemControllerIntegrationTest {
 						new CustomMarker(
 								"1",
 								"test",
-								new double[] {51.0, 10.0},
 								"test-icon",
 								new int[] {64, 64},
 								new int[] {32, 64},
 								new int[] {0, 64},
 								"Test popup"
 						),
+						new double[] {0.0, 0.0},
 						ForageQuantity.ABUNDANT,
 						ForageQuality.EXCELLENT,
-						"never",
 						"test"
 				)
 		);
@@ -298,9 +289,11 @@ class ForageMapItemControllerIntegrationTest {
 													]
 												},
 												"customMarker": null,
+												"position": [
+													0.0, 0.0
+												],
 												"quantity": "ABUNDANT",
 												"quality": "EXCELLENT",
-												"dateFound": "never",
 												"notes": "test"
 										}
 				]
@@ -315,7 +308,6 @@ class ForageMapItemControllerIntegrationTest {
 				new CustomMarker(
 						"1",
 						"test",
-						new double[] {51.0, 10.0},
 						"test-icon",
 						new int[] {64, 64},
 						new int[] {32, 64},
@@ -338,16 +330,15 @@ class ForageMapItemControllerIntegrationTest {
 						new CustomMarker(
 								"1",
 								"test",
-								new double[] {51.0, 10.0},
 								"test-icon",
 								new int[] {64, 64},
 								new int[] {32, 64},
 								new int[] {0, 64},
 								"Test popup"
 						),
+						new double[] {0.0, 0.0},
 						ForageQuantity.ABUNDANT,
 						ForageQuality.EXCELLENT,
-						"never",
 						"test"
 				)
 		);
@@ -363,10 +354,6 @@ class ForageMapItemControllerIntegrationTest {
 												"customMarker": {
 													"id": "1",
 													"name":"test",
-													"position": [
-														51.0,
-														10.0
-													],
 													"iconUrl": "test-icon",
 													"iconSize": [
 														64, 64
@@ -379,9 +366,11 @@ class ForageMapItemControllerIntegrationTest {
 													],
 													"popupText": "Test popup"
 												},
+												"position": [
+													0.0, 0.0
+												],
 												"quantity": "ABUNDANT",
 												"quality": "EXCELLENT",
-												"dateFound": "never",
 												"notes": "test"
 										}
 				]
@@ -406,7 +395,6 @@ class ForageMapItemControllerIntegrationTest {
 				new CustomMarker(
 						"1",
 						"test",
-						new double[] {51.0, 10.0},
 						"test-icon",
 						new int[] {64, 64},
 						new int[] {32, 64},
@@ -429,16 +417,15 @@ class ForageMapItemControllerIntegrationTest {
 						new CustomMarker(
 								"1",
 								"test",
-								new double[] {51.0, 10.0},
 								"test-icon",
 								new int[] {64, 64},
 								new int[] {32, 64},
 								new int[] {0, 64},
 								"Test popup"
 						),
+						new double[] {0.0, 0.0},
 						ForageQuantity.ABUNDANT,
 						ForageQuality.EXCELLENT,
-						"never",
 						"test"
 				)
 		);
@@ -461,10 +448,6 @@ class ForageMapItemControllerIntegrationTest {
 						"customMarker": {
 							"id": "1",
 							"name": "test",
-							"position": [
-								51.0,
-								10.0
-							],
 							"iconUrl": "test-icon",
 							"iconSize": [
 								64, 64
@@ -477,9 +460,11 @@ class ForageMapItemControllerIntegrationTest {
 							],
 							"popupText": "Test popup"
 						},
+						"position": [
+							0.0, 0.0
+						],
 						"quantity": "ABUNDANT",
 						"quality": "EXCELLENT",
-						"dateFound": "never",
 						"notes": "test"
 					}
 				"""));
