@@ -1,8 +1,9 @@
-import {Icon} from "./Icon.ts";
-
 export type CustomMarker = {
-	uniqueMarkerId: React.Key | null | undefined,
-	position: number[],
-	icon: Icon,
+	id: string,
+	name: string,
+	iconUrl: string,
+	iconSize: number[],
+	iconAnchor: number[],
+	popupAnchor: number[],
 	popupText: string
 }

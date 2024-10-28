@@ -17,16 +17,7 @@ function App() {
 
 	function fetchWikiData() {
 		axios.get("api/forageWikiItems")
-			.then(results => setForageWikiItems(
-				results.data.map(
-                    (item: ForageWikiItem) => (
-						{
-							...item,
-							uniqueForageItemId: item.id || crypto.randomUUID()
-						}
-					)
-				)
-			))
+			.then(results => setForageWikiItems(results.data))
 			.catch(error => console.log(error))
 	}
 
@@ -56,19 +47,19 @@ function App() {
 					<Route path={"/map"} element={
 						<>
 							<p>Map</p>
-							<MapView />
+							<MapView customMarker={customMarker} forageWikiItems={forageWikiItems}/>
 						</>
 					} />
 					<Route path={"/wiki"} element={
 						<>
 							<p>Wiki</p>
-							<ForageWiki forageWikiItems={forageWikiItems}/>
+							<ForageWiki forageWikiItems={forageWikiItems} fetchWikiData={fetchWikiData}/>
 						</>
 					} />
 					<Route path={"/admin"} element={
 						<>
 							<p>Admin</p>
-							<AdminDashboard forageWikiItems={forageWikiItems} customMarker={customMarker}/>
+							<AdminDashboard forageWikiItems={forageWikiItems} customMarkers={customMarker} fetchWikiData={fetchWikiData} fetchCustomMarkerData={fetchCustomMarkerData}/>
 						</>
 					} />
 				</Routes>

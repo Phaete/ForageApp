@@ -3,5 +3,7 @@ import {CustomMarker} from "../../types/CustomMarker.ts";
 
 export type AdminDashboardProps = {
 	forageWikiItems: ForageWikiItem[],
-	customMarker: CustomMarker[]
+	customMarkers: CustomMarker[],
+	fetchWikiData: () => void,
+	fetchCustomMarkerData: () => void
 }
