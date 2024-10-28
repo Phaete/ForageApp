@@ -1,29 +1,17 @@
 import {AdminDashboardProps} from "./AdminDashboardProps.ts"
+import ForageWiki from "../forageWiki/ForageWiki.tsx";
+import CustomMarkerGallery from "../customMarkerGallery/CustomMarkerGallery.tsx";
 
 
 export default function AdminDashboard(props: Readonly<AdminDashboardProps>) {
 
+
     return (
         <div className={"boxed"}>
             <h1>Admin Dashboard</h1>
-            <h2>Forage Wiki Items</h2>
-            {props.forageWikiItems.length > 0 ?
-                <>
-                    {props.forageWikiItems.map((forageWikiItem) => (
-                        <p key={forageWikiItem.name}>{forageWikiItem.name}</p>
-                    ))}
-                </>
-             :
-                <p>No forage wiki items found</p>}
+            <ForageWiki forageWikiItems={props.forageWikiItems} fetchWikiData={props.fetchWikiData}/>
 
-            <h2>Custom Marker</h2>
-            {props.customMarker.length > 0 ?
-                <>
-                    {props.customMarker.map((customMarker) => (
-                        <p key={customMarker.uniqueMarkerId}>{customMarker.position}</p>))}
-                </>
-             :
-                <p>No custom marker found</p>}
+            <CustomMarkerGallery customMarkers={props.customMarkers} fetchCustomMarkerData={props.fetchCustomMarkerData}/>
         </div>
     )
 }
