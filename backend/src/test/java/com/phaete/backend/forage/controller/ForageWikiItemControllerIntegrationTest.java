@@ -5,12 +5,12 @@ import com.phaete.backend.forage.model.ForageSeason;
 import com.phaete.backend.forage.model.ForageSource;
 import com.phaete.backend.forage.model.ForageWikiItem;
 import com.phaete.backend.forage.repository.ForageWikiItemRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -21,14 +21,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-class ForageWikiItemControllerIntegrationTest {
+class ForageWikiItemControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@Autowired
 	private ForageWikiItemRepository forageWikiItemRepository;
+
+	@AfterEach
+	void tearDown() {
+		forageWikiItemRepository.deleteAll();
+	}
 
 	@Test
 	void createForageWikiItem_expectCreated() throws Exception {
@@ -128,7 +132,7 @@ class ForageWikiItemControllerIntegrationTest {
 						"name": "Apple Tree",
 						"category": "FRUIT",
 						"source": "TREE",
-						"description": "Apple Tree",
+						"description": "Apple Tree123",
 						"season": "FALL",
 						"imageURLs": ["different_test"]
 					}
@@ -139,7 +143,7 @@ class ForageWikiItemControllerIntegrationTest {
 						"name": "Apple Tree",
 						"category": "FRUIT",
 						"source": "TREE",
-						"description": "Apple Tree",
+						"description": "Apple Tree123",
 						"season": "FALL",
 						"imageURLs": ["different_test"]
 					}

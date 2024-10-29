@@ -39,8 +39,7 @@ class ForageMapItemServiceTest {
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
-						new int[] {0, 0},
-						""
+						new int[] {0, 0}
 				),
 				new double[] {0.0, 0.0},
 				ForageQuantity.ABUNDANT,
@@ -66,8 +65,7 @@ class ForageMapItemServiceTest {
 								"",
 								new int[] {0, 0},
 								new int[] {0, 0},
-								new int[] {0, 0},
-								""
+								new int[] {0, 0}
 						),
 						new double[] {0.0, 0.0},
 						ForageQuantity.ABUNDANT,
@@ -104,8 +102,7 @@ class ForageMapItemServiceTest {
 								"",
 								new int[] {0, 0},
 								new int[] {0, 0},
-								new int[] {0, 0},
-								""
+								new int[] {0, 0}
 						),
 						new double[] {0.0, 0.0},
 						ForageQuantity.ABUNDANT,
@@ -133,8 +130,7 @@ class ForageMapItemServiceTest {
 										"",
 										new int[] {0, 0},
 										new int[] {0, 0},
-										new int[] {0, 0},
-										""
+										new int[] {0, 0}
 								),
 								new double[] {0.0, 0.0},
 								ForageQuantity.ABUNDANT,
@@ -197,8 +193,7 @@ class ForageMapItemServiceTest {
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
-						new int[] {0, 0},
-						""
+						new int[] {0, 0}
 				),
 				new double[] {0.0, 0.0},
 				ForageQuantity.ABUNDANT,
@@ -225,8 +220,7 @@ class ForageMapItemServiceTest {
 										"",
 										new int[] {0, 0},
 										new int[] {0, 0},
-										new int[] {0, 0},
-										""
+										new int[] {0, 0}
 								),
 								new double[] {0.0, 0.0},
 								ForageQuantity.ABUNDANT,
@@ -252,8 +246,7 @@ class ForageMapItemServiceTest {
 										"",
 										new int[] {0, 0},
 										new int[] {0, 0},
-										new int[] {0, 0},
-										""
+										new int[] {0, 0}
 								),
 								new double[] {0.0, 0.0},
 								ForageQuantity.ABUNDANT,

@@ -4,12 +4,12 @@ import com.phaete.backend.forage.model.*;
 import com.phaete.backend.forage.repository.CustomMarkerRepository;
 import com.phaete.backend.forage.repository.ForageMapItemRepository;
 import com.phaete.backend.forage.repository.ForageWikiItemRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -20,20 +20,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-class ForageMapItemControllerIntegrationTest {
+class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 
 	@Autowired
 	private MockMvc mockMvc;
-
-	@Autowired
-	private ForageMapItemRepository forageMapItemRepository;
 
 	@Autowired
 	private CustomMarkerRepository customMarkerRepository;
 
 	@Autowired
 	private ForageWikiItemRepository forageWikiItemRepository;
+
+	@Autowired
+	private ForageMapItemRepository forageMapItemRepository;
+
+	@AfterEach
+	void tearDown() {
+		customMarkerRepository.deleteAll();
+		forageWikiItemRepository.deleteAll();
+		forageMapItemRepository.deleteAll();
+	}
 
 	@Test
 	void createForageMapItem_expectCreated() throws Exception {
@@ -66,8 +72,7 @@ class ForageMapItemControllerIntegrationTest {
 							"popupAnchor": [
 								0,
 								64
-							],
-							"popupText": "Test popup"
+							]
 						},
 						"position": [
 							0.0, 0.0
@@ -106,8 +111,7 @@ class ForageMapItemControllerIntegrationTest {
 							"popupAnchor": [
 								0,
 								64
-							],
-							"popupText": "Test popup"
+							]
 						},
 						"position": [
 							0.0, 0.0
@@ -151,8 +155,7 @@ class ForageMapItemControllerIntegrationTest {
 						"test-icon",
 						new int[] {64, 64},
 						new int[] {32, 64},
-						new int[] {0, 64},
-						"Test popup"
+						new int[] {0, 64}
 				)
 		);
 		forageMapItemRepository.save(
@@ -173,8 +176,7 @@ class ForageMapItemControllerIntegrationTest {
 								"test-icon",
 								new int[] {64, 64},
 								new int[] {32, 64},
-								new int[] {0, 64},
-								"Test popup"
+								new int[] {0, 64}
 						),
 						new double[] {0.0, 0.0},
 						ForageQuantity.ABUNDANT,
@@ -213,8 +215,7 @@ class ForageMapItemControllerIntegrationTest {
 										],
 										"popupAnchor": [
 											0, 64
-										],
-										"popupText": "Test popup"
+										]
 									},
 									"position": [
 										0.0, 0.0
@@ -230,7 +231,7 @@ class ForageMapItemControllerIntegrationTest {
 	}
 
 	@Test
-	void findAllForageMapItems_returnsForageMapItems_withoutInvalidCustomMarker() throws Exception {
+	void findAllForageMapItems_filtersOutForageMapItems_withInvalidCustomMarker() throws Exception {
 		forageWikiItemRepository.save(
 				new ForageWikiItem(
 						"1",
@@ -260,8 +261,7 @@ class ForageMapItemControllerIntegrationTest {
 								"test-icon",
 								new int[] {64, 64},
 								new int[] {32, 64},
-								new int[] {0, 64},
-								"Test popup"
+								new int[] {0, 64}
 						),
 						new double[] {0.0, 0.0},
 						ForageQuantity.ABUNDANT,
@@ -303,7 +303,7 @@ class ForageMapItemControllerIntegrationTest {
 	}
 
 	@Test
-	void findAllForageMapItems_returnsForageMapItems_withoutInvalidForageWikiItem() throws Exception {
+	void findAllForageMapItems_filtersOutForageMapItems_withInvalidForageWikiItem() throws Exception {
 		customMarkerRepository.save(
 				new CustomMarker(
 						"1",
@@ -311,8 +311,7 @@ class ForageMapItemControllerIntegrationTest {
 						"test-icon",
 						new int[] {64, 64},
 						new int[] {32, 64},
-						new int[] {0, 64},
-						"Test popup"
+						new int[] {0, 64}
 				)
 		);
 		forageMapItemRepository.save(
@@ -333,8 +332,7 @@ class ForageMapItemControllerIntegrationTest {
 								"test-icon",
 								new int[] {64, 64},
 								new int[] {32, 64},
-								new int[] {0, 64},
-								"Test popup"
+								new int[] {0, 64}
 						),
 						new double[] {0.0, 0.0},
 						ForageQuantity.ABUNDANT,
@@ -363,8 +361,7 @@ class ForageMapItemControllerIntegrationTest {
 													],
 													"popupAnchor": [
 														0, 64
-													],
-													"popupText": "Test popup"
+													]
 												},
 												"position": [
 													0.0, 0.0
@@ -398,8 +395,7 @@ class ForageMapItemControllerIntegrationTest {
 						"test-icon",
 						new int[] {64, 64},
 						new int[] {32, 64},
-						new int[] {0, 64},
-						"Test popup"
+						new int[] {0, 64}
 				)
 		);
 		forageMapItemRepository.save(
@@ -420,8 +416,7 @@ class ForageMapItemControllerIntegrationTest {
 								"test-icon",
 								new int[] {64, 64},
 								new int[] {32, 64},
-								new int[] {0, 64},
-								"Test popup"
+								new int[] {0, 64}
 						),
 						new double[] {0.0, 0.0},
 						ForageQuantity.ABUNDANT,
@@ -457,8 +452,7 @@ class ForageMapItemControllerIntegrationTest {
 							],
 							"popupAnchor": [
 								0, 64
-							],
-							"popupText": "Test popup"
+							]
 						},
 						"position": [
 							0.0, 0.0

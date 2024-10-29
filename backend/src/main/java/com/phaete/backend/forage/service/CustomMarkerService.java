@@ -102,8 +102,7 @@ public class CustomMarkerService {
 								customMarkerDTO.iconUrl(),
 								customMarkerDTO.iconSize(),
 								customMarkerDTO.iconAnchor(),
-								customMarkerDTO.popupAnchor(),
-								customMarkerDTO.popupText()
+								customMarkerDTO.popupAnchor()
 						)
 				)
 		);

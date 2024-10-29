@@ -28,8 +28,7 @@ class CustomMarkerServiceTest {
 				"",
 				new int[] {0, 0},
 				new int[] {0, 0},
-				new int[] {0, 0},
-				""
+				new int[] {0, 0}
 		);
 		when(customMarkerRepository.save(any(CustomMarker.class))).thenReturn(
 				new CustomMarker(
@@ -38,8 +37,8 @@ class CustomMarkerServiceTest {
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
-						new int[] {0, 0},
-						"")
+						new int[] {0, 0}
+				)
 		);
 		when(idService.generateId()).thenReturn("1");
 
@@ -57,8 +56,7 @@ class CustomMarkerServiceTest {
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
-						new int[] {0, 0},
-						""
+						new int[] {0, 0}
 				)
 		);
 		when(customMarkerRepository.findAll()).thenReturn(
@@ -68,8 +66,7 @@ class CustomMarkerServiceTest {
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
-						new int[] {0, 0},
-						""
+						new int[] {0, 0}
 				))
 		);
 
@@ -85,8 +82,7 @@ class CustomMarkerServiceTest {
 				"",
 				new int[] {0, 0},
 				new int[] {0, 0},
-				new int[] {0, 0},
-				""
+				new int[] {0, 0}
 		);
 		when(customMarkerRepository.findById("1")).thenReturn(
 				Optional.of(new CustomMarker(
@@ -95,8 +91,7 @@ class CustomMarkerServiceTest {
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
-						new int[] {0, 0},
-						""
+						new int[] {0, 0}
 				))
 		);
 
@@ -119,8 +114,7 @@ class CustomMarkerServiceTest {
 				"",
 				new int[] {0, 0},
 				new int[] {0, 0},
-				new int[] {0, 0},
-				"expected"
+				new int[] {0, 0}
 		);
 		when(customMarkerRepository.findById("1")).thenReturn(
 				Optional.of(new CustomMarker(
@@ -129,8 +123,7 @@ class CustomMarkerServiceTest {
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
-						new int[] {0, 0},
-						""
+						new int[] {0, 0}
 				))
 		);
 		when(customMarkerRepository.save(any(CustomMarker.class))).thenReturn(
@@ -140,8 +133,7 @@ class CustomMarkerServiceTest {
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
-						new int[] {0, 0},
-						"expected"
+						new int[] {0, 0}
 				)
 		);
 
@@ -161,8 +153,7 @@ class CustomMarkerServiceTest {
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
-						new int[] {0, 0},
-						""
+						new int[] {0, 0}
 				)
 		));
 	}
@@ -177,8 +168,7 @@ class CustomMarkerServiceTest {
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
-						new int[] {0, 0},
-						""
+						new int[] {0, 0}
 				))
 		);
 

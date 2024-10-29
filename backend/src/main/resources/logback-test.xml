@@ -3,9 +3,16 @@
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} - %msg%n</pattern>
         </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level> <!-- Change this level as per your need: INFO, WARN, ERROR -->
+        </filter>
     </appender>
 
     <root level="debug">
         <appender-ref ref="CONSOLE" />
     </root>
+
+    <logger name="com.phaete" level="info" additivity="false">
+        <appender-ref ref="CONSOLE" />
+    </logger>
 </configuration>
