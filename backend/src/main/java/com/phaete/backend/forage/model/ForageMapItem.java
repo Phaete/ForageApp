@@ -8,64 +8,15 @@ import java.util.Arrays;
 import java.util.Objects;
 
 @Document(collection = "forageMapItem")
-public class ForageMapItem {
-	@Id private String id;
-	@DocumentReference private ForageWikiItem forageWikiItem;
-	@DocumentReference private CustomMarker customMarker;
-	private double[] position;
-	private ForageQuantity quantity;
-	private ForageQuality quality;
-	private String notes;
-
-	public ForageMapItem(
-			String id,
-			ForageWikiItem forageWikiItem,
-			CustomMarker customMarker,
+public record ForageMapItem(
+			@Id String id,
+			@DocumentReference ForageWikiItem forageWikiItem,
+			@DocumentReference CustomMarker customMarker,
 			double[] position,
 			ForageQuantity quantity,
 			ForageQuality quality,
 			String notes
-	) {
-		this.id = id;
-		this.forageWikiItem = forageWikiItem;
-		this.customMarker = customMarker;
-		this.position = position;
-		this.quantity = quantity;
-		this.quality = quality;
-		this.notes = notes;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public ForageWikiItem getForageWikiItem() {
-		return forageWikiItem;
-	}
-
-	public CustomMarker getCustomMarker() {
-		return customMarker;
-	}
-
-	public double[] getPosition() {
-		return position;
-	}
-
-	public ForageQuantity getQuantity() {
-		return quantity;
-	}
-
-	public ForageQuality getQuality() {
-		return quality;
-	}
-
-	public String getNotes() {
-		return notes;
-	}
+) {
 
 	@Override
 	public boolean equals(Object o) {
@@ -93,3 +44,6 @@ public class ForageMapItem {
 				'}';
 	}
 }
+
+
+
