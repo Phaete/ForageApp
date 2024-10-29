@@ -21,7 +21,7 @@ import java.util.Objects;
  *
  * @author -St4n aka Phaete
  */
-@Document()
+@Document(collection = "customMarker")
 public record CustomMarker(
 		@Id String id,
 		String name,

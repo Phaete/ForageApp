@@ -1,6 +1,7 @@
 package com.phaete.backend.forage.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Representation of a forage wiki item in the database.
@@ -16,6 +17,7 @@ import org.springframework.data.annotation.Id;
  *
  * @author -St4n aka Phaete
  */
+@Document(collection = "forageWikiItem")
 public record ForageWikiItem(
 		@Id String id,
 		String name,

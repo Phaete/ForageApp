@@ -1,12 +1,13 @@
 package com.phaete.backend.forage.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-
+@Document(collection = "forageMapItem")
 public class ForageMapItem {
 	@Id private String id;
 	@DocumentReference private ForageWikiItem forageWikiItem;
