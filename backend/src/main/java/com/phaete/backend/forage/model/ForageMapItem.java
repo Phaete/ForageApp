@@ -47,48 +47,24 @@ public class ForageMapItem {
 		return forageWikiItem;
 	}
 
-	public void setForageWikiItem(ForageWikiItem forageWikiItem) {
-		this.forageWikiItem = forageWikiItem;
-	}
-
 	public CustomMarker getCustomMarker() {
 		return customMarker;
-	}
-
-	public void setCustomMarker(CustomMarker customMarker) {
-		this.customMarker = customMarker;
 	}
 
 	public double[] getPosition() {
 		return position;
 	}
 
-	public void setPosition(double[] position) {
-		this.position = position;
-	}
-
 	public ForageQuantity getQuantity() {
 		return quantity;
-	}
-
-	public void setQuantity(ForageQuantity quantity) {
-		this.quantity = quantity;
 	}
 
 	public ForageQuality getQuality() {
 		return quality;
 	}
 
-	public void setQuality(ForageQuality quality) {
-		this.quality = quality;
-	}
-
 	public String getNotes() {
 		return notes;
-	}
-
-	public void setNotes(String notes) {
-		this.notes = notes;
 	}
 
 	@Override
