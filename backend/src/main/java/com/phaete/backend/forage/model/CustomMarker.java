@@ -17,7 +17,6 @@ import java.util.Objects;
  * 	<li> iconSize - the size of the icon image </li>
  * 	<li> iconAnchor - the anchor position of the icon image </li>
  * 	<li> popupAnchor - the anchor position of the popup text </li>
- * 	<li> popupText - the text to be displayed in the popup </li>
  * </ul>
  *
  * @author -St4n aka Phaete
@@ -29,8 +28,7 @@ public record CustomMarker(
 		String iconUrl,
 		int[] iconSize,
 		int[] iconAnchor,
-		int[] popupAnchor,
-		String popupText
+		int[] popupAnchor
 ) {
 
 	@Override
@@ -38,12 +36,12 @@ public record CustomMarker(
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		CustomMarker that = (CustomMarker) o;
-		return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(iconUrl, that.iconUrl) && Objects.deepEquals(iconSize, that.iconSize) && Objects.deepEquals(iconAnchor, that.iconAnchor) && Objects.equals(popupText, that.popupText) && Objects.deepEquals(popupAnchor, that.popupAnchor);
+		return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(iconUrl, that.iconUrl) && Objects.deepEquals(iconSize, that.iconSize) && Objects.deepEquals(iconAnchor, that.iconAnchor) && Objects.deepEquals(popupAnchor, that.popupAnchor);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, iconUrl, Arrays.hashCode(iconSize), Arrays.hashCode(iconAnchor), Arrays.hashCode(popupAnchor), popupText);
+		return Objects.hash(id, name, iconUrl, Arrays.hashCode(iconSize), Arrays.hashCode(iconAnchor), Arrays.hashCode(popupAnchor));
 	}
 
 	@Override
@@ -55,7 +53,7 @@ public record CustomMarker(
 				", iconSize=" + Arrays.toString(iconSize) +
 				", iconAnchor=" + Arrays.toString(iconAnchor) +
 				", popupAnchor=" + Arrays.toString(popupAnchor) +
-				", popupText='" + popupText + '\'' +
 				'}';
 	}
+
 }

@@ -29,8 +29,7 @@ public class ConverterService {
 				customMarkerDTO.iconUrl(),
 				customMarkerDTO.iconSize(),
 				customMarkerDTO.iconAnchor(),
-				customMarkerDTO.popupAnchor(),
-				customMarkerDTO.popupText()
+				customMarkerDTO.popupAnchor()
 		);
 	}
 
@@ -46,8 +45,7 @@ public class ConverterService {
 				customMarker.iconUrl(),
 				customMarker.iconSize(),
 				customMarker.iconAnchor(),
-				customMarker.popupAnchor(),
-				customMarker.popupText()
+				customMarker.popupAnchor()
 		);
 	}
 

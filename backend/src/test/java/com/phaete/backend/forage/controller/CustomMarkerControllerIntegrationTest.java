@@ -2,12 +2,12 @@ package com.phaete.backend.forage.controller;
 
 import com.phaete.backend.forage.model.CustomMarker;
 import com.phaete.backend.forage.repository.CustomMarkerRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -16,14 +16,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-class CustomMarkerControllerIntegrationTest {
+class CustomMarkerControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 
 	@Autowired
 	private MockMvc mockMvc;
 
 	@Autowired
 	private CustomMarkerRepository customMarkerRepository;
+
+	@AfterEach
+	void tearDown() {
+		customMarkerRepository.deleteAll();
+	}
 
 	@Test
 	void saveMarker_expectCreated() throws Exception {
@@ -35,8 +39,7 @@ class CustomMarkerControllerIntegrationTest {
 						"iconUrl": "https://example.com/icon.png",
 						"iconSize": [32, 32],
 						"iconAnchor": [16, 16],
-						"popupAnchor": [0, -16],
-						"popupText": "Test Marker"
+						"popupAnchor": [0, -16]
 					}
 				""")
 		)
@@ -47,8 +50,7 @@ class CustomMarkerControllerIntegrationTest {
 						"iconUrl": "https://example.com/icon.png",
 						"iconSize": [32, 32],
 						"iconAnchor": [16, 16],
-						"popupAnchor": [0, -16],
-						"popupText": "Test Marker"
+						"popupAnchor": [0, -16]
 					}
 				"""));
 	}
@@ -69,7 +71,7 @@ class CustomMarkerControllerIntegrationTest {
 	@Test
 	void findMarkerById_expectCustomMarker_onSuccess() throws Exception {
 		customMarkerRepository.save(
-				new CustomMarker("1", "test", "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0}, "")
+				new CustomMarker("1", "test", "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0})
 		);
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/customMarkers/1"))
@@ -80,8 +82,7 @@ class CustomMarkerControllerIntegrationTest {
 						"iconUrl": "",
 						"iconSize": [0, 0],
 						"iconAnchor": [0, 0],
-						"popupAnchor": [0, 0],
-						"popupText": ""
+						"popupAnchor": [0, 0]
 					}
 					"""));
 	}
@@ -89,7 +90,7 @@ class CustomMarkerControllerIntegrationTest {
 	@Test
 	void updateMarker_expectOK() throws Exception {
 		customMarkerRepository.save(
-				new CustomMarker("1", "test", "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0}, "")
+				new CustomMarker("1", "test", "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0})
 
 		);
 
@@ -102,8 +103,7 @@ class CustomMarkerControllerIntegrationTest {
 								"iconUrl": "",
 								"iconSize": [0, 0],
 								"iconAnchor": [0, 0],
-								"popupAnchor": [0, 0],
-								"popupText": ""
+								"popupAnchor": [0, 0]
 							}
 						""")
 		)
@@ -114,8 +114,7 @@ class CustomMarkerControllerIntegrationTest {
 						"iconUrl": "",
 						"iconSize": [0, 0],
 						"iconAnchor": [0, 0],
-						"popupAnchor": [0, 0],
-						"popupText": ""
+						"popupAnchor": [0, 0]
 					}
 				"""));
 	}
@@ -123,7 +122,7 @@ class CustomMarkerControllerIntegrationTest {
 	@Test
 	void deleteMarker_expectPositionOfMarker_onSuccess() throws Exception {
 		customMarkerRepository.save(
-				new CustomMarker("1", "test", "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0}, "")
+				new CustomMarker("1", "test", "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0})
 
 		);
 

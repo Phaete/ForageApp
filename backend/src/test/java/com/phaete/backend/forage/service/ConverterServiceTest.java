@@ -23,8 +23,7 @@ class ConverterServiceTest {
 				"",
 				new int[] {0, 0},
 				new int[] {0, 0},
-				new int[] {0, 0},
-				""
+				new int[] {0, 0}
 		);
 
 		when(idService.generateId()).thenReturn("1");
@@ -35,8 +34,7 @@ class ConverterServiceTest {
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
-						new int[] {0, 0},
-						""
+						new int[] {0, 0}
 				)
 		);
 		assertEquals(expectedCustomMarker, actualCustomMarker);
@@ -49,8 +47,7 @@ class ConverterServiceTest {
 				"",
 				new int[] {0, 0},
 				new int[] {0, 0},
-				new int[] {0, 0},
-				""
+				new int[] {0, 0}
 		);
 
 		CustomMarkerDTO actualCustomMarkerDTO = converterService.toDTO(
@@ -60,8 +57,7 @@ class ConverterServiceTest {
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
-						new int[] {0, 0},
-						""
+						new int[] {0, 0}
 				)
 		);
 		assertEquals(expectedCustomMarkerDTO, actualCustomMarkerDTO);
@@ -138,8 +134,7 @@ class ConverterServiceTest {
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
-						new int[] {0, 0},
-						""
+						new int[] {0, 0}
 				),
 				new double[] {0.0, 0.0},
 				ForageQuantity.ABUNDANT,
@@ -164,8 +159,7 @@ class ConverterServiceTest {
 								"",
 								new int[] {0, 0},
 								new int[] {0, 0},
-								new int[] {0, 0},
-								""
+								new int[] {0, 0}
 						),
 						new double[] {0.0, 0.0},
 						ForageQuantity.ABUNDANT,
@@ -194,8 +188,7 @@ class ConverterServiceTest {
 						"",
 						new int[] {0, 0},
 						new int[] {0, 0},
-						new int[] {0, 0},
-						""
+						new int[] {0, 0}
 				),
 				new double[] {0.0, 0.0},
 				ForageQuantity.ABUNDANT,
@@ -221,8 +214,7 @@ class ConverterServiceTest {
 								"",
 								new int[] {0, 0},
 								new int[] {0, 0},
-								new int[] {0, 0},
-								""
+								new int[] {0, 0}
 						),
 						new double[] {0.0, 0.0},
 						ForageQuantity.ABUNDANT,
