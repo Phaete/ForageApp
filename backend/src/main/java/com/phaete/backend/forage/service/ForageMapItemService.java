@@ -55,18 +55,18 @@ public class ForageMapItemService {
 				.collect(
 						Collectors.partitioningBy(
 								forageMapItem -> (
-										forageMapItem.getForageWikiItem() != null &&
-										forageMapItem.getCustomMarker() != null
+										forageMapItem.forageWikiItem() != null &&
+										forageMapItem.customMarker() != null
 								)
 						)
 				);
 		forageMapItemMap.get(false).forEach(
 				invalidForageMapItem -> {
-					if (invalidForageMapItem.getForageWikiItem() == null) {
-						logger.warn("ForageMapItem with id {} is missing the forageWikiItem", invalidForageMapItem.getId());
+					if (invalidForageMapItem.forageWikiItem() == null) {
+						logger.warn("ForageMapItem with id {} is missing the forageWikiItem", invalidForageMapItem.id());
 					}
-					if (invalidForageMapItem.getCustomMarker() == null) {
-						logger.warn("ForageMapItem with id {} is missing the customMarker", invalidForageMapItem.getId());
+					if (invalidForageMapItem.customMarker() == null) {
+						logger.warn("ForageMapItem with id {} is missing the customMarker", invalidForageMapItem.id());
 					}
 					logger.warn("Invalid ForageMapItem details: {}", invalidForageMapItem);
 				}

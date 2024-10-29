@@ -111,12 +111,12 @@ public class ConverterService {
 	 */
 	public ForageMapItemDTO toDTO(ForageMapItem forageMapItem) {
 		return new ForageMapItemDTO(
-				forageMapItem.getForageWikiItem(),
-				forageMapItem.getCustomMarker(),
-				forageMapItem.getPosition(),
-				forageMapItem.getQuantity(),
-				forageMapItem.getQuality(),
-				forageMapItem.getNotes()
+				forageMapItem.forageWikiItem(),
+				forageMapItem.customMarker(),
+				forageMapItem.position(),
+				forageMapItem.quantity(),
+				forageMapItem.quality(),
+				forageMapItem.notes()
 		);
 	}
 }
