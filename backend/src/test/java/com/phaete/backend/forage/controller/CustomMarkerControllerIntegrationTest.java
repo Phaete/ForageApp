@@ -120,7 +120,7 @@ class CustomMarkerControllerIntegrationTest extends AbstractMongoDBTestcontainer
 	}
 
 	@Test
-	void deleteMarker_expectPositionOfMarker_onSuccess() throws Exception {
+	void deleteMarker_expectNameOfMarker_onSuccess() throws Exception {
 		customMarkerRepository.save(
 				new CustomMarker("1", "test", "", new int[] {0, 0}, new int[] {0, 0}, new int[] {0, 0})
 

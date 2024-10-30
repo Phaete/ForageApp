@@ -292,4 +292,169 @@ class ForageMapItemServiceTest {
 
 		assertThrows(ForageMapItemNotFoundException.class, () -> forageMapItemService.findForageMapItemById("1"));
 	}
+
+	@Test
+	void updateForageMapItem_expectDTO_onSuccess() throws ForageMapItemNotFoundException {
+		ForageMapItemDTO expectedForageMapItemDTO = new ForageMapItemDTO(
+				new ForageWikiItem(
+						"1",
+						"Apple Tree",
+						ForageCategory.FRUIT,
+						ForageSource.TREE,
+						"Apple Tree",
+						ForageSeason.FALL,
+						List.of("test")
+				),
+				new CustomMarker(
+						"1",
+						"test",
+						"",
+						new int[] {0, 0},
+						new int[] {0, 0},
+						new int[] {0, 0}
+				),
+				new double[] {0.0, 0.0},
+				ForageQuantity.ABUNDANT,
+				ForageQuality.EXCELLENT,
+				"notes"
+		);
+
+		when(forageMapItemRepository.findById("1")).thenReturn(
+				Optional.of(
+						new ForageMapItem(
+								"1",
+								new ForageWikiItem(
+										"1",
+										"Apple Tree",
+										ForageCategory.FRUIT,
+										ForageSource.TREE,
+										"Apple Tree",
+										ForageSeason.FALL,
+										List.of("test")
+								),
+								new CustomMarker(
+										"1",
+										"test",
+										"",
+										new int[] {0, 0},
+										new int[] {0, 0},
+										new int[] {0, 0}
+								),
+								new double[] {1.0, 1.0},
+								ForageQuantity.ABUNDANT,
+								ForageQuality.EXCELLENT,
+								"notes"
+						)
+				)
+		);
+
+		when(forageMapItemRepository.save(any(ForageMapItem.class))).thenReturn(
+				new ForageMapItem(
+						"1",
+						new ForageWikiItem(
+								"1",
+								"Apple Tree",
+								ForageCategory.FRUIT,
+								ForageSource.TREE,
+								"Apple Tree",
+								ForageSeason.FALL,
+								List.of("test")
+						),
+						new CustomMarker(
+								"1",
+								"test",
+								"",
+								new int[] {0, 0},
+								new int[] {0, 0},
+								new int[] {0, 0}
+						),
+						new double[] {0.0, 0.0},
+						ForageQuantity.ABUNDANT,
+						ForageQuality.EXCELLENT,
+						"notes"
+				)
+		);
+
+		ForageMapItemDTO actualForageMapItem = forageMapItemService.updateForageMapItem("1", expectedForageMapItemDTO);
+		verify(forageMapItemRepository).save(any(ForageMapItem.class));
+		assertEquals(expectedForageMapItemDTO, actualForageMapItem);
+	}
+
+	@Test
+	void updateForageMapItem_expectThrows_onForageMapItemNotFound() {
+		when(forageMapItemRepository.findById("1")).thenReturn(Optional.empty());
+
+		assertThrows(ForageMapItemNotFoundException.class, () -> forageMapItemService.updateForageMapItem(
+				"1",
+				new ForageMapItemDTO(
+						new ForageWikiItem(
+								"1",
+								"Apple Tree",
+								ForageCategory.FRUIT,
+								ForageSource.TREE,
+								"Apple Tree",
+								ForageSeason.FALL,
+								List.of("test")
+						),
+						new CustomMarker(
+								"1",
+								"test",
+								"",
+								new int[] {0, 0},
+								new int[] {0, 0},
+								new int[] {0, 0}
+						),
+						new double[] {0.0, 0.0},
+						ForageQuantity.ABUNDANT,
+						ForageQuality.EXCELLENT,
+						"notes"
+
+				)
+		));
+	}
+
+	@Test
+	void deleteForageMapItem_expectPosition_onSuccess() throws ForageMapItemNotFoundException {
+		String expectedPosition = "[1.0, 1.0]";
+
+		when(forageMapItemRepository.findById("1")).thenReturn(
+				Optional.of(
+						new ForageMapItem(
+								"1",
+								new ForageWikiItem(
+										"1",
+										"Apple Tree",
+										ForageCategory.FRUIT,
+										ForageSource.TREE,
+										"Apple Tree",
+										ForageSeason.FALL,
+										List.of("test")
+								),
+								new CustomMarker(
+										"1",
+										"test",
+										"",
+										new int[] {0, 0},
+										new int[] {0, 0},
+										new int[] {0, 0}
+								),
+								new double[] {1.0, 1.0},
+								ForageQuantity.ABUNDANT,
+								ForageQuality.EXCELLENT,
+								"notes"
+						)
+				)
+		);
+
+		String actualPosition = forageMapItemService.deleteForageMapItem("1");
+		verify(forageMapItemRepository).deleteById("1");
+		assertEquals(expectedPosition, actualPosition);
+	}
+
+	@Test
+	void deleteForageMapItem_expectStatusNotFound_onEmptyDB() {
+		when(forageMapItemRepository.findById("1")).thenReturn(Optional.empty());
+
+		assertThrows(ForageMapItemNotFoundException.class, () -> forageMapItemService.deleteForageMapItem("1"));
+	}
 }
