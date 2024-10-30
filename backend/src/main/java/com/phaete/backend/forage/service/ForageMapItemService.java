@@ -19,6 +19,8 @@ public class ForageMapItemService {
 	private final ForageMapItemRepository forageMapItemRepository;
 	private final ConverterService converterService;
 
+	private static final String FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE = "Could not find forage map item with the id: ";
+
 	private static final Logger logger = LoggerFactory.getLogger(ForageMapItemService.class);
 
 	public ForageMapItemService(
@@ -81,15 +83,15 @@ public class ForageMapItemService {
 	 *
 	 * @param id the id of the forage map item to be retrieved
 	 * @return the forage map item with the given id
-	 * @throws ForageMapItemNotFoundException      if no forage map item with the given id was found
-	 * @throws MarkerNotFoundException            if the marker with the id of the forage map item's custom marker was not found
-	 * @throws ForageWikiItemNotFoundException     if the forage wiki item with the id of the forage map item's forage wiki item was not found
+	 * @throws ForageMapItemNotFoundException if no forage map item with the given id was found
+	 * @throws MarkerNotFoundException if the marker with the id of the forage map item's custom marker was not found
+	 * @throws ForageWikiItemNotFoundException if the forage wiki item with the id of the forage map item's forage wiki item was not found
 	 */
 	public ForageMapItemDTO findForageMapItemById(String id)
 			throws ForageMapItemNotFoundException, MarkerNotFoundException, ForageWikiItemNotFoundException {
 		ForageMapItemDTO forageMapItemDTO = converterService.toDTO(
 				forageMapItemRepository.findById(id).orElseThrow(
-					() -> new ForageMapItemNotFoundException("Could not find forage map item with the id: " + id)
+					() -> new ForageMapItemNotFoundException(FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE + id)
 				)
 		);
 		if (forageMapItemDTO.forageWikiItem() == null) {
@@ -126,14 +128,14 @@ public class ForageMapItemService {
 					)
 			);
 		} else {
-			throw new ForageMapItemNotFoundException("Could not find forage map item with the id: " + id);
+			throw new ForageMapItemNotFoundException(FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE + id);
 		}
 	}
 
 	public String deleteForageMapItem(String id) throws ForageMapItemNotFoundException {
 		ForageMapItem forageMapItemToDelete = forageMapItemRepository.findById(id)
 						.orElseThrow(
-								() -> new ForageMapItemNotFoundException("Could not find forage map item with the id: " + id)
+								() -> new ForageMapItemNotFoundException(FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE + id)
 						);
 		forageMapItemRepository.deleteById(id);
 		return Arrays.toString(forageMapItemToDelete.position());
