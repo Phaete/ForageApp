@@ -4,45 +4,29 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-import java.util.Arrays;
-import java.util.Objects;
-
+/**
+ * Representation of a forage map item in the database.
+ * A ForageMapItem is an object representing the relation between a forage item and a marker on the map.
+ * <p>
+ * @param id the id of the forage map item
+ * @param forageWikiItem the forage item associated with the map item
+ * @param customMarker the custom marker associated with the map item
+ * @param position the geographical position of the map item
+ * @param assessment the assessment of the forage item on the map
+ * @param notes additional notes about the forage map item
+ *
+ * @author -St4n aka Phaete
+ */
 @Document(collection = "forageMapItem")
 public record ForageMapItem(
-			@Id String id,
-			@DocumentReference ForageWikiItem forageWikiItem,
-			@DocumentReference CustomMarker customMarker,
-			double[] position,
-			ForageQuantity quantity,
-			ForageQuality quality,
-			String notes
+		@Id String id,
+		@DocumentReference ForageWikiItem forageWikiItem,
+		@DocumentReference CustomMarker customMarker,
+		GeoPosition position,
+		ForageMapItemAssessment assessment,
+		String notes
 ) {
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		ForageMapItem that = (ForageMapItem) o;
-		return Objects.equals(id, that.id) && Objects.equals(forageWikiItem, that.forageWikiItem) && Objects.equals(customMarker, that.customMarker) && Objects.deepEquals(position, that.position) && quantity == that.quantity && quality == that.quality && Objects.equals(notes, that.notes);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, forageWikiItem, customMarker, Arrays.hashCode(position), quantity, quality, notes);
-	}
-
-	@Override
-	public String toString() {
-		return "ForageMapItem{" +
-				"id='" + id + '\'' +
-				", forageWikiItem=" + forageWikiItem +
-				", customMarker=" + customMarker +
-				", position=" + Arrays.toString(position) +
-				", quantity=" + quantity +
-				", quality=" + quality +
-				", notes='" + notes + '\'' +
-				'}';
-	}
 }
 
 

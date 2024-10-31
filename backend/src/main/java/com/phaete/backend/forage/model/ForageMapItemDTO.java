@@ -1,38 +1,23 @@
 package com.phaete.backend.forage.model;
 
-import java.util.Arrays;
-import java.util.Objects;
-
+/**
+ * A Data Transfer Object for the {@link ForageMapItem} entity.
+ * It contains only the fields that are relevant for the frontend.
+ *
+ * @param forageWikiItem the forage item associated with the map item
+ * @param customMarker the custom marker associated with the map item
+ * @param position the geographical position of the map item
+ * @param assessment the assessment of the forage item on the map
+ * @param notes additional notes about the forage map item
+ *
+ * @author -St4n aka Phaete
+ */
 public record ForageMapItemDTO(
 		ForageWikiItem forageWikiItem,
 		CustomMarker customMarker,
-		double[] position,
-		ForageQuantity quantity,
-		ForageQuality quality,
+		GeoPosition position,
+		ForageMapItemAssessment assessment,
 		String notes
 ) {
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		ForageMapItemDTO that = (ForageMapItemDTO) o;
-		return Objects.equals(notes, that.notes) && Objects.deepEquals(position, that.position) && quality == that.quality && quantity == that.quantity && Objects.equals(customMarker, that.customMarker) && Objects.equals(forageWikiItem, that.forageWikiItem);
-	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(forageWikiItem, customMarker, Arrays.hashCode(position), quantity, quality, notes);
-	}
-
-	@Override
-	public String toString() {
-		return "ForageMapItemDTO{" +
-				"forageWikiItem=" + forageWikiItem +
-				", customMarker=" + customMarker +
-				", position=" + Arrays.toString(position) +
-				", quantity=" + quantity +
-				", quality=" + quality +
-				", notes='" + notes + '\'' +
-				'}';
-	}
 }
