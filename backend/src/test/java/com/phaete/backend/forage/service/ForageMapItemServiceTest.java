@@ -41,9 +41,8 @@ class ForageMapItemServiceTest {
 						new int[] {0, 0},
 						new int[] {0, 0}
 				),
-				new double[] {0.0, 0.0},
-				ForageQuantity.ABUNDANT,
-				ForageQuality.EXCELLENT,
+				new GeoPosition(0.0, 0.0),
+				new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 				"notes"
 		);
 
@@ -67,9 +66,8 @@ class ForageMapItemServiceTest {
 								new int[] {0, 0},
 								new int[] {0, 0}
 						),
-						new double[] {0.0, 0.0},
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
+						new GeoPosition(0.0, 0.0),
+						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 						"notes"
 				)
 		);
@@ -104,9 +102,8 @@ class ForageMapItemServiceTest {
 								new int[] {0, 0},
 								new int[] {0, 0}
 						),
-						new double[] {0.0, 0.0},
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
+						new GeoPosition(0.0, 0.0),
+						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 						"notes"
 				)
 		);
@@ -132,9 +129,8 @@ class ForageMapItemServiceTest {
 										new int[] {0, 0},
 										new int[] {0, 0}
 								),
-								new double[] {0.0, 0.0},
-								ForageQuantity.ABUNDANT,
-								ForageQuality.EXCELLENT,
+								new GeoPosition(0.0, 0.0),
+								new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 								"notes"
 						)
 				)
@@ -161,9 +157,8 @@ class ForageMapItemServiceTest {
 										List.of("test")
 								),
 								null,
-								new double[] {0.0, 0.0},
-								ForageQuantity.ABUNDANT,
-								ForageQuality.EXCELLENT,
+								new GeoPosition(0.0, 0.0),
+								new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 								"notes"
 						)
 				)
@@ -195,9 +190,8 @@ class ForageMapItemServiceTest {
 						new int[] {0, 0},
 						new int[] {0, 0}
 				),
-				new double[] {0.0, 0.0},
-				ForageQuantity.ABUNDANT,
-				ForageQuality.EXCELLENT,
+				new GeoPosition(0.0, 0.0),
+				new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 				"notes"
 		);
 
@@ -222,9 +216,8 @@ class ForageMapItemServiceTest {
 										new int[] {0, 0},
 										new int[] {0, 0}
 								),
-								new double[] {0.0, 0.0},
-								ForageQuantity.ABUNDANT,
-								ForageQuality.EXCELLENT,
+								new GeoPosition(0.0, 0.0),
+								new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 								"notes"
 						)
 				)
@@ -248,9 +241,8 @@ class ForageMapItemServiceTest {
 										new int[] {0, 0},
 										new int[] {0, 0}
 								),
-								new double[] {0.0, 0.0},
-								ForageQuantity.ABUNDANT,
-								ForageQuality.EXCELLENT,
+								new GeoPosition(0.0, 0.0),
+								new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 								"notes"
 						)
 				)
@@ -275,9 +267,8 @@ class ForageMapItemServiceTest {
 										List.of("test")
 								),
 								null,
-								new double[] {0.0, 0.0},
-								ForageQuantity.ABUNDANT,
-								ForageQuality.EXCELLENT,
+								new GeoPosition(0.0, 0.0),
+								new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 								"notes"
 						)
 				)
@@ -313,9 +304,8 @@ class ForageMapItemServiceTest {
 						new int[] {0, 0},
 						new int[] {0, 0}
 				),
-				new double[] {0.0, 0.0},
-				ForageQuantity.ABUNDANT,
-				ForageQuality.EXCELLENT,
+				new GeoPosition(0.0, 0.0),
+				new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 				"notes"
 		);
 
@@ -340,9 +330,8 @@ class ForageMapItemServiceTest {
 										new int[] {0, 0},
 										new int[] {0, 0}
 								),
-								new double[] {1.0, 1.0},
-								ForageQuantity.ABUNDANT,
-								ForageQuality.EXCELLENT,
+								new GeoPosition(1.0, 1.0),
+								new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 								"notes"
 						)
 				)
@@ -368,9 +357,8 @@ class ForageMapItemServiceTest {
 								new int[] {0, 0},
 								new int[] {0, 0}
 						),
-						new double[] {0.0, 0.0},
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
+						new GeoPosition(0.0, 0.0),
+						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 						"notes"
 				)
 		);
@@ -404,9 +392,8 @@ class ForageMapItemServiceTest {
 								new int[] {0, 0},
 								new int[] {0, 0}
 						),
-						new double[] {0.0, 0.0},
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
+						new GeoPosition(0.0, 0.0),
+						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 						"notes"
 
 				)
@@ -415,7 +402,7 @@ class ForageMapItemServiceTest {
 
 	@Test
 	void deleteForageMapItem_expectPosition_onSuccess() throws ForageMapItemNotFoundException {
-		String expectedPosition = "[1.0, 1.0]";
+		String expectedPosition = "1.0, 1.0";
 
 		when(forageMapItemRepository.findById("1")).thenReturn(
 				Optional.of(
@@ -438,9 +425,8 @@ class ForageMapItemServiceTest {
 										new int[] {0, 0},
 										new int[] {0, 0}
 								),
-								new double[] {1.0, 1.0},
-								ForageQuantity.ABUNDANT,
-								ForageQuality.EXCELLENT,
+								new GeoPosition(1.0, 1.0),
+								new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 								"notes"
 						)
 				)

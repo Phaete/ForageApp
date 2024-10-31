@@ -136,9 +136,8 @@ class ConverterServiceTest {
 						new int[] {0, 0},
 						new int[] {0, 0}
 				),
-				new double[] {0.0, 0.0},
-				ForageQuantity.ABUNDANT,
-				ForageQuality.EXCELLENT,
+				new GeoPosition(0.0, 0.0),
+				new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 				"notes"
 		);
 
@@ -161,9 +160,8 @@ class ConverterServiceTest {
 								new int[] {0, 0},
 								new int[] {0, 0}
 						),
-						new double[] {0.0, 0.0},
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
+						new GeoPosition(0.0, 0.0),
+						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 						"notes"
 				)
 		);
@@ -190,9 +188,8 @@ class ConverterServiceTest {
 						new int[] {0, 0},
 						new int[] {0, 0}
 				),
-				new double[] {0.0, 0.0},
-				ForageQuantity.ABUNDANT,
-				ForageQuality.EXCELLENT,
+				new GeoPosition(0.0, 0.0),
+				new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 				"notes"
 		);
 
@@ -216,9 +213,8 @@ class ConverterServiceTest {
 								new int[] {0, 0},
 								new int[] {0, 0}
 						),
-						new double[] {0.0, 0.0},
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
+						new GeoPosition(0.0, 0.0),
+						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 						"notes"
 				)
 		);

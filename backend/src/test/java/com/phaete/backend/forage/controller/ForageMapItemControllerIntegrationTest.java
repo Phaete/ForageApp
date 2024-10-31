@@ -74,11 +74,14 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								64
 							]
 						},
-						"position": [
-							0.0, 0.0
-						],
-						"quantity": "ABUNDANT",
-						"quality": "EXCELLENT",
+						"position": {
+							"latitude": 0.0,
+							"longitude": 0.0
+						},
+						"assessment": {
+							"quality": "EXCELLENT",
+							"quantity": "ABUNDANT"
+						},
 						"notes": "test"
 					}
 				""")
@@ -113,11 +116,14 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								64
 							]
 						},
-						"position": [
-							0.0, 0.0
-						],
-						"quantity": "ABUNDANT",
-						"quality": "EXCELLENT",
+						"position": {
+							"latitude": 0.0,
+							"longitude": 0.0
+						},
+						"assessment": {
+							"quality": "EXCELLENT",
+							"quantity": "ABUNDANT"
+						},
 						"notes": "test"
 					}
 				"""));
@@ -178,9 +184,8 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								new int[] {32, 64},
 								new int[] {0, 64}
 						),
-						new double[] {0.0, 0.0},
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
+						new GeoPosition(0.0, 0.0),
+						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 						"test"
 				)
 		);
@@ -217,11 +222,14 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 											0, 64
 										]
 									},
-									"position": [
-										0.0, 0.0
-									],
-									"quantity": "ABUNDANT",
-									"quality": "EXCELLENT",
+									"position": {
+										"latitude": 0.0,
+										"longitude": 0.0
+									},
+									"assessment": {
+										"quality": "EXCELLENT",
+										"quantity": "ABUNDANT"
+									},
 									"notes": "test"
 								}
 							],
@@ -263,9 +271,8 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								new int[] {32, 64},
 								new int[] {0, 64}
 						),
-						new double[] {0.0, 0.0},
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
+						new GeoPosition(0.0, 0.0),
+						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 						"test"
 				)
 		);
@@ -289,11 +296,14 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 													]
 												},
 												"customMarker": null,
-												"position": [
-													0.0, 0.0
-												],
-												"quantity": "ABUNDANT",
-												"quality": "EXCELLENT",
+												"position": {
+													"latitude": 0.0,
+													"longitude": 0.0
+												},
+												"assessment": {
+													"quality": "EXCELLENT",
+													"quantity": "ABUNDANT"
+												},
 												"notes": "test"
 										}
 				]
@@ -334,9 +344,8 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								new int[] {32, 64},
 								new int[] {0, 64}
 						),
-						new double[] {0.0, 0.0},
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
+						new GeoPosition(0.0, 0.0),
+						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 						"test"
 				)
 		);
@@ -363,11 +372,14 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 														0, 64
 													]
 												},
-												"position": [
-													0.0, 0.0
-												],
-												"quantity": "ABUNDANT",
-												"quality": "EXCELLENT",
+												"position": {
+													"latitude": 0.0,
+													"longitude": 0.0
+												},
+												"assessment": {
+													"quality": "EXCELLENT",
+													"quantity": "ABUNDANT"
+												},
 												"notes": "test"
 										}
 				]
@@ -418,9 +430,8 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								new int[] {32, 64},
 								new int[] {0, 64}
 						),
-						new double[] {0.0, 0.0},
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
+						new GeoPosition(0.0, 0.0),
+						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 						"test"
 				)
 		);
@@ -454,11 +465,14 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								0, 64
 							]
 						},
-						"position": [
-							0.0, 0.0
-						],
-						"quantity": "ABUNDANT",
-						"quality": "EXCELLENT",
+						"position": {
+							"latitude": 0.0,
+							"longitude": 0.0
+						},
+						"assessment": {
+							"quality": "EXCELLENT",
+							"quantity": "ABUNDANT"
+						},
 						"notes": "test"
 					}
 				"""));
@@ -513,9 +527,8 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								new int[] {32, 64},
 								new int[] {0, 64}
 						),
-						new double[] {0.0, 0.0},
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
+						new GeoPosition(0.0, 0.0),
+						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 						"test"
 				)
 		);
@@ -549,11 +562,14 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 							0, 64
 						]
 					},
-					"position": [
-						0.0, 0.0
-					],
-					"quantity": "ABUNDANT",
-					"quality": "EXCELLENT",
+					"position": {
+						"latitude": 0.0,
+						"longitude": 0.0
+					},
+					"assessment": {
+						"quality": "EXCELLENT",
+						"quantity": "ABUNDANT"
+					},
 					"notes": "test"
 				}
 				"""))
@@ -585,11 +601,14 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								0, 64
 							]
 						},
-						"position": [
-							0.0, 0.0
-						],
-						"quantity": "ABUNDANT",
-						quality: "EXCELLENT",
+						"position": {
+							"latitude": 0.0,
+							"longitude": 0.0
+						},
+						"assessment": {
+							"quality": "EXCELLENT",
+							"quantity": "ABUNDANT"
+						},
 						notes: "test"
 					}
 				"""));
@@ -626,11 +645,14 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 							0, 64
 						]
 					},
-					"position": [
-						0.0, 0.0
-					],
-					"quantity": "ABUNDANT",
-					"quality": "EXCELLENT",
+					"position": {
+						"latitude": 0.0,
+						"longitude": 0.0
+					},
+					"assessment": {
+						"quality": "EXCELLENT",
+						"quantity": "ABUNDANT"
+					},
 					"notes": "test"
 				}
 				"""))
@@ -680,16 +702,15 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								new int[] {32, 64},
 								new int[] {0, 64}
 						),
-						new double[] {0.0, 0.0},
-						ForageQuantity.ABUNDANT,
-						ForageQuality.EXCELLENT,
+						new GeoPosition(0.0, 0.0),
+						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
 						"test"
 				)
 		);
 
 		mockMvc.perform(MockMvcRequestBuilders.delete("/api/forageMapItems/1"))
 				.andExpect(status().isOk())
-				.andExpect(content().string("[0.0, 0.0]"));
+				.andExpect(content().string("0.0, 0.0"));
 	}
 
 	@Test

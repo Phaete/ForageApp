@@ -24,7 +24,7 @@ import java.util.List;
  * <p>
  * The service acts as a bridge between the controller and the repository
  * and contains all business logic for the ForageWikiItem objects.
- *
+ * <p>
  * @author -St4n aka Phaete
  */
 @Service

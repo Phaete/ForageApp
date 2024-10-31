@@ -4,8 +4,9 @@ import com.phaete.backend.forage.model.*;
 import org.springframework.stereotype.Service;
 
 /**
- * Converter for conversion between DTOs and regular objects.
+ * Converter for conversion between DTOs and entities.
  * <p>
+ * @author -St4n aka Phaete
  */
 @Service
 public class ConverterService {
@@ -97,8 +98,7 @@ public class ConverterService {
 				forageMapItemDTO.forageWikiItem(),
 				forageMapItemDTO.customMarker(),
 				forageMapItemDTO.position(),
-				forageMapItemDTO.quantity(),
-				forageMapItemDTO.quality(),
+				forageMapItemDTO.assessment(),
 				forageMapItemDTO.notes()
 		);
 	}
@@ -114,8 +114,7 @@ public class ConverterService {
 				forageMapItem.forageWikiItem(),
 				forageMapItem.customMarker(),
 				forageMapItem.position(),
-				forageMapItem.quantity(),
-				forageMapItem.quality(),
+				forageMapItem.assessment(),
 				forageMapItem.notes()
 		);
 	}

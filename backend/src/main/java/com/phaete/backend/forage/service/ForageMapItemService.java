@@ -2,7 +2,6 @@ package com.phaete.backend.forage.service;
 
 import com.phaete.backend.forage.model.*;
 import com.phaete.backend.forage.repository.ForageMapItemRepository;
-import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Service class for managing {@link ForageMapItem}.
+ * It provides methods to interact with the {@link ForageMapItemRepository}
+ * allowing for CRUD operations on ForageMapItem objects.
+ * <p>
+ * Supported functions as per CRUD:
+ * <ul>
+ *  <li> Creating new forage map items </li>
+ *  <li> Retrieving all forage map items </li>
+ *  <li> Retrieving forage map items by id </li>
+ *  <li> Updating forage map items by id </li>
+ *  <li> Deleting forage map items by id </li>
+ * </ul>
+ * <p>
+ * The service acts as a bridge between the controller and the repository
+ * and contains all business logic for the ForageMapItem objects.
+ * <p>
+ * @author -St4n aka Phaete
+ */
 @Service
 @RequestMapping("/api/forageMapItem")
 public class ForageMapItemService {
@@ -121,8 +139,7 @@ public class ForageMapItemService {
 									forageMapItemDTO.forageWikiItem(),
 									forageMapItemDTO.customMarker(),
 									forageMapItemDTO.position(),
-									forageMapItemDTO.quantity(),
-									forageMapItemDTO.quality(),
+									forageMapItemDTO.assessment(),
 									forageMapItemDTO.notes()
 							)
 					)
@@ -138,6 +155,6 @@ public class ForageMapItemService {
 								() -> new ForageMapItemNotFoundException(FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE + id)
 						);
 		forageMapItemRepository.deleteById(id);
-		return Arrays.toString(forageMapItemToDelete.position());
+		return forageMapItemToDelete.position().latitude() + ", " + forageMapItemToDelete.position().longitude();
 	}
 }
