@@ -2,6 +2,7 @@ package com.phaete.backend.forage.service;
 
 import com.phaete.backend.forage.model.*;
 import com.phaete.backend.forage.repository.ForageMapItemRepository;
+import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class ForageMapItemService {
 
 	private final ForageMapItemRepository forageMapItemRepository;
 	private final ConverterService converterService;
+
+	private static final String FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE = "Could not find forage map item with the id: ";
 
 	private static final Logger logger = LoggerFactory.getLogger(ForageMapItemService.class);
 
@@ -80,15 +83,15 @@ public class ForageMapItemService {
 	 *
 	 * @param id the id of the forage map item to be retrieved
 	 * @return the forage map item with the given id
-	 * @throws ForageMapItemNotFoundException      if no forage map item with the given id was found
-	 * @throws MarkerNotFoundException            if the marker with the id of the forage map item's custom marker was not found
-	 * @throws ForageWikiItemNotFoundException     if the forage wiki item with the id of the forage map item's forage wiki item was not found
+	 * @throws ForageMapItemNotFoundException if no forage map item with the given id was found
+	 * @throws MarkerNotFoundException if the marker with the id of the forage map item's custom marker was not found
+	 * @throws ForageWikiItemNotFoundException if the forage wiki item with the id of the forage map item's forage wiki item was not found
 	 */
 	public ForageMapItemDTO findForageMapItemById(String id)
 			throws ForageMapItemNotFoundException, MarkerNotFoundException, ForageWikiItemNotFoundException {
 		ForageMapItemDTO forageMapItemDTO = converterService.toDTO(
 				forageMapItemRepository.findById(id).orElseThrow(
-					() -> new ForageMapItemNotFoundException("Could not find forage map item with the id: " + id)
+					() -> new ForageMapItemNotFoundException(FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE + id)
 				)
 		);
 		if (forageMapItemDTO.forageWikiItem() == null) {
@@ -98,5 +101,43 @@ public class ForageMapItemService {
 			throw new MarkerNotFoundException("Could not find forage wiki item for forage map item with the id: " + id);
 		}
 		return forageMapItemDTO;
+	}
+
+	/**
+	 * Updates an existing forage map item in the database.
+	 *
+	 * @param id the id of the forage map item to be updated
+	 * @param forageMapItemDTO the updated forage map item data
+	 * @return the updated forage map item converted to a DTO
+	 * @throws ForageMapItemNotFoundException if no forage map item with the given id was found
+	 */
+	public ForageMapItemDTO updateForageMapItem(String id, ForageMapItemDTO forageMapItemDTO)
+			throws ForageMapItemNotFoundException {
+		if (forageMapItemRepository.findById(id).isPresent()) {
+			return converterService.toDTO(
+					forageMapItemRepository.save(
+							new ForageMapItem(
+									id,
+									forageMapItemDTO.forageWikiItem(),
+									forageMapItemDTO.customMarker(),
+									forageMapItemDTO.position(),
+									forageMapItemDTO.quantity(),
+									forageMapItemDTO.quality(),
+									forageMapItemDTO.notes()
+							)
+					)
+			);
+		} else {
+			throw new ForageMapItemNotFoundException(FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE + id);
+		}
+	}
+
+	public String deleteForageMapItem(String id) throws ForageMapItemNotFoundException {
+		ForageMapItem forageMapItemToDelete = forageMapItemRepository.findById(id)
+						.orElseThrow(
+								() -> new ForageMapItemNotFoundException(FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE + id)
+						);
+		forageMapItemRepository.deleteById(id);
+		return Arrays.toString(forageMapItemToDelete.position());
 	}
 }

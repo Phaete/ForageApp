@@ -159,7 +159,7 @@ class CustomMarkerServiceTest {
 	}
 
 	@Test
-	void deleteMarker_expectPositionOfDeletedMarker_onSuccess() throws MarkerNotFoundException {
+	void deleteMarker_expectNameOfDeletedMarker_onSuccess() throws MarkerNotFoundException {
 		String expectedName = "test";
 		when(customMarkerRepository.findById("1")).thenReturn(
 				Optional.of(new CustomMarker(
