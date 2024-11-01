@@ -11,8 +11,7 @@ export default function CustomMarkerEditor(props: Readonly<CustomMarkerEditorPro
         iconUrl: "",
         iconSize: [],
         iconAnchor: [],
-        popupAnchor: [],
-        popupText: ""
+        popupAnchor: []
     }
 
     const [addCustomMarker, setAddCustomMarker] = useState<boolean>(false)
@@ -162,13 +161,6 @@ export default function CustomMarkerEditor(props: Readonly<CustomMarkerEditorPro
                                 )
                                 }/>
                         </span>
-                        <input
-                            type={"text"}
-                            defaultValue={props.customMarkerToEdit.popupText}
-                            onChange={event => setNewCustomMarker(
-                                {...newCustomMarker, popupText: event.target.value}
-                            )
-                        }/>
                         <div className={"flex flex-row justify-center"}>
                             <button type={"button"} onClick={validateForm}>Save</button>
                             <button type={"button"} onClick={resetForm}>Cancel</button>
@@ -246,11 +238,6 @@ export default function CustomMarkerEditor(props: Readonly<CustomMarkerEditorPro
                                         )
                                     }/>
                                 </span>
-                                <input type={"text"} placeholder={"Popup Text"} onChange={
-                                    (event) => setNewCustomMarker(
-                                        {...newCustomMarker, popupText: event.target.value}
-                                    )
-                                }/>
                                 <div className={"flex flex-row justify-center"}>
                                     <button type={"button"} onClick={addNewCustomMarker}>Add</button>
                                     <button type={"button"} onClick={resetForm}>Cancel</button>

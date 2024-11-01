@@ -97,11 +97,67 @@
 
 .floating-box {
     position: absolute;
-    top: 5px;
-    left: 5px;
     z-index: 1400;
+}
+
+.top-5 {
+    top: 5px;
+}
+
+.bottom-5 {
+    bottom: 5px;
+}
+
+.right-5 {
+    right: 5px;
+}
+
+.left-5 {
+    left: 5px;
+}
+
+.font-small {
     font-size: small;
-    background-color: #fff;
-    padding: 5px;
-    border-radius: 5px;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.button {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    background-size: cover;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+}
+
+.tracking-allowed {
+    animation: switchButtonImages 6s infinite;
+}
+
+@keyframes switchButtonImages {
+    0% {
+        background-image: url("./forage/assets/images/satellite_animated_0.png");
+    }
+    33% {
+        background-image: url('./forage/assets/images/satellite_animated_1.png');
+    }
+    66% {
+        background-image: url('./forage/assets/images/satellite_animated_2.png');
+    }
+    100% {
+        background-image: url('./forage/assets/images/satellite_animated_0.png');
+    }
+}
+
+.tracking-denied {
+    background-image: url('./forage/assets/images/satellite_notAnimated.png');
+}
+
+.locate-me {
+    background-image: url('./forage/assets/images/locate_me.png');
 }

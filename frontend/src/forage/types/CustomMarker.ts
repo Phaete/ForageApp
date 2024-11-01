@@ -4,6 +4,5 @@ export type CustomMarker = {
 	iconUrl: string,
 	iconSize: number[],
 	iconAnchor: number[],
-	popupAnchor: number[],
-	popupText: string
+	popupAnchor: number[]
 }

@@ -47,7 +47,7 @@ export default function ExpandableCard(props: Readonly<ExpandableCardProps>) {
 								</span>
 								{expanded ?
 									<div>
-										<img src={props.customMarker.iconUrl} alt={props.customMarker.iconUrl}/>
+										<img src={props.customMarker.iconUrl} alt={props.customMarker.iconUrl} height={128} width={128}/>
 										<p>
 											Icon Size:
 											{props.customMarker.iconSize[0]}px x {props.customMarker.iconSize[1]}px
@@ -62,7 +62,6 @@ export default function ExpandableCard(props: Readonly<ExpandableCardProps>) {
 											x-Offset: {props.customMarker.popupAnchor[0]}px,
 											y-Offset: {props.customMarker.popupAnchor[1]}px
 										</p>
-										<p>Popup Text: {props.customMarker.popupText}</p>
 										<div className={"flex flex-row-reverse"}>
 											<span>
 												<button type={"button"}
