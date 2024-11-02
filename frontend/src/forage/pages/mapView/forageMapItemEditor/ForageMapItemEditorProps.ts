@@ -3,9 +3,9 @@ import {ForageWikiItem} from "../../../types/ForageWikiItem.ts";
 import {CustomMarker} from "../../../types/CustomMarker.ts";
 
 export type ForageMapItemEditorProps = {
-	mapCenter: GeoPosition,
+	forageMapItemPosition: GeoPosition,
 	fetchForageMapItems: () => void,
 	forageWikiItems: ForageWikiItem[],
 	customMarker: CustomMarker[]
-
+	setAddForageMapItem: (addForageMapItem: boolean) => void
 }

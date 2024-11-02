@@ -1,6 +1,7 @@
 import {GeoPosition} from "../../../types/GeoPosition.ts";
 
 export type UserMapMarkerProps = {
-	position: GeoPosition,
+	userPosition: GeoPosition,
+	setUserPosition: (userPosition: GeoPosition) => void
 	zoom: number
 }

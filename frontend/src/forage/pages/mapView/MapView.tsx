@@ -5,8 +5,8 @@ import {MapViewProps} from "./MapViewProps.ts";
 import CustomMarkerMapComponent from "../../components/content/customMarkerMapComponent/CustomMarkerMapComponent.tsx";
 import UserMapMarker from "../../components/content/userMapMarker/UserMapMarker.tsx";
 import {GeoPosition} from "../../types/GeoPosition.ts";
-import ForageMapItemEditor from "./forageMapItemEditor/ForageMapItemEditor.tsx";
 import TrackingRequestMapEvent from "../../components/content/trackingRequestMapEvent/TrackingRequestMapEvent.tsx";
+import TemporaryForageMapMarker from "../../components/content/temporaryForageMapMarker/TemporaryForageMapMarker.tsx";
 
 export default function MapView(props: Readonly<MapViewProps>) {
 
@@ -24,6 +24,8 @@ export default function MapView(props: Readonly<MapViewProps>) {
 
 	const [requestTracking, setRequestTracking] = useState<boolean>(false)
 	const [trackingAllowed, setTrackingAllowed] = useState<boolean>(false)
+
+	const [addForageMapItem, setAddForageMapItem] = useState<boolean>(false)
 
 	const MapMoveEvent = () => {
 		useMapEvents({
@@ -72,16 +74,23 @@ export default function MapView(props: Readonly<MapViewProps>) {
 								<CustomMarkerMapComponent key={forageMapItem.id} zoom={mapCenter.zoom}
 														  forageMapItem={forageMapItem}/>
 							)
-						)}
-					{userPosition && <UserMapMarker position={userPosition} zoom={mapCenter.zoom}/>}
+						)
+					}
+					{userPosition && <UserMapMarker userPosition={userPosition} setUserPosition={setUserPosition} zoom={mapCenter.zoom}/>}
+					{addForageMapItem &&
+						<TemporaryForageMapMarker
+							position={mapCenter.position}
+							fetchForageMapItems={props.fetchForageMapItems}
+							forageWikiItems={props.forageWikiItems}
+							customMarker={props.customMarker}
+							setAddForageMapItem={setAddForageMapItem}/>
+					}
 				</MapContainer>
 				<div className={"floating-box boxed-r5 bg-white p-5 top-5 left-5"}>
-					<p>Lat: {mapCenter.position.latitude.toFixed(4)}, Lng: {mapCenter.position.longitude.toFixed(4)}</p>
-					<ForageMapItemEditor
-						mapCenter={mapCenter.position}
-						fetchForageMapItems={props.fetchForageMapItems}
-						forageWikiItems={props.forageWikiItems}
-						customMarker={props.customMarker}/>
+					<p>User Position: { userPosition ? <span>Lat: {userPosition?.latitude.toFixed(4)}, Lng: {userPosition?.longitude.toFixed(4)}</span> : "Not found"}</p>
+					<button type={"button"} onClick={() => {
+						setAddForageMapItem(true)
+					}}>Add forage item at current position</button>
 				</div>
 				<div className={"floating-box bottom-5 right-5"}>
 					{requestTracking ?
@@ -94,7 +103,6 @@ export default function MapView(props: Readonly<MapViewProps>) {
 						</button>
 					}
 				</div>
-
 			</div>
 		</div>
 	)
