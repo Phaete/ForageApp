@@ -17,7 +17,7 @@ const TemporaryForageMapMarker = (props: TemporaryForageMapMarkerProps) => {
 			markerRef.current?.openPopup()
 			map.flyTo([position.latitude+0.0005, position.longitude])
 		}
-	}, []);
+	});
 
 	function handleDragEndEvent(event: DragEndEvent) {
 		setPosition({latitude: event.target.getLatLng().lat, longitude: event.target.getLatLng().lng})
