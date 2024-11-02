@@ -9,11 +9,13 @@ import Navbar from "./forage/components/navbar/Navbar.tsx";
 import Content from "./forage/components/content/Content.tsx";
 import LandingPage from "./forage/pages/landingPage/LandingPage.tsx";
 import MapView from "./forage/pages/mapView/MapView.tsx";
+import {ForageMapItem} from "./forage/types/ForageMapItem.ts";
 
 function App() {
 
 	const [forageWikiItems, setForageWikiItems] = useState<ForageWikiItem[]>([])
 	const [customMarker, setCustomMarker] = useState<CustomMarker[]>([])
+	const [forageMapItems, setForageMapItems] = useState<ForageMapItem[]>([])
 
 	function fetchWikiData() {
 		axios.get("api/forageWikiItems")
@@ -27,9 +29,16 @@ function App() {
 			.catch(error => console.log(error))
 	}
 
+	function fetchForageMapItems() {
+		axios.get("/api/forageMapItems")
+			.then(results => setForageMapItems(results.data["true"]))
+			.catch(error => console.log(error))
+	}
+
 	useEffect(() => {
 		fetchWikiData()
 		fetchCustomMarkerData()
+		fetchForageMapItems()
 	}, []);
 
 	return (
@@ -47,7 +56,7 @@ function App() {
 					<Route path={"/map"} element={
 						<>
 							<p>Map</p>
-							<MapView customMarker={customMarker} forageWikiItems={forageWikiItems}/>
+							<MapView customMarker={customMarker} forageWikiItems={forageWikiItems} forageMapItems={forageMapItems} fetchForageMapItems={fetchForageMapItems}/>
 						</>
 					} />
 					<Route path={"/wiki"} element={
