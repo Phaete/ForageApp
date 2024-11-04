@@ -8,7 +8,7 @@ const CustomMarkerMapComponent = (props: Readonly<CustomMarkerMapComponentProps>
     const [customIcon, setCustomIcon] = useState<L.Icon>(
         L.icon({
             iconUrl: props.forageMapItem.customMarker.iconUrl,
-            iconSize: [props.forageMapItem.customMarker.iconSize[0], props.forageMapItem.customMarker.iconSize[1]],
+            iconSize: [props.forageMapItem.customMarker.iconSize[0]/2, props.forageMapItem.customMarker.iconSize[1]/2],
             iconAnchor: [props.forageMapItem.customMarker.iconAnchor[0], props.forageMapItem.customMarker.iconAnchor[1]],
             popupAnchor: [props.forageMapItem.customMarker.popupAnchor[0], props.forageMapItem.customMarker.popupAnchor[1]]
         })
@@ -19,15 +19,15 @@ const CustomMarkerMapComponent = (props: Readonly<CustomMarkerMapComponentProps>
             L.icon({
                 iconUrl: props.forageMapItem.customMarker.iconUrl,
                 iconSize: [
-                    Math.min(props.forageMapItem.customMarker.iconSize[0]+((props.zoom-18)*3), 48),
-                    Math.min(props.forageMapItem.customMarker.iconSize[1]+((props.zoom-18)*3), 48)
+                    ((24*props.zoom)/18)+4,
+                    ((24*props.zoom)/18)+4
                 ],
                 iconAnchor: [
-                    Math.min(props.forageMapItem.customMarker.iconAnchor[0]+(props.zoom-18)*1.5, 24),
-                    Math.min(props.forageMapItem.customMarker.iconAnchor[1]+((props.zoom-18)*3), 48)
+                    ((12*props.zoom)/9)+2,
+                    ((24*props.zoom)/18)+4
                 ],
                 popupAnchor: [
-                    props.forageMapItem.customMarker.popupAnchor[0],
+                    0,
                     0
                 ]
             })
