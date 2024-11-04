@@ -93,7 +93,16 @@ export default function MapView(props: Readonly<MapViewProps>) {
 					}
 				</MapContainer>
 				<div className={"floating-box boxed-r5 bg-white p-5 top-5 left-5"}>
-					<p>User Position: { userPosition ? <span>Lat: {userPosition?.latitude.toFixed(4)}, Lng: {userPosition?.longitude.toFixed(4)}</span> : "Not found"}</p>
+					{userPosition ? <p>
+						User Position: <span>
+							Lat: {userPosition?.latitude.toFixed(4)}, Lng: {userPosition?.longitude.toFixed(4)}
+						</span>
+					</p>
+					:
+						<div className={"flex flex-col flex-start"}>
+							<span>Map Center: </span>
+							<span>Lat: {mapCenter.position.latitude.toFixed(4)}, Lng: {mapCenter.position.longitude.toFixed(4)}</span>
+						</div>}
 					<button type={"button"} onClick={() => {
 						setAddForageMapItem(true)
 					}}>Add forage item at current position</button>
@@ -101,11 +110,11 @@ export default function MapView(props: Readonly<MapViewProps>) {
 				<div className={"floating-box bottom-5 right-5"}>
 					{requestTracking ?
 						<button type={"button"} onClick={() => handleTrackingToggle()}
-							 className={`flex justify-center no-text-deco button ${trackingAllowed ? 'tracking-allowed' : 'tracking-denied'} bg-white`}>
+							 className={`flex align-center justify-center no-text-deco button ${trackingAllowed ? 'tracking-allowed' : 'tracking-denied'} bg-white`}>
 						</button>
 					:
 						<button type={"button"} onClick={() => setRequestTracking(true)}
-								className={"flex justify-center no-text-deco button locate-me bg-white"}>
+								className={"flex align-center justify-center no-text-deco button locate-me bg-white"}>
 						</button>
 					}
 				</div>

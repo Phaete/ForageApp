@@ -1,6 +1,6 @@
 import {TemporaryForageMapMarkerProps} from "./TemporaryForageMapMarkerProps.ts"
 import {useEffect, useRef, useState} from "react";
-import {Marker, Popup, useMap} from "react-leaflet";
+import {Marker, Popup} from "react-leaflet";
 import L, {DragEndEvent} from "leaflet";
 import ForageMapItemEditor from "../../../pages/mapView/forageMapItemEditor/ForageMapItemEditor.tsx";
 import {GeoPosition} from "../../../types/GeoPosition.ts";
@@ -10,18 +10,16 @@ const TemporaryForageMapMarker = (props: TemporaryForageMapMarkerProps) => {
 	const [position, setPosition] = useState<GeoPosition>(props.position)
 
 	const markerRef = useRef(null)
-	const map = useMap()
 
 	useEffect(() => {
 		if (position) {
-			markerRef.current?.openPopup()
-			map.flyTo([position.latitude+0.0005, position.longitude])
+			markerRef.current.openPopup()
 		}
 	});
 
 	function handleDragEndEvent(event: DragEndEvent) {
 		setPosition({latitude: event.target.getLatLng().lat, longitude: event.target.getLatLng().lng})
-		markerRef.current?.openPopup()
+		markerRef.current.openPopup()
 	}
 
 	return position ? (
