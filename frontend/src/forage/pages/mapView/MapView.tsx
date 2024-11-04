@@ -71,8 +71,14 @@ export default function MapView(props: Readonly<MapViewProps>) {
 					<MapMoveEvent/>
 					{
 						props.forageMapItems && props.forageMapItems.length > 0 && props.forageMapItems.map((forageMapItem) => (
-								<CustomMarkerMapComponent key={forageMapItem.id} zoom={mapCenter.zoom}
-														  forageMapItem={forageMapItem}/>
+								<CustomMarkerMapComponent
+									key={forageMapItem.id}
+								  	forageMapItem={forageMapItem}
+									fetchForageMapItems={props.fetchForageMapItems}
+									forageWikiItems={props.forageWikiItems}
+									customMarker={props.customMarker}
+									zoom={mapCenter.zoom}
+								/>
 							)
 						)
 					}

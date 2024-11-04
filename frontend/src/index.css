@@ -161,3 +161,7 @@
 .locate-me {
     background-image: url('./forage/assets/images/locate_me.png');
 }
+
+.w-50 {
+    width: 50vw;
+}

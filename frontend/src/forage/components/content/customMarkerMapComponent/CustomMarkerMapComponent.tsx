@@ -2,6 +2,8 @@ import L from 'leaflet';
 import {CustomMarkerMapComponentProps} from "./CustomMarkerMapComponentProps.ts";
 import {Marker, Popup} from "react-leaflet";
 import {useEffect, useState} from "react";
+import ForageMapItemEditor from "../../../pages/mapView/forageMapItemEditor/ForageMapItemEditor.tsx";
+import ForageMapItemView from "../forageMapItemView/ForageMapItemView.tsx";
 
 const CustomMarkerMapComponent = (props: Readonly<CustomMarkerMapComponentProps>) => {
 
@@ -13,6 +15,7 @@ const CustomMarkerMapComponent = (props: Readonly<CustomMarkerMapComponentProps>
             popupAnchor: [props.forageMapItem.customMarker.popupAnchor[0], props.forageMapItem.customMarker.popupAnchor[1]]
         })
     )
+    const [isEditable, setIsEditable] = useState<boolean>(false)
 
     useEffect(() => {
         setCustomIcon(
@@ -37,7 +40,21 @@ const CustomMarkerMapComponent = (props: Readonly<CustomMarkerMapComponentProps>
     return (
         <Marker position={[props.forageMapItem.position.latitude, props.forageMapItem.position.longitude]} icon={customIcon}>
             <Popup>
-                <p>{props.forageMapItem.forageWikiItem.name}</p>
+                {isEditable ?
+                    <ForageMapItemEditor
+                        forageMapItemPosition={props.forageMapItem.position}
+                        fetchForageMapItems={props.fetchForageMapItems}
+                        forageWikiItems={props.forageWikiItems}
+                        customMarker={props.customMarker}
+                        setAddForageMapItem={setIsEditable}
+                        forageMapItemToEdit={props.forageMapItem}/>
+                :
+                    <ForageMapItemView
+                        forageMapItem={props.forageMapItem}
+                        setIsEditable={setIsEditable}
+                        fetchForageMapItems={props.fetchForageMapItems}/>
+                }
+
             </Popup>
         </Marker>
     )
