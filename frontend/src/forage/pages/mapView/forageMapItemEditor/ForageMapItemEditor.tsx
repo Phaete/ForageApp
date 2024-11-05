@@ -37,7 +37,10 @@ export default function ForageMapItemEditor(props: Readonly<ForageMapItemEditorP
     function handleSubmit() {
         if (props.forageMapItemToEdit) {
             axios.put("api/forageMapItems/" + props.forageMapItemToEdit.id, forageMapItemToAdd)
-                .then(() => props.fetchForageMapItems())
+                .then(() => {
+                    props.fetchForageMapItems()
+                    props.setDetailedForageMapItem(forageMapItemToAdd)
+                })
                 .catch(error => console.log(error))
         } else {
             axios.post("api/forageMapItems", forageMapItemToAdd)

@@ -9,5 +9,6 @@ export type ForageMapItemEditorProps = {
 	forageWikiItems: ForageWikiItem[],
 	customMarker: CustomMarker[],
 	setAddForageMapItem: (addForageMapItem: boolean) => void,
-	forageMapItemToEdit?: ForageMapItem
+	forageMapItemToEdit?: ForageMapItem,
+	setDetailedForageMapItem: (detailedForageMapItem: ForageMapItem | null) => void
 }

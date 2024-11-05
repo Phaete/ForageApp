@@ -1,9 +1,7 @@
 import L from 'leaflet';
 import {CustomMarkerMapComponentProps} from "./CustomMarkerMapComponentProps.ts";
-import {Marker, Popup} from "react-leaflet";
+import {Marker} from "react-leaflet";
 import {useEffect, useState} from "react";
-import ForageMapItemEditor from "../../../pages/mapView/forageMapItemEditor/ForageMapItemEditor.tsx";
-import ForageMapItemView from "../forageMapItemView/ForageMapItemView.tsx";
 
 const CustomMarkerMapComponent = (props: Readonly<CustomMarkerMapComponentProps>) => {
 
@@ -15,7 +13,6 @@ const CustomMarkerMapComponent = (props: Readonly<CustomMarkerMapComponentProps>
             popupAnchor: [props.forageMapItem.customMarker.popupAnchor[0], props.forageMapItem.customMarker.popupAnchor[1]]
         })
     )
-    const [isEditable, setIsEditable] = useState<boolean>(false)
 
     useEffect(() => {
         setCustomIcon(
@@ -38,24 +35,14 @@ const CustomMarkerMapComponent = (props: Readonly<CustomMarkerMapComponentProps>
     }, [props.zoom]);
 
     return (
-        <Marker position={[props.forageMapItem.position.latitude, props.forageMapItem.position.longitude]} icon={customIcon}>
-            <Popup>
-                {isEditable ?
-                    <ForageMapItemEditor
-                        forageMapItemPosition={props.forageMapItem.position}
-                        fetchForageMapItems={props.fetchForageMapItems}
-                        forageWikiItems={props.forageWikiItems}
-                        customMarker={props.customMarker}
-                        setAddForageMapItem={setIsEditable}
-                        forageMapItemToEdit={props.forageMapItem}/>
-                :
-                    <ForageMapItemView
-                        forageMapItem={props.forageMapItem}
-                        setIsEditable={setIsEditable}
-                        fetchForageMapItems={props.fetchForageMapItems}/>
+        <Marker
+            position={[props.forageMapItem.position.latitude, props.forageMapItem.position.longitude]}
+            icon={customIcon}
+            eventHandlers={{click: () => {
+                    props.setDetailedForageMapItem(props.forageMapItem)
+                    console.log(props.forageMapItem)
                 }
-
-            </Popup>
+            }}>
         </Marker>
     )
 }
