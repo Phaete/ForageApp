@@ -1,6 +1,6 @@
 import L from 'leaflet';
 import {CustomMarkerMapComponentProps} from "./CustomMarkerMapComponentProps.ts";
-import {Marker, Popup} from "react-leaflet";
+import {Marker} from "react-leaflet";
 import {useEffect, useState} from "react";
 
 const CustomMarkerMapComponent = (props: Readonly<CustomMarkerMapComponentProps>) => {
@@ -35,10 +35,14 @@ const CustomMarkerMapComponent = (props: Readonly<CustomMarkerMapComponentProps>
     }, [props.zoom]);
 
     return (
-        <Marker position={[props.forageMapItem.position.latitude, props.forageMapItem.position.longitude]} icon={customIcon}>
-            <Popup>
-                <p>{props.forageMapItem.forageWikiItem.name}</p>
-            </Popup>
+        <Marker
+            position={[props.forageMapItem.position.latitude, props.forageMapItem.position.longitude]}
+            icon={customIcon}
+            eventHandlers={{click: () => {
+                    props.setDetailedForageMapItem(props.forageMapItem)
+                    console.log(props.forageMapItem)
+                }
+            }}>
         </Marker>
     )
 }

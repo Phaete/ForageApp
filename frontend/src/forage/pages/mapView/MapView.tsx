@@ -7,6 +7,11 @@ import UserMapMarker from "../../components/content/userMapMarker/UserMapMarker.
 import {GeoPosition} from "../../types/GeoPosition.ts";
 import TrackingRequestMapEvent from "../../components/content/trackingRequestMapEvent/TrackingRequestMapEvent.tsx";
 import TemporaryForageMapMarker from "../../components/content/temporaryForageMapMarker/TemporaryForageMapMarker.tsx";
+import {ForageMapItem} from "../../types/ForageMapItem.ts";
+import FloatingMapInfoBox from "../../components/content/floatingMapInfoBox/FloatingMapInfoBox.tsx";
+import FloatingMapTrackerButton from "../../components/content/floatingMapTrackerButton/FloatingMapTrackerButton.tsx";
+import DetailedForageMapItemCard
+	from "../../components/content/detailedForageMapItemCard/DetailedForageMapItemCard.tsx";
 
 export default function MapView(props: Readonly<MapViewProps>) {
 
@@ -26,6 +31,8 @@ export default function MapView(props: Readonly<MapViewProps>) {
 	const [trackingAllowed, setTrackingAllowed] = useState<boolean>(false)
 
 	const [addForageMapItem, setAddForageMapItem] = useState<boolean>(false)
+
+	const [detailedForageMapItem, setDetailedForageMapItem] = useState<ForageMapItem | null>(null)
 
 	const MapMoveEvent = () => {
 		useMapEvents({
@@ -48,61 +55,70 @@ export default function MapView(props: Readonly<MapViewProps>) {
 
 	return (
 		<div>
-			<div className={"pos-relative"}>
-				<MapContainer className={"map-size-100"}
+			<div className={"pos-relative flex flex-col justify-center align-center"}>
+					<MapContainer className={`${detailedForageMapItem === null ? 'map-size-100' : 'map-size-50'} boxed-r10`}
 							  center={[mapCenter.position.latitude, mapCenter.position.longitude]}
 							  zoom={mapCenter.zoom}
 							  zoomControl={false}
 							  attributionControl={false}
 							  ref={mapRef}>
-					<TileLayer
-						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-						keepBuffer={8}
-					/>
-					{requestTracking && <TrackingRequestMapEvent
-						mapRef={mapRef}
-						mapCenter={mapCenter}
-						setMapCenter={setMapCenter}
-						trackingAllowed={trackingAllowed}
-						setTrackingAllowed={setTrackingAllowed}
-						setUserPosition={setUserPosition}
-						requestTracking={requestTracking}
-						setRequestTracking={setRequestTracking}/>}
-					<MapMoveEvent/>
-					{
-						props.forageMapItems && props.forageMapItems.length > 0 && props.forageMapItems.map((forageMapItem) => (
-								<CustomMarkerMapComponent key={forageMapItem.id} zoom={mapCenter.zoom}
-														  forageMapItem={forageMapItem}/>
+						<TileLayer
+							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+							keepBuffer={24}
+							/>
+						{requestTracking && <TrackingRequestMapEvent
+							mapRef={mapRef}
+							mapCenter={mapCenter}
+							setMapCenter={setMapCenter}
+							trackingAllowed={trackingAllowed}
+							setTrackingAllowed={setTrackingAllowed}
+							setUserPosition={setUserPosition}
+							requestTracking={requestTracking}
+							setRequestTracking={setRequestTracking}/>}
+						<MapMoveEvent/>
+						{
+							props.forageMapItems && props.forageMapItems.length > 0 && props.forageMapItems.map((forageMapItem) => (
+									<CustomMarkerMapComponent
+										key={forageMapItem.id}
+										forageMapItem={forageMapItem}
+										zoom={mapCenter.zoom}
+										setDetailedForageMapItem={setDetailedForageMapItem}
+									/>
+								)
 							)
-						)
-					}
-					{userPosition && <UserMapMarker userPosition={userPosition} setUserPosition={setUserPosition} zoom={mapCenter.zoom}/>}
-					{addForageMapItem &&
-						<TemporaryForageMapMarker
-							position={mapCenter.position}
-							fetchForageMapItems={props.fetchForageMapItems}
+						}
+						{userPosition && <UserMapMarker userPosition={userPosition} setUserPosition={setUserPosition} zoom={mapCenter.zoom}/>}
+						{addForageMapItem &&
+							<TemporaryForageMapMarker
+								position={mapCenter.position}
+								fetchForageMapItems={props.fetchForageMapItems}
+								forageWikiItems={props.forageWikiItems}
+								customMarker={props.customMarker}
+								setAddForageMapItem={setAddForageMapItem}/>
+						}
+					</MapContainer>
+				{detailedForageMapItem === null ?
+					<div>
+						<FloatingMapInfoBox
+							mapCenter={mapCenter}
+							userPosition={userPosition}
+							setAddForageMapItem={setAddForageMapItem}/>
+						<FloatingMapTrackerButton
+							trackingAllowed={trackingAllowed}
+							requestTracking={requestTracking}
+							handleTrackingToggle={handleTrackingToggle}
+							setRequestTracking={setRequestTracking}/>
+					</div>
+					:
+					<div className={"flex justify-center align-center"}>
+						<DetailedForageMapItemCard
 							forageWikiItems={props.forageWikiItems}
 							customMarker={props.customMarker}
-							setAddForageMapItem={setAddForageMapItem}/>
-					}
-				</MapContainer>
-				<div className={"floating-box boxed-r5 bg-white p-5 top-5 left-5"}>
-					<p>User Position: { userPosition ? <span>Lat: {userPosition?.latitude.toFixed(4)}, Lng: {userPosition?.longitude.toFixed(4)}</span> : "Not found"}</p>
-					<button type={"button"} onClick={() => {
-						setAddForageMapItem(true)
-					}}>Add forage item at current position</button>
-				</div>
-				<div className={"floating-box bottom-5 right-5"}>
-					{requestTracking ?
-						<button type={"button"} onClick={() => handleTrackingToggle()}
-							 className={`flex justify-center no-text-deco button ${trackingAllowed ? 'tracking-allowed' : 'tracking-denied'} bg-white`}>
-						</button>
-					:
-						<button type={"button"} onClick={() => setRequestTracking(true)}
-								className={"flex justify-center no-text-deco button locate-me bg-white"}>
-						</button>
-					}
-				</div>
+							forageMapItem={detailedForageMapItem}
+							fetchForageMapItems={props.fetchForageMapItems}
+							setDetailedForageMapItem={setDetailedForageMapItem}/>
+					</div>
+				}
 			</div>
 		</div>
 	)

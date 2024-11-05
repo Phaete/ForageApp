@@ -32,13 +32,22 @@ export default function ForageMapItemEditor(props: Readonly<ForageMapItemEditorP
         notes: "",
     }
 
-    const [forageMapItemToAdd, setForageMapItemToAdd] = useState<ForageMapItem>(emptyForageMapItem)
+    const [forageMapItemToAdd, setForageMapItemToAdd] = useState<ForageMapItem>(props.forageMapItemToEdit || emptyForageMapItem)
 
-    function submitNewForageMapItem() {
-        axios.post("api/forageMapItems", forageMapItemToAdd)
-            .then(() => props.fetchForageMapItems())
-            .catch(error => console.log(error))
-        setForageMapItemToAdd(emptyForageMapItem)
+    function handleSubmit() {
+        if (props.forageMapItemToEdit) {
+            axios.put("api/forageMapItems/" + props.forageMapItemToEdit.id, forageMapItemToAdd)
+                .then(() => {
+                    props.fetchForageMapItems()
+                    props.setDetailedForageMapItem(forageMapItemToAdd)
+                })
+                .catch(error => console.log(error))
+        } else {
+            axios.post("api/forageMapItems", forageMapItemToAdd)
+                .then(() => props.fetchForageMapItems())
+                .catch(error => console.log(error))
+            setForageMapItemToAdd(emptyForageMapItem)
+        }
         props.setAddForageMapItem(false)
     }
 
@@ -69,8 +78,8 @@ export default function ForageMapItemEditor(props: Readonly<ForageMapItemEditorP
                             }
                         )
                     }
-                }>
-                    <option defaultValue={""} selected disabled={true}>Please choose a forage item.</option>
+                } value={forageMapItemToAdd.forageWikiItem.id}>
+                    <option value={""} selected disabled={true}>Please choose a forage item.</option>
                     {
                         props.forageWikiItems.map((forageWikiItem) => {
                             return <option key={forageWikiItem.id}
@@ -96,8 +105,8 @@ export default function ForageMapItemEditor(props: Readonly<ForageMapItemEditorP
                             }
                         )
                     }
-                }>
-                    <option defaultValue={""} selected disabled={true}>Please choose a marker.</option>
+                } value={forageMapItemToAdd.customMarker.id}>
+                    <option value={""} disabled={true}>Please choose a marker.</option>
                     {
                         props.customMarker.map((customMarker) => {
                             return <option key={customMarker.id}
@@ -115,8 +124,8 @@ export default function ForageMapItemEditor(props: Readonly<ForageMapItemEditorP
                             }
                         }
                     )
-                }>
-                    <option defaultValue={""} selected disabled={true}>Please choose a quantity.</option>
+                } value={forageMapItemToAdd.assessment.quantity}>
+                    <option value={""} selected disabled={true}>Please choose a quantity.</option>
                     <option value={"NONE"}>None</option>
                     <option value={"LOW"}>Low</option>
                     <option value={"MEDIUM"}>Medium</option>
@@ -133,8 +142,8 @@ export default function ForageMapItemEditor(props: Readonly<ForageMapItemEditorP
                             }
                         }
                     )
-                }>
-                    <option defaultValue={""} selected disabled={true}>Please choose a quality.</option>
+                } value={forageMapItemToAdd.assessment.quality}>
+                    <option value={""} disabled={true}>Please choose a quality.</option>
                     <option value={"POOR"}>Poor</option>
                     <option value={"FAIR"}>Fair</option>
                     <option value={"GOOD"}>Good</option>
@@ -144,11 +153,11 @@ export default function ForageMapItemEditor(props: Readonly<ForageMapItemEditorP
                     event => setForageMapItemToAdd(
                         {...forageMapItemToAdd, notes: event.target.value}
                     )
-                }/>
+                } value={forageMapItemToAdd.notes}/>
                 <div className={"flex flex-row"}>
                     <span>
                         <button type={"button"} onClick={() => {
-                            submitNewForageMapItem()
+                            handleSubmit()
                         }}>Submit
                         </button>
                     </span>

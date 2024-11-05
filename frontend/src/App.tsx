@@ -10,6 +10,7 @@ import Content from "./forage/components/content/Content.tsx";
 import LandingPage from "./forage/pages/landingPage/LandingPage.tsx";
 import MapView from "./forage/pages/mapView/MapView.tsx";
 import {ForageMapItem} from "./forage/types/ForageMapItem.ts";
+import Footer from "./forage/components/footer/Footer.tsx";
 
 function App() {
 
@@ -42,40 +43,26 @@ function App() {
 	}, []);
 
 	return (
-		<>
+		<div className={"full-size flex flex-col justify-center align-center"}>
 			<Navbar />
-			Forage Tracker - Share your Forage!
 			<Content>
 				<Routes>
 					<Route path={"/"} element={
-						<>
-							<p>Landing Page </p>
 							<LandingPage />
-						</>
 					} />
 					<Route path={"/map"} element={
-						<>
-							<p>Map</p>
 							<MapView customMarker={customMarker} forageWikiItems={forageWikiItems} forageMapItems={forageMapItems} fetchForageMapItems={fetchForageMapItems}/>
-						</>
 					} />
 					<Route path={"/wiki"} element={
-						<>
-							<p>Wiki</p>
 							<ForageWiki forageWikiItems={forageWikiItems} fetchWikiData={fetchWikiData}/>
-						</>
 					} />
 					<Route path={"/admin"} element={
-						<>
-							<p>Admin</p>
 							<AdminDashboard forageWikiItems={forageWikiItems} customMarkers={customMarker} fetchWikiData={fetchWikiData} fetchCustomMarkerData={fetchCustomMarkerData}/>
-						</>
 					} />
 				</Routes>
 			</Content>
-			{/*<Footer />*/}
-
-		</>
+			<Footer />
+		</div>
 	)
 }
 

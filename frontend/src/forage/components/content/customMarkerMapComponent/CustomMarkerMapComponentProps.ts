@@ -2,5 +2,6 @@ import {ForageMapItem} from "../../../types/ForageMapItem.ts";
 
 export type CustomMarkerMapComponentProps = {
 	forageMapItem: ForageMapItem,
-	zoom: number
+	zoom: number,
+	setDetailedForageMapItem: (detailedForageMapItem: ForageMapItem) => void
 }

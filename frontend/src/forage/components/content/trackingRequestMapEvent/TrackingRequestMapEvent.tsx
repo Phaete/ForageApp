@@ -14,6 +14,7 @@ const TrackingRequestMapEvent = (props: TrackingRequestMapEventProps) => {
 					latitude: +e.latlng.lat,
 					longitude: +e.latlng.lng
 				})
+				map.panTo(e.latlng)
 			}
 			if (!initialLoad) {
 				setInitialLoad(true);
@@ -50,10 +51,6 @@ const TrackingRequestMapEvent = (props: TrackingRequestMapEventProps) => {
 									latitude: +result.lat,
 									longitude: +result.lon
 								}, zoom: 10});
-							props.setUserPosition({
-								latitude: +result.lat,
-								longitude: +result.lon
-							})
 						}
 					})
 					.catch(() => {
