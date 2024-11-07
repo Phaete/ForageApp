@@ -13,12 +13,14 @@ const TemporaryForageMapMarker = (props: TemporaryForageMapMarkerProps) => {
 
 	useEffect(() => {
 		if (position) {
+			// @ts-expect-error - At the time of execution, markerRef.current is not null
 			markerRef.current.openPopup()
 		}
 	});
 
 	function handleDragEndEvent(event: DragEndEvent) {
 		setPosition({latitude: event.target.getLatLng().lat, longitude: event.target.getLatLng().lng})
+		// @ts-expect-error - At the time of execution, markerRef.current is not null
 		markerRef.current.openPopup()
 	}
 
