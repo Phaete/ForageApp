@@ -220,4 +220,53 @@ class ConverterServiceTest {
 		);
 		assertEquals(expectedForageMapItemDTO, actualForageMapItemDTO);
 	}
+
+	@Test
+	void fromDTO_UserDTO_toUser() {
+		when(idService.generateId()).thenReturn("1");
+		User expectedUser = new User(
+				"1",
+				"test",
+				"test",
+				"test",
+				"test",
+				"test",
+				Role.USER
+		);
+		User actualUser = converterService.fromDTO(
+				new UserDTO(
+						"test",
+						"test",
+						"test",
+						"test",
+						"test",
+						Role.USER
+				)
+		);
+		assertEquals(expectedUser, actualUser);
+	}
+
+	@Test
+	void toDTO_User_toUserDTO() {
+		UserDTO expectedUserDTO = new UserDTO(
+				"test",
+				"test",
+				"test",
+				"test",
+				"test",
+				Role.USER
+		);
+		UserDTO actualUserDTO = converterService.toDTO(
+				new User(
+						"1",
+						"test",
+						"test",
+						"test",
+						"test",
+						"test",
+						Role.USER
+				)
+		);
+		assertEquals(expectedUserDTO, actualUserDTO);
+	}
 }

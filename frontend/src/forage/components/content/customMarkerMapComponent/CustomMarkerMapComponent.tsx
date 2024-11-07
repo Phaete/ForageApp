@@ -40,7 +40,6 @@ const CustomMarkerMapComponent = (props: Readonly<CustomMarkerMapComponentProps>
             icon={customIcon}
             eventHandlers={{click: () => {
                     props.setDetailedForageMapItem(props.forageMapItem)
-                    console.log(props.forageMapItem)
                 }
             }}>
         </Marker>

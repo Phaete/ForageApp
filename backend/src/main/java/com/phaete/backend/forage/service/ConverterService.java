@@ -118,4 +118,39 @@ public class ConverterService {
 				forageMapItem.notes()
 		);
 	}
+
+	/**
+	 * Converts a {@link UserDTO} to a {@link User} with a random ID.
+	 * <p>
+	 * @param userDTO the {@link UserDTO} to be converted
+	 * @return the converted {@link User}
+	 */
+	public User fromDTO(UserDTO userDTO) {
+		return new User(
+				idService.generateId(),
+				userDTO.origin(),
+				userDTO.name(),
+				userDTO.email(),
+				userDTO.hashedPassword(),
+				userDTO.imageUrl(),
+				userDTO.role()
+		);
+	}
+
+	/**
+	 * Converts a {@link User} to a {@link UserDTO}.
+	 * <p>
+	 * @param user the {@link User} to be converted
+	 * @return the converted {@link UserDTO}
+	 */
+	public UserDTO toDTO(User user) {
+		return new UserDTO(
+				user.origin(),
+				user.name(),
+				user.email(),
+				user.hashedPassword(),
+				user.imageUrl(),
+				user.role()
+		);
+	}
 }

@@ -3,6 +3,8 @@ package com.phaete.backend.forage;
 import com.phaete.backend.forage.model.ForageMapItemNotFoundException;
 import com.phaete.backend.forage.model.ForageWikiItemNotFoundException;
 import com.phaete.backend.forage.model.MarkerNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,6 +15,9 @@ import java.util.Arrays;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+	private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
 
 	/**
 	 * Handles exceptions of type {@link MarkerNotFoundException}, {@link ForageWikiItemNotFoundException}, and
@@ -32,11 +37,13 @@ public class GlobalExceptionHandler {
 	)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ResponseEntity<String> handleNotFoundExceptions(Exception e) {
-		return new ResponseEntity<>(
+		ResponseEntity<String> responseEntity = new ResponseEntity<>(
 				String.format("%s: %s with Stacktrace:%n %s",
-						e.getClass().getSimpleName(),
-						e.getMessage(),
-						Arrays.toString(e.getStackTrace())),
-				org.springframework.http.HttpStatus.NOT_FOUND);
+					e.getClass().getSimpleName(),
+					e.getMessage(),
+					Arrays.toString(e.getStackTrace())
+				), org.springframework.http.HttpStatus.NOT_FOUND);
+		logger.error(responseEntity.getBody());
+		return responseEntity;
 	}
 }

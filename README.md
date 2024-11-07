@@ -1,6 +1,8 @@
 # Forage Tracker - Share your Forage!
 
-Welcome to Forage Tracker! This application allows users to track and share their forage finds, such as fruit trees, mushrooms, berry bushes, and more, on an interactive map using geo-location.
+> This project is still in development and thus not all features shown below are implemented yet.
+
+Welcome to Forage Tracker! This application allows users to track and share their forage finds, such as fruit trees, mushrooms, berry bushes, and more, on an interactive map using geolocation.
 
 ## Table of Contents
 - [Features](#features)
@@ -39,7 +41,7 @@ These instructions will help you get a copy of the project up and running on you
     cd ForageApp
     ```
 
-3. **Backend Setup**:
+2. **Backend Setup**:
    
     - Navigate to the `backend` directory:
         ```sh
@@ -56,7 +58,7 @@ These instructions will help you get a copy of the project up and running on you
         ./mvnw spring-boot:run
         ```
 
-4. **Frontend Setup**:
+3. **Frontend Setup**:
    
    - Navigate to the `frontend` directory:
         ```sh
