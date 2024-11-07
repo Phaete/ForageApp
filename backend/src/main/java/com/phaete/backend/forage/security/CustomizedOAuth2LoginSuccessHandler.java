@@ -37,7 +37,7 @@ public class CustomizedOAuth2LoginSuccessHandler implements AuthenticationSucces
 		UserDTO oAuthUser;
 		try {
 			oAuthUser = userService.createOAuthUser(attributes);
-			if (oAuthUser == null) {
+			if (oAuthUser != null) {
 				userService.createUser(oAuthUser);
 			}
 		} catch (InvalidAuthenticationException e) {
