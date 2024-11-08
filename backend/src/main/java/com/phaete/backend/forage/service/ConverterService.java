@@ -1,6 +1,7 @@
 package com.phaete.backend.forage.service;
 
 import com.phaete.backend.forage.model.*;
+import com.phaete.backend.forage.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Service;
 public class ConverterService {
 
 	private final IdService idService;
+	private final UserRepository userRepository;
 
-	public ConverterService(IdService idService) {
+	public ConverterService(IdService idService, UserRepository userRepository) {
 		this.idService = idService;
+		this.userRepository = userRepository;
 	}
 
 	/**
@@ -122,6 +125,7 @@ public class ConverterService {
 	/**
 	 * Converts a {@link UserDTO} to a {@link User} with a random ID.
 	 * <p>
+	 *
 	 * @param userDTO the {@link UserDTO} to be converted
 	 * @return the converted {@link User}
 	 */
@@ -131,9 +135,8 @@ public class ConverterService {
 				userDTO.origin(),
 				userDTO.name(),
 				userDTO.email(),
-				userDTO.hashedPassword(),
 				userDTO.imageUrl(),
-				userDTO.role()
+				userRepository.findByOrigin(userDTO.origin()).map(User::role).orElse(Role.USER)
 		);
 	}
 
@@ -148,9 +151,7 @@ public class ConverterService {
 				user.origin(),
 				user.name(),
 				user.email(),
-				user.hashedPassword(),
-				user.imageUrl(),
-				user.role()
+				user.imageUrl()
 		);
 	}
 }

@@ -4,6 +4,7 @@ import com.phaete.backend.forage.model.CustomMarker;
 import com.phaete.backend.forage.model.CustomMarkerDTO;
 import com.phaete.backend.forage.model.MarkerNotFoundException;
 import com.phaete.backend.forage.repository.CustomMarkerRepository;
+import com.phaete.backend.forage.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -17,8 +18,9 @@ class CustomMarkerServiceTest {
 
 	private final CustomMarkerRepository customMarkerRepository = mock(CustomMarkerRepository.class);
 	private final IdService idService = mock(IdService.class);
+	private final UserRepository userRepository = mock(UserRepository.class);
 
-	CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService));
+	CustomMarkerService customMarkerService = new CustomMarkerService(customMarkerRepository, new ConverterService(idService, userRepository));
 
 
 	@Test

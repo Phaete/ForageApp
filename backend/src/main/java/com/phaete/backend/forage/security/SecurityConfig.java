@@ -1,5 +1,6 @@
 package com.phaete.backend.forage.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,9 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @EnableWebSecurity
 public class SecurityConfig {
 
+	@Value("${APP_URL:http://localhost:5173/}")
+	private String appUrl;
+
 	private final CustomizedOAuth2LoginSuccessHandler customizedOAuth2LoginSuccessHandler;
 
 	public SecurityConfig(CustomizedOAuth2LoginSuccessHandler customizedOAuth2LoginSuccessHandler) {
@@ -25,13 +29,19 @@ public class SecurityConfig {
 		http
 				.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(a -> a
-						.requestMatchers("/api/auth/me").authenticated()
+						.requestMatchers("/api/user/me").authenticated()
 						.anyRequest().permitAll()
 				)
 				.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
 				.exceptionHandling(e -> e
 						.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-				.oauth2Login(oauth2 -> oauth2.successHandler(customizedOAuth2LoginSuccessHandler));
+				.oauth2Login(oauth2 -> oauth2.successHandler(customizedOAuth2LoginSuccessHandler))
+				.logout(
+						logout -> logout
+							.logoutSuccessUrl(appUrl)
+							.deleteCookies("JSESSIONID")
+							.invalidateHttpSession(true)
+				);
 		return http.build();
 	}
 }

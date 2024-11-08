@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -47,11 +48,9 @@ public class UserService {
 		if (userRepository.findByOrigin(origin).isEmpty()) {
 			return new UserDTO(
 					origin,
-					attributes.get("name").toString(),
-					attributes.get("email").toString(),
-					null,
-					origin.startsWith("github") ? attributes.get("avatar_url").toString() : attributes.get("picture").toString(),
-					Role.USER
+					Optional.ofNullable(attributes.get("name")).map(Object::toString).orElse(null),
+					Optional.ofNullable(attributes.get("email")).map(Object::toString).orElse(null),
+					origin.startsWith("github") ? attributes.get("avatar_url").toString() : attributes.get("picture").toString()
 			);
 		}
 		return null;
@@ -76,7 +75,7 @@ public class UserService {
 	public UserDTO updateUser(UserDTO userDTO, OAuth2AuthenticationToken authentication) throws UserNotFoundException, InvalidAuthenticationException {
 		UserDTO currentUser = getUserByAttributes(authentication.getPrincipal().getAttributes());
 
-		if (currentUser.origin().equals(userDTO.origin()) || currentUser.role().equals(Role.ADMIN)) {
+		if (currentUser.origin().equals(userDTO.origin()) || getUserRole(userDTO.origin()).equals(Role.ADMIN)) {
 			return converterService.toDTO(
 					userRepository.save(
 							converterService.fromDTO(
@@ -87,5 +86,9 @@ public class UserService {
 		} else {
 			throw new InvalidAuthenticationException("You are not authenticated to update this user.");
 		}
+	}
+
+	private Role getUserRole(String origin) {
+		return userRepository.findByOrigin(origin).map(User::role).orElse(Role.GUEST);
 	}
 }

@@ -40,7 +40,6 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"origin": "github:123456",
 						"name": "test",
 						"email": "test@user.com",
-						"hashedPassword": "test",
 						"imageUrl": "test",
 						"role": "USER"
 						}
@@ -52,9 +51,7 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"origin": "github:123456",
 						"name": "test",
 						"email": "test@user.com",
-						"hashedPassword": "test",
-						"imageUrl": "test",
-						"role": "USER"
+						"imageUrl": "test"
 					}
 """));
 	}
@@ -74,7 +71,6 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"origin",
 						"name",
 						"email",
-						"password",
 						"imageUrl",
 						Role.USER
 				)
@@ -87,9 +83,7 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"origin": "origin",
 						"name": "name",
 						"email": "email",
-						"hashedPassword": "password",
-						"imageUrl": "imageUrl",
-						"role": "USER"
+						"imageUrl": "imageUrl"
 						}
 					]
 				"""));
@@ -105,7 +99,6 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"github:user",
 						"name",
 						"email",
-						null,
 						"imageUrl",
 						Role.USER
 				)
@@ -128,9 +121,7 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"origin": "github:user",
 						"name": "name",
 						"email": "email",
-						"hashedPassword": null,
-						"imageUrl": "imageUrl",
-						"role": "USER"
+						"imageUrl": "imageUrl"
 					}
 				"""));
 	}
@@ -143,7 +134,6 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"google:user",
 						"name",
 						"email",
-						null,
 						"imageUrl",
 						Role.USER
 				)
@@ -166,9 +156,7 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"origin": "google:user",
 						"name": "name",
 						"email": "email",
-						"hashedPassword": null,
-						"imageUrl": "imageUrl",
-						"role": "USER"
+						"imageUrl": "imageUrl"
 					}
 				"""));
 	}
@@ -213,7 +201,6 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"github:user",
 						"name",
 						"email",
-						null,
 						"imageUrl",
 						Role.USER
 				)
@@ -235,7 +222,6 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 									"origin": "github:user",
 									"name": "newName",
 									"email": "newEmail",
-									"hashedPassword": "password",
 									"imageUrl": "imageUrl",
 									"role": "USER"
 								}
@@ -247,9 +233,7 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"origin": "github:user",
 						"name": "newName",
 						"email": "newEmail",
-						"hashedPassword": "password",
-						"imageUrl": "imageUrl",
-						"role": "USER"
+						"imageUrl": "imageUrl"
 					}
 				"""));
 	}
@@ -272,7 +256,6 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 									"origin": "github:user",
 									"name": "newName",
 									"email": "newEmail",
-									"hashedPassword": "password",
 									"imageUrl": "imageUrl",
 									"role": "USER"
 								}
@@ -289,7 +272,6 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"github:user1",
 						"name",
 						"email",
-						null,
 						"imageUrl",
 						Role.USER
 				)
@@ -300,7 +282,6 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"github:user2",
 						"name",
 						"email",
-						null,
 						"imageUrl",
 						Role.MODERATOR
 				)
@@ -322,7 +303,6 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 									"origin": "github:user2",
 									"name": "newName",
 									"email": "newEmail",
-									"hashedPassword": "password",
 									"imageUrl": "imageUrl",
 									"role": "MODERATOR"
 								}
