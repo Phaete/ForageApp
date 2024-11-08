@@ -89,6 +89,6 @@ public class UserService {
 	}
 
 	private Role getUserRole(String origin) {
-		return userRepository.findByOrigin(origin).map(User::role).orElse(null);
+		return userRepository.findByOrigin(origin).map(User::role).orElse(Role.GUEST);
 	}
 }
