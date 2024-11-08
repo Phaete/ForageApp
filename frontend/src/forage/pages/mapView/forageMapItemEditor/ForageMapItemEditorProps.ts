@@ -2,6 +2,7 @@ import {GeoPosition} from "../../../types/GeoPosition.ts";
 import {ForageWikiItem} from "../../../types/ForageWikiItem.ts";
 import {CustomMarker} from "../../../types/CustomMarker.ts";
 import {ForageMapItem} from "../../../types/ForageMapItem.ts";
+import {User} from "../../../types/User.ts";
 
 export type ForageMapItemEditorProps = {
 	forageMapItemPosition: GeoPosition,
@@ -11,4 +12,5 @@ export type ForageMapItemEditorProps = {
 	setAddForageMapItem: (addForageMapItem: boolean) => void,
 	forageMapItemToEdit?: ForageMapItem,
 	setDetailedForageMapItem: (detailedForageMapItem: ForageMapItem | null) => void
+	user: User | null
 }

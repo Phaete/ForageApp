@@ -4,6 +4,7 @@ import com.phaete.backend.forage.model.*;
 import com.phaete.backend.forage.repository.CustomMarkerRepository;
 import com.phaete.backend.forage.repository.ForageMapItemRepository;
 import com.phaete.backend.forage.repository.ForageWikiItemRepository;
+import com.phaete.backend.forage.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,11 +36,15 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 	@Autowired
 	private ForageMapItemRepository forageMapItemRepository;
 
+	@Autowired
+	private UserRepository userRepository;
+
 	@AfterEach
 	void tearDown() {
 		customMarkerRepository.deleteAll();
 		forageWikiItemRepository.deleteAll();
 		forageMapItemRepository.deleteAll();
+		userRepository.deleteAll();
 	}
 
 	@Test
@@ -77,6 +83,10 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 						"position": {
 							"latitude": 0.0,
 							"longitude": 0.0
+						},
+						"ownership": {
+							"owner": "github:user",
+							"isPublic": true
 						},
 						"assessment": {
 							"quality": "EXCELLENT",
@@ -120,6 +130,10 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 							"latitude": 0.0,
 							"longitude": 0.0
 						},
+						"ownership": {
+							"owner": "github:user",
+							"isPublic": true
+						},
 						"assessment": {
 							"quality": "EXCELLENT",
 							"quantity": "ABUNDANT"
@@ -131,7 +145,24 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 
 	@Test
 	void findAllForageMapItems_returnEmptyList_onEmpty_DB() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
+		userRepository.save(new User(
+				"1",
+				"github:user",
+				"name",
+				"email",
+				"imageUrl",
+				Role.USER
+		));
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems")
+						.with(oidcLogin().userInfoToken(
+								token -> token
+										.claim("id", "user")
+										.claim("sub", "user")
+										.claim("name", "name")
+										.claim("email", "email")
+										.claim("avatar_url", "imageUrl")
+						))
+				)
 				.andExpect(status().isOk())
 				.andExpect(content().json("""
 					{
@@ -185,12 +216,29 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								new int[] {0, 64}
 						),
 						new GeoPosition(0.0, 0.0),
+						new ForageMapItemOwnership("github:user", true),
 						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
-						"test"
-				)
+						"test")
 		);
+		userRepository.save(new User(
+				"1",
+				"github:user",
+				"name",
+				"email",
+				"imageUrl",
+				Role.USER
+		));
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems")
+						.with(oidcLogin().userInfoToken(
+								token -> token
+										.claim("id", "user")
+										.claim("sub", "user")
+										.claim("name", "name")
+										.claim("email", "email")
+										.claim("avatar_url", "imageUrl")
+						))
+				)
 				.andExpect(status().isOk())
 				.andExpect(content().json("""
 					{
@@ -225,6 +273,10 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 									"position": {
 										"latitude": 0.0,
 										"longitude": 0.0
+									},
+									"ownership": {
+										"owner": "github:user",
+										"isPublic": true
 									},
 									"assessment": {
 										"quality": "EXCELLENT",
@@ -272,12 +324,29 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								new int[] {0, 64}
 						),
 						new GeoPosition(0.0, 0.0),
+						new ForageMapItemOwnership("github:user", true),
 						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
-						"test"
-				)
+						"test")
 		);
+		userRepository.save(new User(
+				"1",
+				"github:user",
+				"name",
+				"email",
+				"imageUrl",
+				Role.USER
+		));
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems")
+						.with(oidcLogin().userInfoToken(
+								token -> token
+										.claim("id", "user")
+										.claim("sub", "user")
+										.claim("name", "name")
+										.claim("email", "email")
+										.claim("avatar_url", "imageUrl")
+						))
+				)
 				.andExpect(status().isOk())
 				.andExpect(content().json("""
 						{
@@ -299,6 +368,10 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 												"position": {
 													"latitude": 0.0,
 													"longitude": 0.0
+												},
+												"ownership": {
+													"owner": "github:user",
+													"isPublic": true
 												},
 												"assessment": {
 													"quality": "EXCELLENT",
@@ -345,12 +418,29 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								new int[] {0, 64}
 						),
 						new GeoPosition(0.0, 0.0),
+						new ForageMapItemOwnership("github:user", true),
 						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
-						"test"
-				)
+						"test")
 		);
+		userRepository.save(new User(
+				"1",
+				"github:user",
+				"name",
+				"email",
+				"imageUrl",
+				Role.USER
+		));
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems")
+						.with(oidcLogin().userInfoToken(
+								token -> token
+										.claim("id", "user")
+										.claim("sub", "user")
+										.claim("name", "name")
+										.claim("email", "email")
+										.claim("avatar_url", "imageUrl")
+						))
+				)
 				.andExpect(status().isOk())
 				.andExpect(content().json("""
 						{
@@ -375,6 +465,10 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 												"position": {
 													"latitude": 0.0,
 													"longitude": 0.0
+												},
+												"ownership": {
+													"owner": "github:user",
+													"isPublic": true
 												},
 												"assessment": {
 													"quality": "EXCELLENT",
@@ -431,9 +525,9 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								new int[] {0, 64}
 						),
 						new GeoPosition(0.0, 0.0),
+						new ForageMapItemOwnership("github:user", true),
 						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
-						"test"
-				)
+						"test")
 		);
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/forageMapItems/1"))
@@ -468,6 +562,10 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 						"position": {
 							"latitude": 0.0,
 							"longitude": 0.0
+						},
+						"ownership": {
+							"owner": "github:user",
+							"isPublic": true
 						},
 						"assessment": {
 							"quality": "EXCELLENT",
@@ -528,12 +626,28 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								new int[] {0, 64}
 						),
 						new GeoPosition(0.0, 0.0),
+						new ForageMapItemOwnership("github:user", true),
 						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
-						"test"
-				)
+						"test")
 		);
+		userRepository.save(new User(
+				"1",
+				"github:user",
+				"name",
+				"email",
+				"imageUrl",
+				Role.USER
+		));
 
 		mockMvc.perform(MockMvcRequestBuilders.put("/api/forageMapItems/1")
+						.with(oidcLogin().userInfoToken(
+								token -> token
+										.claim("id", "user")
+										.claim("sub", "user")
+										.claim("name", "name")
+										.claim("email", "email")
+										.claim("avatar_url", "imageUrl")
+						))
 					.contentType(MediaType.APPLICATION_JSON)
 					.content("""
 				{
@@ -565,6 +679,10 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 					"position": {
 						"latitude": 0.0,
 						"longitude": 0.0
+					},
+					"ownership": {
+						"owner": "github:user",
+						"isPublic": true
 					},
 					"assessment": {
 						"quality": "EXCELLENT",
@@ -604,6 +722,10 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 						"position": {
 							"latitude": 0.0,
 							"longitude": 0.0
+						},
+						"ownership": {
+							"owner": "github:user",
+							"isPublic": true
 						},
 						"assessment": {
 							"quality": "EXCELLENT",
@@ -648,6 +770,10 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 					"position": {
 						"latitude": 0.0,
 						"longitude": 0.0
+					},
+					"ownership": {
+						"owner": "github:user",
+						"isPublic": true
 					},
 					"assessment": {
 						"quality": "EXCELLENT",
@@ -703,12 +829,29 @@ class ForageMapItemControllerIntegrationTest extends AbstractMongoDBTestcontaine
 								new int[] {0, 64}
 						),
 						new GeoPosition(0.0, 0.0),
+						new ForageMapItemOwnership("github:user", true),
 						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
-						"test"
-				)
+						"test")
 		);
+		userRepository.save(new User(
+				"1",
+				"github:user",
+				"name",
+				"email",
+				"imageUrl",
+				Role.USER
+		));
 
-		mockMvc.perform(MockMvcRequestBuilders.delete("/api/forageMapItems/1"))
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/forageMapItems/1")
+						.with(oidcLogin().userInfoToken(
+								token -> token
+										.claim("id", "user")
+										.claim("sub", "user")
+										.claim("name", "name")
+										.claim("email", "email")
+										.claim("avatar_url", "imageUrl")
+						))
+				)
 				.andExpect(status().isOk())
 				.andExpect(content().string("0.0, 0.0"));
 	}

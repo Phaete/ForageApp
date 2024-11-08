@@ -2,6 +2,7 @@ package com.phaete.backend.forage;
 
 import com.phaete.backend.forage.model.ForageMapItemNotFoundException;
 import com.phaete.backend.forage.model.ForageWikiItemNotFoundException;
+import com.phaete.backend.forage.model.InvalidAuthenticationException;
 import com.phaete.backend.forage.model.MarkerNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,29 @@ public class GlobalExceptionHandler {
 					e.getMessage(),
 					Arrays.toString(e.getStackTrace())
 				), org.springframework.http.HttpStatus.NOT_FOUND);
+		logger.error(responseEntity.getBody());
+		return responseEntity;
+	}
+
+	/**
+	 * Handles exceptions of type {@link InvalidAuthenticationException}.
+	 * <p>
+	 * These exceptions are thrown when a user tries to access a resource that does not belong to them.
+	 * <p>
+	 * A {@link ResponseEntity} containing a string with name of the exception class, the error message and the
+	 * stack trace is returned.
+	 * The HTTP status code is set to 401 (UNAUTHORIZED).
+	 *
+	 * @param e the exception to be handled
+	 * @return a ResponseEntity containing the error message and stack trace
+	 */
+	@ExceptionHandler(InvalidAuthenticationException.class)
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	public ResponseEntity<String> handleInvalidAuthenticationException(InvalidAuthenticationException e) {
+		ResponseEntity<String> responseEntity = new ResponseEntity<>(String.format("%s: %s with Stacktrace:%n %s",
+				e.getClass().getSimpleName(),
+				e.getMessage(),
+				Arrays.toString(e.getStackTrace())), HttpStatus.UNAUTHORIZED);
 		logger.error(responseEntity.getBody());
 		return responseEntity;
 	}

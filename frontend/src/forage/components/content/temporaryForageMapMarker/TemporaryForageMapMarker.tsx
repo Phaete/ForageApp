@@ -46,7 +46,8 @@ const TemporaryForageMapMarker = (props: TemporaryForageMapMarkerProps) => {
 					forageWikiItems={props.forageWikiItems}
 					customMarker={props.customMarker}
 					setAddForageMapItem={props.setAddForageMapItem}
-					setDetailedForageMapItem={props.setDetailedForageMapItem}/>
+					setDetailedForageMapItem={props.setDetailedForageMapItem}
+					user={props.user}/>
 			</Popup>
 		</Marker>
 	) : null

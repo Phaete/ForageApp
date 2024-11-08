@@ -2,6 +2,7 @@ package com.phaete.backend.forage.controller;
 
 import com.phaete.backend.forage.model.*;
 import com.phaete.backend.forage.service.ForageMapItemService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,8 +36,9 @@ public class ForageMapItemController {
 	 * @return a map where the key is a boolean indicating validity, and the value is a list of forage map items.
 	 */
 	@GetMapping
-	public Map<Boolean, List<ForageMapItem>> findAllForageMapItems() {
-		return forageMapItemService.findAllForageMapItems();
+	public Map<Boolean, List<ForageMapItem>> findAllForageMapItems(OAuth2AuthenticationToken authentication)
+			throws UserNotFoundException, InvalidAuthenticationException {
+		return forageMapItemService.findAll(authentication);
 	}
 
     /**
@@ -49,35 +51,50 @@ public class ForageMapItemController {
      * @throws ForageWikiItemNotFoundException if the forage wiki item with the id of the forage map item's forage wiki item was not found
      */
 	@GetMapping("/{id}")
-	public ForageMapItemDTO findForageMapItemById(@PathVariable String id)
-			throws ForageMapItemNotFoundException, MarkerNotFoundException, ForageWikiItemNotFoundException {
-		return forageMapItemService.findForageMapItemById(id);
+	public ForageMapItemDTO findForageMapItemById(@PathVariable String id, OAuth2AuthenticationToken authentication)
+			throws ForageMapItemNotFoundException, MarkerNotFoundException, ForageWikiItemNotFoundException,
+			UserNotFoundException, InvalidAuthenticationException {
+		return forageMapItemService.findForageMapItemById(id, authentication);
 	}
+
 
 	/**
 	 * Accepts a PUT request on the /api/forageMapItems/{id} endpoint and updates the forage map item with the given id.
 	 * <p>
 	 * @param id the id of the forage map item to be updated
 	 * @param forageMapItemDTO the updated forage map item data
+	 * @param authentication  the authentication details of the user
 	 * @return the updated forage map item converted to a DTO
 	 * @throws ForageMapItemNotFoundException if no forage map item with the given id was found
+	 * @throws UserNotFoundException if the user with the authentication details was not found
+	 * @throws InvalidAuthenticationException if the user with the authentication details is not authorized to update
+	 * 										the forage map item
 	 */
 	@PutMapping("/{id}")
-	public ForageMapItemDTO updateForageMapItem(@PathVariable String id, @RequestBody ForageMapItemDTO forageMapItemDTO)
-			throws ForageMapItemNotFoundException {
-		return forageMapItemService.updateForageMapItem(id, forageMapItemDTO);
+	public ForageMapItemDTO updateForageMapItem(
+			@PathVariable String id,
+			@RequestBody ForageMapItemDTO forageMapItemDTO,
+			OAuth2AuthenticationToken authentication
+	) throws ForageMapItemNotFoundException, UserNotFoundException, InvalidAuthenticationException {
+		return forageMapItemService.updateForageMapItem(id, forageMapItemDTO, authentication);
 	}
+
 
 
 	/**
 	 * Accepts a DELETE request on the /api/forageMapItems/{id} endpoint and deletes the forage map item with the given id.
 	 * <p>
 	 * @param id the id of the forage map item to be deleted
+	 * @param authentication the authentication details of the user
 	 * @return a message containing the position of the deleted forage map item
 	 * @throws ForageMapItemNotFoundException if no forage map item with the given id was found
+	 * @throws UserNotFoundException if the user with the authentication details was not found
+	 * @throws InvalidAuthenticationException if the user with the authentication details is not authorized to update
+	 * 										the forage map item
 	 */
 	@DeleteMapping("/{id}")
-	public String deleteForageMapItem(@PathVariable String id) throws ForageMapItemNotFoundException {
-		return forageMapItemService.deleteForageMapItem(id);
+	public String deleteForageMapItem(@PathVariable String id, OAuth2AuthenticationToken authentication)
+			throws ForageMapItemNotFoundException, UserNotFoundException, InvalidAuthenticationException {
+		return forageMapItemService.deleteForageMapItem(id, authentication);
 	}
 }

@@ -25,6 +25,10 @@ export default function ForageMapItemEditor(props: Readonly<ForageMapItemEditorP
             popupAnchor: [0, 0]
         },
         position: props.forageMapItemPosition,
+        ownership: {
+            owner: props.user?.origin ?? "anonymous",
+            isPublic: false
+        },
         assessment: {
             quality: "",
             quantity: "",
@@ -154,6 +158,20 @@ export default function ForageMapItemEditor(props: Readonly<ForageMapItemEditorP
                         {...forageMapItemToAdd, notes: event.target.value}
                     )
                 } value={forageMapItemToAdd.notes}/>
+                <span>
+                    <span>Make this item public?</span>
+                    <span><input type={"checkbox"} onChange={
+                        event => setForageMapItemToAdd(
+                            {
+                                ...forageMapItemToAdd,
+                                ownership: {
+                                    ...forageMapItemToAdd.ownership,
+                                    isPublic: event.target.checked
+                                }
+                            }
+                        )
+                    }></input></span>
+                </span>
                 <div className={"flex flex-row"}>
                     <span>
                         <button type={"button"} onClick={() => {

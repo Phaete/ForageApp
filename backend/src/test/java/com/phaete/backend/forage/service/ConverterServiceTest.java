@@ -139,9 +139,9 @@ class ConverterServiceTest {
 						new int[] {0, 0}
 				),
 				new GeoPosition(0.0, 0.0),
+				new ForageMapItemOwnership("test", true),
 				new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
-				"notes"
-		);
+				"notes");
 
 		ForageMapItem actualForageItem = converterService.fromDTO(
 				new ForageMapItemDTO(
@@ -163,9 +163,9 @@ class ConverterServiceTest {
 								new int[] {0, 0}
 						),
 						new GeoPosition(0.0, 0.0),
+						new ForageMapItemOwnership("test", true),
 						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
-						"notes"
-				)
+						"notes")
 		);
 		assertEquals(expectedForageItem, actualForageItem);
 	}
@@ -191,9 +191,9 @@ class ConverterServiceTest {
 						new int[] {0, 0}
 				),
 				new GeoPosition(0.0, 0.0),
+				new ForageMapItemOwnership("test", true),
 				new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
-				"notes"
-		);
+				"notes");
 
 		ForageMapItemDTO actualForageMapItemDTO = converterService.toDTO(
 				new ForageMapItem(
@@ -216,9 +216,9 @@ class ConverterServiceTest {
 								new int[] {0, 0}
 						),
 						new GeoPosition(0.0, 0.0),
+						new ForageMapItemOwnership("test", true),
 						new ForageMapItemAssessment(ForageQuality.EXCELLENT, ForageQuantity.ABUNDANT),
-						"notes"
-				)
+						"notes")
 		);
 		assertEquals(expectedForageMapItemDTO, actualForageMapItemDTO);
 	}
