@@ -2,6 +2,7 @@ package com.phaete.backend.forage.service;
 
 import com.phaete.backend.forage.model.*;
 import com.phaete.backend.forage.repository.ForageWikiItemRepository;
+import com.phaete.backend.forage.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -15,10 +16,11 @@ class ForageWikiItemServiceTest {
 
 	private final ForageWikiItemRepository forageWikiItemRepository = mock(ForageWikiItemRepository.class);
 	private final IdService idService = mock(IdService.class);
+	private final UserRepository userRepository = mock(UserRepository.class);
 
 	ForageWikiItemService forageWikiItemService = new ForageWikiItemService(
 			forageWikiItemRepository,
-			new ConverterService(idService)
+			new ConverterService(idService, userRepository)
 	);
 
 	@Test

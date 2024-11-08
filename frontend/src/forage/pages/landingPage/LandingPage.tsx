@@ -1,9 +1,15 @@
+import {LandingPageProps} from "./LandingPageProps.ts";
 
-export default function LandingPage() {
+export default function LandingPage(props: Readonly<LandingPageProps>) {
+
+	function login() {
+		props.login()
+	}
+
 	return (
 		<>
-			<p>Placeholder</p>
-			<p>Nothing to see here yet</p>
+			<p>Please log in for full functionality.</p>
+			{props.user ? <button onClick={props.logout}>Logout</button> : <button onClick={login}>Login</button>}
 		</>
 	)
 }

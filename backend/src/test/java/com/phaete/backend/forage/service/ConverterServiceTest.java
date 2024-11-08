@@ -1,6 +1,7 @@
 package com.phaete.backend.forage.service;
 
 import com.phaete.backend.forage.model.*;
+import com.phaete.backend.forage.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,8 +13,9 @@ import static org.mockito.Mockito.when;
 class ConverterServiceTest {
 
 	IdService idService = mock(IdService.class);
+	UserRepository userRepository = mock(UserRepository.class);
 
-	ConverterService converterService = new ConverterService(idService);
+	ConverterService converterService = new ConverterService(idService, userRepository);
 
 	@Test
 	void fromDTO_CustomMarkerDTO_toCustomMarker() {
@@ -230,7 +232,6 @@ class ConverterServiceTest {
 				"test",
 				"test",
 				"test",
-				"test",
 				Role.USER
 		);
 		User actualUser = converterService.fromDTO(
@@ -238,9 +239,7 @@ class ConverterServiceTest {
 						"test",
 						"test",
 						"test",
-						"test",
-						"test",
-						Role.USER
+						"test"
 				)
 		);
 		assertEquals(expectedUser, actualUser);
@@ -252,14 +251,11 @@ class ConverterServiceTest {
 				"test",
 				"test",
 				"test",
-				"test",
-				"test",
-				Role.USER
+				"test"
 		);
 		UserDTO actualUserDTO = converterService.toDTO(
 				new User(
 						"1",
-						"test",
 						"test",
 						"test",
 						"test",

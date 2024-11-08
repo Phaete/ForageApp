@@ -2,6 +2,7 @@ package com.phaete.backend.forage.service;
 
 import com.phaete.backend.forage.model.*;
 import com.phaete.backend.forage.repository.ForageMapItemRepository;
+import com.phaete.backend.forage.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -15,10 +16,11 @@ class ForageMapItemServiceTest {
 
 	private final ForageMapItemRepository forageMapItemRepository = mock(ForageMapItemRepository.class);
 	private final IdService idService = mock(IdService.class);
+	private final UserRepository userRepository = mock(UserRepository.class);
 
 	ForageMapItemService forageMapItemService = new ForageMapItemService(
 			forageMapItemRepository,
-			new ConverterService(idService)
+			new ConverterService(idService, userRepository)
 	);
 
 	@Test

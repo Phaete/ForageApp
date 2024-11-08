@@ -43,7 +43,7 @@ public class CustomizedOAuth2LoginSuccessHandler implements AuthenticationSucces
 		} catch (InvalidAuthenticationException e) {
 			logger.error("Could not create user: ", e);
 		} finally {
-			response.sendRedirect(appUrl);
+			response.sendRedirect(appUrl + "/dashboard");
 		}
 	}
 }

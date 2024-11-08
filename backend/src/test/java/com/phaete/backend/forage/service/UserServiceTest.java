@@ -20,7 +20,7 @@ class UserServiceTest {
 	private final IdService idService = mock(IdService.class);
 	private final OAuth2AuthenticationToken oAuth2AuthenticationToken = mock(OAuth2AuthenticationToken.class);
 
-	UserService userService = new UserService(userRepository, new ConverterService(idService));
+	UserService userService = new UserService(userRepository, new ConverterService(idService, userRepository));
 
 	@Test
 	void createUser_expectDTO_onSuccess() {
@@ -28,9 +28,7 @@ class UserServiceTest {
 				"origin",
 				"name",
 				"email",
-				"password",
-				"imageUrl",
-				Role.USER
+				"imageUrl"
 		);
 		when(idService.generateId()).thenReturn("1");
 		when(userRepository.save(any(User.class))).thenReturn(
@@ -39,7 +37,6 @@ class UserServiceTest {
 						"origin",
 						"name",
 						"email",
-						"password",
 						"imageUrl",
 						Role.USER
 				)
@@ -58,7 +55,6 @@ class UserServiceTest {
 						"origin",
 						"name",
 						"email",
-						"password",
 						"imageUrl",
 						Role.USER
 				)
@@ -69,7 +65,6 @@ class UserServiceTest {
 						"origin",
 						"name",
 						"email",
-						"password",
 						"imageUrl",
 						Role.USER
 				)
@@ -86,9 +81,7 @@ class UserServiceTest {
 				"github:1234",
 				"name",
 				"email",
-				null,
-				"imageUrl",
-				Role.USER
+				"imageUrl"
 		);
 		when(userRepository.findByOrigin(any(String.class))).thenReturn(Optional.empty());
 
@@ -109,9 +102,7 @@ class UserServiceTest {
 				"google:1234",
 				"name",
 				"email",
-				null,
-				"imageUrl",
-				Role.USER
+				"imageUrl"
 		);
 		when(userRepository.findByOrigin(any(String.class))).thenReturn(Optional.empty());
 
@@ -134,7 +125,6 @@ class UserServiceTest {
 						"github:1234",
 						"name",
 						"email",
-						"password",
 						"imageUrl",
 						Role.USER
 				)
@@ -159,7 +149,6 @@ class UserServiceTest {
 						"google:1234",
 						"name",
 						"email",
-						"password",
 						"imageUrl",
 						Role.USER
 				)
@@ -195,9 +184,7 @@ class UserServiceTest {
 				"forage-app:1234",
 				"name",
 				"email",
-				"password",
-				"imageUrl",
-				Role.USER
+				"imageUrl"
 		);
 		when(userRepository.findByOrigin(any(String.class))).thenReturn(Optional.of(
 						new User(
@@ -205,7 +192,6 @@ class UserServiceTest {
 								"forage-app:1234",
 								"name",
 								"email",
-								"password",
 								"imageUrl",
 								Role.USER
 						)
@@ -229,9 +215,7 @@ class UserServiceTest {
 				"github:1234",
 				"name",
 				"email",
-				null,
-				"imageUrl",
-				Role.USER
+				"imageUrl"
 		);
 		when(userRepository.findByOrigin(any(String.class))).thenReturn(Optional.of(
 				new User(
@@ -239,7 +223,6 @@ class UserServiceTest {
 						"github:1234",
 						"name",
 						"email",
-						null,
 						"imageUrl",
 						Role.USER
 				)
@@ -262,9 +245,7 @@ class UserServiceTest {
 				"google:1234",
 				"name",
 				"email",
-				null,
-				"imageUrl",
-				Role.USER
+				"imageUrl"
 		);
 		when(userRepository.findByOrigin(any(String.class))).thenReturn(Optional.of(
 				new User(
@@ -272,7 +253,6 @@ class UserServiceTest {
 						"google:1234",
 						"name",
 						"email",
-						null,
 						"imageUrl",
 						Role.USER
 				)
@@ -307,9 +287,7 @@ class UserServiceTest {
 				"github:1234",
 				"name123",
 				"email",
-				null,
-				"imageUrl",
-				Role.USER
+				"imageUrl"
 		);
 		when(userRepository.findByOrigin(any(String.class))).thenReturn(Optional.of(
 				new User(
@@ -317,7 +295,6 @@ class UserServiceTest {
 						"github:1234",
 						"name",
 						"email",
-						null,
 						"imageUrl",
 						Role.USER
 				)
@@ -336,7 +313,6 @@ class UserServiceTest {
 						"github:1234",
 						"name123",
 						"email",
-						null,
 						"imageUrl",
 						Role.USER
 				)
@@ -367,9 +343,7 @@ class UserServiceTest {
 				"github:1234",
 				"name123",
 				"email",
-				null,
-				"imageUrl",
-				Role.USER
+				"imageUrl"
 		);
 		when(userRepository.findByOrigin("github:1234")).thenReturn(Optional.of(
 				new User(
@@ -377,7 +351,6 @@ class UserServiceTest {
 						"github:1234",
 						"name",
 						"email",
-						null,
 						"imageUrl",
 						Role.USER
 				)
@@ -388,7 +361,6 @@ class UserServiceTest {
 						"github:1",
 						"name123",
 						"email",
-						null,
 						"imageUrl",
 						Role.ADMIN
 				)
@@ -411,7 +383,6 @@ class UserServiceTest {
 						"github:1234",
 						"name123",
 						"email",
-						null,
 						"imageUrl",
 						Role.USER
 				)
@@ -442,9 +413,7 @@ class UserServiceTest {
 				"github:1",
 				"name1",
 				"email",
-				null,
-				"imageUrl",
-				Role.ADMIN
+				"imageUrl"
 		);
 		when(userRepository.findByOrigin("github:1")).thenReturn(Optional.of(
 				new User(
@@ -452,7 +421,6 @@ class UserServiceTest {
 						"github:1",
 						"name123",
 						"email",
-						null,
 						"imageUrl",
 						Role.ADMIN
 				)
@@ -475,7 +443,6 @@ class UserServiceTest {
 						"github:1",
 						"name1",
 						"email",
-						null,
 						"imageUrl",
 						Role.ADMIN
 				)
@@ -521,9 +488,7 @@ class UserServiceTest {
 						"github:1234",
 						"name123",
 						"email",
-						null,
-						"imageUrl",
-						Role.USER
+						"imageUrl"
 				),
 				new OAuth2AuthenticationToken(
 						new DefaultOAuth2User(
@@ -550,7 +515,6 @@ class UserServiceTest {
 						"github:1234",
 						"name",
 						"email",
-						null,
 						"imageUrl",
 						Role.USER
 				)
@@ -561,7 +525,6 @@ class UserServiceTest {
 						"github:123",
 						"name2",
 						"email2",
-						null,
 						"imageUrl2",
 						Role.USER
 				)
@@ -580,9 +543,7 @@ class UserServiceTest {
 						"github:1234",
 						"name123",
 						"email",
-						null,
-						"imageUrl",
-						Role.USER
+						"imageUrl"
 				),
 				new OAuth2AuthenticationToken(
 						new DefaultOAuth2User(null,
