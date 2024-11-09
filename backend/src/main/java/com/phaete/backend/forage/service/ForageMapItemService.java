@@ -4,6 +4,7 @@ import com.phaete.backend.forage.model.*;
 import com.phaete.backend.forage.repository.ForageMapItemRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -36,6 +37,14 @@ public class ForageMapItemService {
 
 	private final ForageMapItemRepository forageMapItemRepository;
 	private final ConverterService converterService;
+	private final UserService userService;
+
+	private final UserDTO anonymousUser = new UserDTO(
+			"anonymous",
+			"anonymous",
+			"email",
+			"https://circumicons.com/icon/user"
+	);
 
 	private static final String FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE = "Could not find forage map item with the id: ";
 
@@ -43,10 +52,11 @@ public class ForageMapItemService {
 
 	public ForageMapItemService(
 			ForageMapItemRepository forageMapItemRepository,
-			ConverterService converterService
-	) {
+			ConverterService converterService,
+			UserService userService) {
 		this.forageMapItemRepository = forageMapItemRepository;
 		this.converterService = converterService;
+		this.userService = userService;
 	}
 
 
@@ -64,24 +74,13 @@ public class ForageMapItemService {
 		);
 	}
 
-
 	/**
-	 * Retrieves all forage map items from the database.
-	 * <p>
-	 * @return a map of all forage map items that are split into valid and invalid map items
+	 * Log all invalid ForageMapItems and the reason they are invalid to the logger.
+	 *
+	 * @param invalidForageMapItems the list of invalid ForageMapItems
 	 */
-	public Map<Boolean, List<ForageMapItem>> findAllForageMapItems() {
-		Map<Boolean, List<ForageMapItem>> forageMapItemMap = forageMapItemRepository.findAll()
-				.stream()
-				.collect(
-						Collectors.partitioningBy(
-								forageMapItem -> (
-										forageMapItem.forageWikiItem() != null &&
-										forageMapItem.customMarker() != null
-								)
-						)
-				);
-		forageMapItemMap.get(false).forEach(
+	private void logInvalidForageMapItems(List<ForageMapItem> invalidForageMapItems) {
+		invalidForageMapItems.forEach(
 				invalidForageMapItem -> {
 					if (invalidForageMapItem.forageWikiItem() == null) {
 						logger.warn("ForageMapItem with id {} is missing the forageWikiItem", invalidForageMapItem.id());
@@ -92,33 +91,115 @@ public class ForageMapItemService {
 					logger.warn("Invalid ForageMapItem details: {}", invalidForageMapItem);
 				}
 		);
+	}
+
+	/**
+	 * Retrieves all forage map items from the database.
+	 * <p>
+	 * @return a map of all forage map items that are split into valid and invalid map items
+	 */
+	private Map<Boolean, List<ForageMapItem>> findAllForageMapItems() {
+		Map<Boolean, List<ForageMapItem>> forageMapItemMap = forageMapItemRepository.findAll()
+				.stream()
+				.collect(
+						Collectors.partitioningBy(
+								forageMapItem -> (
+										forageMapItem.forageWikiItem() != null &&
+										forageMapItem.customMarker() != null
+								)
+						)
+				);
+		logInvalidForageMapItems(forageMapItemMap.get(false));
 		return forageMapItemMap;
 	}
 
+	/**
+	 * Retrieves all forage map items from the database that are available to a user.
+ 	 * Available to the user are all forageMapItems that are owned by the user or are public.
+	 * <p>
+	 * @param currentUser the current user
+	 * @return a map of all forage map items that are split into valid and invalid map items
+	 */
+	private Map<Boolean, List<ForageMapItem>> findAllForageMapItemsAvailableToUser(
+			UserDTO currentUser
+	) {
+		Map<Boolean, List<ForageMapItem>> forageMapItemMap = forageMapItemRepository.findAll()
+				.stream()
+				.filter(
+						forageMapItem -> forageMapItem.ownership().owner().equals(currentUser.origin()) ||
+								forageMapItem.ownership().isPublic()
+				)
+				.collect(
+						Collectors.partitioningBy(
+								forageMapItem -> (
+										forageMapItem.forageWikiItem() != null &&
+										forageMapItem.customMarker() != null
+								)
+						)
+				);
+		logInvalidForageMapItems(forageMapItemMap.get(false));
+		return forageMapItemMap;
+	}
+
+	/**
+	 * Retrieves a list of forage map items base on the authentication token of the current user.
+	 *
+	 * @param authentication the authentication details of the user
+	 * @return a map of all forage map items that are split into valid and invalid map items
+	 * @throws UserNotFoundException if the user was not found
+	 * @throws InvalidAuthenticationException if the authentication details are invalid
+	 */
+	public Map<Boolean, List<ForageMapItem>> findAll(OAuth2AuthenticationToken authentication)
+			throws UserNotFoundException, InvalidAuthenticationException {
+		UserDTO currentUser = authentication != null ? userService.getUserByAttributes(authentication.getPrincipal().getAttributes()) : anonymousUser;
+		if (userService.getUserRole(
+				currentUser.origin()
+		) == Role.ADMIN) {
+			return findAllForageMapItems();
+		} else {
+			return findAllForageMapItemsAvailableToUser(currentUser);
+		}
+	}
 
 	/**
 	 * Retrieves a forage map item from the database by its id.
 	 *
 	 * @param id the id of the forage map item to be retrieved
+	 * @param authentication the authentication details of the user
 	 * @return the forage map item with the given id
 	 * @throws ForageMapItemNotFoundException if no forage map item with the given id was found
 	 * @throws MarkerNotFoundException if the marker with the id of the forage map item's custom marker was not found
 	 * @throws ForageWikiItemNotFoundException if the forage wiki item with the id of the forage map item's forage wiki item was not found
+	 * @throws UserNotFoundException if the user specified in the authentication details was not found
+	 * @throws InvalidAuthenticationException if the user specified in the authentication details has no permission to
+	 * 										  update the forage map item
 	 */
-	public ForageMapItemDTO findForageMapItemById(String id)
-			throws ForageMapItemNotFoundException, MarkerNotFoundException, ForageWikiItemNotFoundException {
+	public ForageMapItemDTO findForageMapItemById(String id, OAuth2AuthenticationToken authentication)
+			throws ForageMapItemNotFoundException, MarkerNotFoundException, ForageWikiItemNotFoundException, UserNotFoundException, InvalidAuthenticationException {
 		ForageMapItemDTO forageMapItemDTO = converterService.toDTO(
 				forageMapItemRepository.findById(id).orElseThrow(
 					() -> new ForageMapItemNotFoundException(FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE + id)
 				)
 		);
+
 		if (forageMapItemDTO.forageWikiItem() == null) {
 			throw new ForageWikiItemNotFoundException("Could not find marker for forage map item with the id: " + id);
 		}
 		if (forageMapItemDTO.customMarker() == null) {
 			throw new MarkerNotFoundException("Could not find forage wiki item for forage map item with the id: " + id);
 		}
-		return forageMapItemDTO;
+
+		UserDTO currentUser = authentication != null ?
+				userService.getUserByAttributes(authentication.getPrincipal().getAttributes()) : anonymousUser;
+		if (
+				forageMapItemDTO.ownership().owner().equals(currentUser.origin()) ||
+						forageMapItemDTO.ownership().isPublic() ||
+						userService.getUserRole(currentUser.origin()).equals(Role.ADMIN)
+		) {
+			return forageMapItemDTO;
+		} else {
+			throw new InvalidAuthenticationException("You are not authenticated to view this forage map item.");
+		}
 	}
 
 	/**
@@ -126,12 +207,26 @@ public class ForageMapItemService {
 	 *
 	 * @param id the id of the forage map item to be updated
 	 * @param forageMapItemDTO the updated forage map item data
+	 * @param authentication the authentication details of the user
 	 * @return the updated forage map item converted to a DTO
 	 * @throws ForageMapItemNotFoundException if no forage map item with the given id was found
+	 * @throws UserNotFoundException if the user specified in the authentication details was not found
+	 * @throws InvalidAuthenticationException if the user specified in the authentication details has no permission to
+	 * 										  update the forage map item
 	 */
-	public ForageMapItemDTO updateForageMapItem(String id, ForageMapItemDTO forageMapItemDTO)
-			throws ForageMapItemNotFoundException {
-		if (forageMapItemRepository.findById(id).isPresent()) {
+	public ForageMapItemDTO updateForageMapItem(
+			String id, ForageMapItemDTO forageMapItemDTO, OAuth2AuthenticationToken authentication
+	) throws ForageMapItemNotFoundException, UserNotFoundException, InvalidAuthenticationException {
+		UserDTO currentUser = authentication != null ?
+				userService.getUserByAttributes(authentication.getPrincipal().getAttributes()) : anonymousUser;
+		ForageMapItem forageMapItemToUpdate = forageMapItemRepository.findById(id).orElseThrow(
+				() ->new ForageMapItemNotFoundException(FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE + id)
+		);
+		if (
+				(forageMapItemToUpdate.ownership().owner().equals(forageMapItemDTO.ownership().owner()) &&
+				forageMapItemDTO.ownership().owner().equals(currentUser.origin()))
+				|| userService.getUserRole(currentUser.origin()).equals(Role.ADMIN)
+		) {
 			return converterService.toDTO(
 					forageMapItemRepository.save(
 							new ForageMapItem(
@@ -139,22 +234,42 @@ public class ForageMapItemService {
 									forageMapItemDTO.forageWikiItem(),
 									forageMapItemDTO.customMarker(),
 									forageMapItemDTO.position(),
+									forageMapItemDTO.ownership(),
 									forageMapItemDTO.assessment(),
-									forageMapItemDTO.notes()
-							)
+									forageMapItemDTO.notes())
 					)
 			);
 		} else {
-			throw new ForageMapItemNotFoundException(FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE + id);
+			throw new InvalidAuthenticationException("You are not authenticated to update this forage map item.");
 		}
 	}
 
-	public String deleteForageMapItem(String id) throws ForageMapItemNotFoundException {
+	/**
+	 * Deletes a forage map item from the database.
+	 * @param id the id of the forage item to be deleted
+	 * @param authentication the authentication details of the user
+	 * @return a string containing the latitude and longitude of the deleted forage map item's position
+	 * @throws ForageMapItemNotFoundException if no forage map item with the given id was found
+	 * @throws UserNotFoundException if the user trying to delete the forage map item was not found
+	 * @throws InvalidAuthenticationException if the user trying to delete the forage map item does not have the
+	 * 										required authority to delete the forage map item
+	 */
+	public String deleteForageMapItem(String id, OAuth2AuthenticationToken authentication)
+			throws ForageMapItemNotFoundException, UserNotFoundException, InvalidAuthenticationException {
 		ForageMapItem forageMapItemToDelete = forageMapItemRepository.findById(id)
 						.orElseThrow(
 								() -> new ForageMapItemNotFoundException(FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE + id)
 						);
-		forageMapItemRepository.deleteById(id);
-		return forageMapItemToDelete.position().latitude() + ", " + forageMapItemToDelete.position().longitude();
+		UserDTO currentUser = authentication != null ?
+				userService.getUserByAttributes(authentication.getPrincipal().getAttributes()) : anonymousUser;
+		if (
+				forageMapItemToDelete.ownership().owner().equals(currentUser.origin()) ||
+						userService.getUserRole(currentUser.origin()).equals(Role.ADMIN)
+		) {
+			forageMapItemRepository.deleteById(id);
+			return forageMapItemToDelete.position().latitude() + ", " + forageMapItemToDelete.position().longitude();
+		} else {
+			throw new InvalidAuthenticationException("You are not authenticated to delete this forage map item.");
+		}
 	}
 }

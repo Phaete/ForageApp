@@ -101,9 +101,9 @@ public class ConverterService {
 				forageMapItemDTO.forageWikiItem(),
 				forageMapItemDTO.customMarker(),
 				forageMapItemDTO.position(),
+				forageMapItemDTO.ownership(),
 				forageMapItemDTO.assessment(),
-				forageMapItemDTO.notes()
-		);
+				forageMapItemDTO.notes());
 	}
 
 	/**
@@ -117,9 +117,9 @@ public class ConverterService {
 				forageMapItem.forageWikiItem(),
 				forageMapItem.customMarker(),
 				forageMapItem.position(),
+				forageMapItem.ownership(),
 				forageMapItem.assessment(),
-				forageMapItem.notes()
-		);
+				forageMapItem.notes());
 	}
 
 	/**

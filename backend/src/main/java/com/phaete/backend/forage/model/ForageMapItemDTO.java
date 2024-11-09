@@ -7,6 +7,7 @@ package com.phaete.backend.forage.model;
  * @param forageWikiItem the forage item associated with the map item
  * @param customMarker the custom marker associated with the map item
  * @param position the geographical position of the map item
+ * @param ownership the ownership of the forage item on the map
  * @param assessment the assessment of the forage item on the map
  * @param notes additional notes about the forage map item
  *
@@ -16,6 +17,7 @@ public record ForageMapItemDTO(
 		ForageWikiItem forageWikiItem,
 		CustomMarker customMarker,
 		GeoPosition position,
+		ForageMapItemOwnership ownership,
 		ForageMapItemAssessment assessment,
 		String notes
 ) {

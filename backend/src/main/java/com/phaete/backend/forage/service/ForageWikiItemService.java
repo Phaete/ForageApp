@@ -108,6 +108,13 @@ public class ForageWikiItemService {
 		);
 	}
 
+	/**
+	 * Deletes a forage wiki item from the database.
+	 *
+	 * @param id the id of the forage wiki item to be deleted
+	 * @return the name of the deleted forage wiki item
+	 * @throws ForageWikiItemNotFoundException if no forage wiki item with the given id was found
+	 */
 	public String deleteForageWikiItem(String id) throws ForageWikiItemNotFoundException {
 		String name = findForageWikiItemById(id).name();
 		forageWikiItemRepository.deleteById(id);

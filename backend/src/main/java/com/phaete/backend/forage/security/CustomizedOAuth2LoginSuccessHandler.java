@@ -17,6 +17,12 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Custom success handler for OAuth2 login.
+ * <p>
+ * Overrides the onAuthenticationSuccess Method to not only redirect the user, but also create a User in the database if
+ * the oAuth user is logging in for the first time
+ */
 @Component
 public class CustomizedOAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 

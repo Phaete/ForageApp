@@ -57,8 +57,7 @@ function App() {
 						origin: r.data.origin,
 						name: r.data.name,
 						email: r.data.email,
-						imageUrl: r.data.imageUrl,
-						role: r.data.role
+						imageUrl: r.data.imageUrl
 					}
 				)
 			})
@@ -83,16 +82,21 @@ function App() {
 							<LandingPage login={login} logout={logout} getMe={getMe} user={user}/>
 					} />
 					<Route path={"/map"} element={
-							<MapView customMarker={customMarker} forageWikiItems={forageWikiItems} forageMapItems={forageMapItems} fetchForageMapItems={fetchForageMapItems}/>
+						<MapView
+							customMarker={customMarker}
+							forageWikiItems={forageWikiItems}
+							forageMapItems={forageMapItems}
+							fetchForageMapItems={fetchForageMapItems}
+							user={user}/>
 					} />
 					<Route path={"/wiki"} element={
-							<ForageWiki forageWikiItems={forageWikiItems} fetchWikiData={fetchWikiData}/>
+						<ForageWiki forageWikiItems={forageWikiItems} fetchWikiData={fetchWikiData}/>
 					} />
 					<Route path={"/dashboard"} element={
 						<Dashboard user={user} getMe={getMe}/>
 					}/>
 					<Route path={"/admin"} element={
-							<AdminDashboard forageWikiItems={forageWikiItems} customMarkers={customMarker} fetchWikiData={fetchWikiData} fetchCustomMarkerData={fetchCustomMarkerData}/>
+						<AdminDashboard forageWikiItems={forageWikiItems} customMarkers={customMarker} fetchWikiData={fetchWikiData} fetchCustomMarkerData={fetchCustomMarkerData}/>
 					} />
 				</Routes>
 			</Content>

@@ -95,7 +95,8 @@ export default function MapView(props: Readonly<MapViewProps>) {
 								forageWikiItems={props.forageWikiItems}
 								customMarker={props.customMarker}
 								setAddForageMapItem={setAddForageMapItem}
-								setDetailedForageMapItem={setDetailedForageMapItem}/>
+								setDetailedForageMapItem={setDetailedForageMapItem}
+								user={props.user}/>
 						}
 					</MapContainer>
 				{detailedForageMapItem === null ?
