@@ -1,13 +1,6 @@
 import {DashboardProps} from "./DashboardProps.ts"
-import {useEffect} from "react";
 
 export default function Dashboard(props: Readonly<DashboardProps>) {
-
-	useEffect(() => {
-		if (props.user == null) {
-			props.getMe()
-		}
-	});
 
 	return (
 		<>
