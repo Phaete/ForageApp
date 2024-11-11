@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @EnableWebSecurity
 public class SecurityConfig {
 
-	@Value("${APP_URL:http://localhost:5173/}")
+	@Value("${APP_URL:http://localhost:5173}")
 	private String appUrl;
 
 	private final CustomizedOAuth2LoginSuccessHandler customizedOAuth2LoginSuccessHandler;
