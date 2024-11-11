@@ -15,6 +15,7 @@ import {User} from "./forage/types/User.ts";
 import Dashboard from "./forage/pages/dashboard/Dashboard.tsx";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NotFound from "./forage/pages/notFound/NotFound.tsx";
 
 function App() {
 
@@ -101,6 +102,7 @@ function App() {
 					<Route path={"/admin"} element={
 						<AdminDashboard forageWikiItems={forageWikiItems} customMarkers={customMarker} fetchWikiData={fetchWikiData} fetchCustomMarkerData={fetchCustomMarkerData}/>
 					} />
+					<Route path={"*"} element={<NotFound />} />
 				</Routes>
 			</Content>
 			<Footer />
