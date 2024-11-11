@@ -4,4 +4,5 @@ export type CustomMarkerMapComponentProps = {
 	forageMapItem: ForageMapItem,
 	zoom: number,
 	setDetailedForageMapItem: (detailedForageMapItem: ForageMapItem) => void
+	setShowDetailedForageMapItemDrawer: (showDetailedForageMapItemDrawer: boolean) => void
 }

@@ -31,9 +31,9 @@ const TemporaryForageMapMarker = (props: TemporaryForageMapMarkerProps) => {
 			icon={
 				L.icon({
 					iconUrl: "https://res.cloudinary.com/dpahk173t/image/upload/v1730207562/JamIcons_pin_alt.svg_gyqze5.png",
-					iconSize: [60, 60],
-					iconAnchor: [30, 60],
-					popupAnchor: [0, -60]
+					iconSize: [30, 30],
+					iconAnchor: [15, 30],
+					popupAnchor: [0, -30]
 				})
 			}
 			draggable={true}

@@ -1,5 +1,5 @@
 .full-size {
-    min-height: 100vw;
+    min-height: 100vh;
 }
 
 .flex {
@@ -60,23 +60,8 @@
 }
 
 .map-size-100 {
-    min-height: 160vw;
+    min-height: 80vh;
     min-width: 80vw;
-
-    @media (min-width: 768px) {
-        min-height: 50vw;
-        min-width: 50vw;
-    }
-}
-
-.map-size-50 {
-    min-height: 80vw;
-    min-width: 80vw;
-
-    @media (min-width: 768px) {
-        min-height: 25vw;
-        min-width: 50vw;
-    }
 }
 
 .no-text-deco {
@@ -91,7 +76,7 @@
     border: none;
 }
 
-.p-5 {
+.ppx-5 {
     padding: 5px;
 }
 
@@ -103,7 +88,7 @@
     padding: 20px;
 }
 
-.m-5 {
+.mpx-5 {
     margin: 5px;
 }
 
@@ -197,4 +182,12 @@
 
 .w-100 {
     width: 80%;
+}
+
+.text-black {
+    color: black;
+}
+
+.bottom-drawer-height {
+    height: 50vh;
 }

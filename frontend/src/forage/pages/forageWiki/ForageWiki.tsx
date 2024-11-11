@@ -1,12 +1,12 @@
 import {ForageWikiProps} from "./ForageWikiProps.ts"
 import {ForageWikiItem} from "../../types/ForageWikiItem.ts";
 import ExpandableCard from "../../components/content/expandableCard/ExpandableCard.tsx";
-import ForageWikiItemEditor from "./forageWikiItemEditor/ForageWikiItemEditor.tsx";
+import {Container} from "react-bootstrap";
 
 export default function ForageWiki(props: Readonly<ForageWikiProps>) {
 
 	return (
-		<div className={"boxed"}>
+		<Container fluid>
 			<h2>Forage Wiki</h2>
 			{props.forageWikiItems.length > 0 ?
 				<>
@@ -21,10 +21,6 @@ export default function ForageWiki(props: Readonly<ForageWikiProps>) {
 				:
 				<p>no Forage wiki items found</p>
 			}
-
-			<h2>Add ForageWikiItem</h2>
-			<ForageWikiItemEditor fetchWikiData={props.fetchWikiData}/>
-
-		</div>
+		</Container>
 	)
 }

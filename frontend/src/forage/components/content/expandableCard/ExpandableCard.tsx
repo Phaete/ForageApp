@@ -3,6 +3,7 @@ import {useState} from "react";
 import axios from "axios";
 import ForageWikiItemEditor from "../../../pages/forageWiki/forageWikiItemEditor/ForageWikiItemEditor.tsx";
 import CustomMarkerEditor from "../../../pages/customMarkerGallery/customMarkerEditor/CustomMarkerEditor.tsx";
+import {Button, Card} from "react-bootstrap";
 
 export default function ExpandableCard(props: Readonly<ExpandableCardProps>) {
 
@@ -28,7 +29,7 @@ export default function ExpandableCard(props: Readonly<ExpandableCardProps>) {
 	}
 
 	return (
-		<div className={"boxed boxed-r5 m-5 p-5"}>
+		<div>
             {props.customMarker &&
 				(
 					<div>
@@ -86,45 +87,55 @@ export default function ExpandableCard(props: Readonly<ExpandableCardProps>) {
 			}
 			{props.forageWikiItem &&
 				(
-					<div>
+					<Card className={"mb-1"}>
 						{editItem ?
 							<div>
 								<ForageWikiItemEditor fetchWikiData={props.fetchWikiData ?? (() => {
 								})} forageWikiItemToEdit={props.forageWikiItem} setEditItem={setEditItem}/>
 							</div>
 							:
-							<div>
-								<span>{props.forageWikiItem.name}</span>
+							<Card.Body>
+								<div className={"flex flex-row justify-between align-center"}>
+								<Card.Title>{props.forageWikiItem.name}</Card.Title>
+								<Button variant={"info"} type={"button"} onClick={() => setExpanded(!expanded)}>
+									{expanded ? "Show less" : "Show more"}
+								</Button>
+								</div>
 								<span>
-								<button type={"button"} onClick={() => setExpanded(!expanded)}>{expanded ? "Hide" : "Show"}</button>
+
 								</span>
 								{expanded ?
 									<div>
-											<div>
-												<p>Category: {props.forageWikiItem.category}</p>
-												<p>Source: {props.forageWikiItem.source}</p>
-												<p>Description: {props.forageWikiItem.description}</p>
-												<p>Season: {props.forageWikiItem.season}</p>
-												<div className={"flex flex-row-reverse"}>
-													<span>
-														<button type={"button"} onClick={deleteForageWikiItem}>Delete</button>
-													</span>
-													<span>
-														<button type={"button"} onClick={() => {
-															if (props.forageWikiItem) {
-																setEditItem(true)
-															}
-														}}>Edit</button>
-													</span>
-												</div>
-											</div>
+										<span>
+											<span>
+												Category: {props.forageWikiItem.category}
+											</span>
+											<span className={"mx-2"}>|</span>
+											<span>
+												Source: {props.forageWikiItem.source}
+											</span>
+										</span>
+										<p>Season: {props.forageWikiItem.season}</p>
+										<p>Description: <br/>{props.forageWikiItem.description}</p>
+										<div className={"flex flex-row-reverse"}>
+											<span>
+												<button type={"button"} onClick={deleteForageWikiItem}>Delete</button>
+											</span>
+											<span>
+												<button type={"button"} onClick={() => {
+													if (props.forageWikiItem) {
+														setEditItem(true)
+													}
+												}}>Edit</button>
+											</span>
+										</div>
 									</div>
-								:
+									:
 									null
 								}
-							</div>
+							</Card.Body>
 						}
-                	</div>
+					</Card>
 				)
 			}
 		</div>

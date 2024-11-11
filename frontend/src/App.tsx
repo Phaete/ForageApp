@@ -5,7 +5,7 @@ import {ForageWikiItem} from "./forage/types/ForageWikiItem.ts";
 import axios from "axios";
 import AdminDashboard from "./forage/pages/adminDashboard/AdminDashboard.tsx";
 import {CustomMarker} from "./forage/types/CustomMarker.ts";
-import Navbar from "./forage/components/navbar/Navbar.tsx";
+import NavbarComponent from "./forage/components/navbar/NavbarComponent.tsx";
 import Content from "./forage/components/content/Content.tsx";
 import LandingPage from "./forage/pages/landingPage/LandingPage.tsx";
 import MapView from "./forage/pages/mapView/MapView.tsx";
@@ -13,6 +13,8 @@ import {ForageMapItem} from "./forage/types/ForageMapItem.ts";
 import Footer from "./forage/components/footer/Footer.tsx";
 import {User} from "./forage/types/User.ts";
 import Dashboard from "./forage/pages/dashboard/Dashboard.tsx";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
@@ -68,11 +70,12 @@ function App() {
 		fetchWikiData()
 		fetchCustomMarkerData()
 		fetchForageMapItems()
+		document.documentElement.setAttribute("data-bs-theme", "dark")
 	}, []);
 
 	return (
 		<div className={"full-size flex flex-col justify-center"}>
-			<Navbar user={user} logout={logout} login={login}/>
+			<NavbarComponent user={user} logout={logout} login={login}/>
 			<Content>
 				<Routes>
 					<Route path={"/"} element={
