@@ -10,6 +10,7 @@ export default function DetailedForageMapItemCard(props: Readonly<DetailedForage
 
 	function handleClose() {
 		props.setShowDetailedForageMapItemDrawer(false)
+		props.setDetailedForageMapItem(null)
 	}
 
 	return (
