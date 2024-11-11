@@ -70,9 +70,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: push-to-dockerhub
     environment:
-      name: Deployment
+      name: Forage Tracker App
       url: https://forage-tracker.onrender.com
     steps:
       - name: Trigger Render Deploy
-      - run: |
+        run: |
           curl -X POST ${{ secrets.RENDER_DEPLOY }}
