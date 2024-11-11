@@ -64,13 +64,14 @@ function App() {
 					}
 				)
 			})
-			.catch((error) => console.log(error))
+			.catch(() => console.log("Not Authorized"))
 	}
 
 	useEffect(() => {
 		fetchWikiData()
 		fetchCustomMarkerData()
 		fetchForageMapItems()
+		getMe()
 		document.documentElement.setAttribute("data-bs-theme", "dark")
 	}, []);
 
@@ -81,7 +82,7 @@ function App() {
 				<Routes>
 					<Route path={"/"} element={
 						user !== null ?
-							<Dashboard user={user} getMe={getMe}/>
+							<Dashboard user={user}/>
 						:
 							<LandingPage login={login} logout={logout} getMe={getMe} user={user}/>
 					} />
@@ -97,7 +98,7 @@ function App() {
 						<ForageWiki forageWikiItems={forageWikiItems} fetchWikiData={fetchWikiData}/>
 					} />
 					<Route path={"/dashboard"} element={
-						<Dashboard user={user} getMe={getMe}/>
+						<Dashboard user={user}/>
 					}/>
 					<Route path={"/admin"} element={
 						<AdminDashboard forageWikiItems={forageWikiItems} customMarkers={customMarker} fetchWikiData={fetchWikiData} fetchCustomMarkerData={fetchCustomMarkerData}/>
