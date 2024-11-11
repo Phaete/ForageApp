@@ -39,6 +39,7 @@ const CustomMarkerMapComponent = (props: Readonly<CustomMarkerMapComponentProps>
             position={[props.forageMapItem.position.latitude, props.forageMapItem.position.longitude]}
             icon={customIcon}
             eventHandlers={{click: () => {
+                    props.setShowDetailedForageMapItemDrawer(true)
                     props.setDetailedForageMapItem(props.forageMapItem)
                 }
             }}>

@@ -33,6 +33,7 @@ export default function MapView(props: Readonly<MapViewProps>) {
 	const [addForageMapItem, setAddForageMapItem] = useState<boolean>(false)
 
 	const [detailedForageMapItem, setDetailedForageMapItem] = useState<ForageMapItem | null>(null)
+	const [showDetailedForageMapItemDrawer, setShowDetailedForageMapItemDrawer] = useState<boolean>(false)
 
 	const MapMoveEvent = () => {
 		useMapEvents({
@@ -56,7 +57,7 @@ export default function MapView(props: Readonly<MapViewProps>) {
 	return (
 		<div>
 			<div className={"pos-relative flex flex-col justify-center align-center"}>
-					<MapContainer className={`${detailedForageMapItem === null ? 'map-size-100' : 'map-size-50'} boxed-r10`}
+					<MapContainer className={"map-size-100 boxed-r10"}
 							  center={[mapCenter.position.latitude, mapCenter.position.longitude]}
 							  zoom={mapCenter.zoom}
 							  zoomControl={false}
@@ -83,6 +84,7 @@ export default function MapView(props: Readonly<MapViewProps>) {
 										forageMapItem={forageMapItem}
 										zoom={mapCenter.zoom}
 										setDetailedForageMapItem={setDetailedForageMapItem}
+										setShowDetailedForageMapItemDrawer={setShowDetailedForageMapItemDrawer}
 									/>
 								)
 							)
@@ -118,7 +120,10 @@ export default function MapView(props: Readonly<MapViewProps>) {
 							customMarker={props.customMarker}
 							forageMapItem={detailedForageMapItem}
 							fetchForageMapItems={props.fetchForageMapItems}
-							setDetailedForageMapItem={setDetailedForageMapItem}/>
+							setDetailedForageMapItem={setDetailedForageMapItem}
+							showDetailedForageMapItemDrawer={showDetailedForageMapItemDrawer}
+							setShowDetailedForageMapItemDrawer={setShowDetailedForageMapItemDrawer}
+							user={props.user}/>
 					</div>
 				}
 			</div>
