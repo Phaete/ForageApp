@@ -51,7 +51,8 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"origin": "github:123456",
 						"name": "test",
 						"email": "test@user.com",
-						"imageUrl": "test"
+						"imageUrl": "test",
+						"role": "USER"
 					}
 """));
 	}
@@ -83,7 +84,8 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"origin": "origin",
 						"name": "name",
 						"email": "email",
-						"imageUrl": "imageUrl"
+						"imageUrl": "imageUrl",
+						"role": "USER"
 						}
 					]
 				"""));
@@ -121,7 +123,8 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"origin": "github:user",
 						"name": "name",
 						"email": "email",
-						"imageUrl": "imageUrl"
+						"imageUrl": "imageUrl",
+						"role": "USER"
 					}
 				"""));
 	}
@@ -156,7 +159,8 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"origin": "google:user",
 						"name": "name",
 						"email": "email",
-						"imageUrl": "imageUrl"
+						"imageUrl": "imageUrl",
+						"role": "USER"
 					}
 				"""));
 	}
@@ -233,7 +237,8 @@ class UserControllerIntegrationTest extends AbstractMongoDBTestcontainer {
 						"origin": "github:user",
 						"name": "newName",
 						"email": "newEmail",
-						"imageUrl": "imageUrl"
+						"imageUrl": "imageUrl",
+						"role": "USER"
 					}
 				"""));
 	}
