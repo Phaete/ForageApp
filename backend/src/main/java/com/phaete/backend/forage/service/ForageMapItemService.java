@@ -43,7 +43,8 @@ public class ForageMapItemService {
 			"anonymous",
 			"anonymous",
 			"email",
-			"https://circumicons.com/icon/user"
+			"https://circumicons.com/icon/user",
+			Role.GUEST
 	);
 
 	private static final String FORAGE_MAP_ITEM_NOT_FOUND_MESSAGE = "Could not find forage map item with the id: ";
@@ -152,9 +153,7 @@ public class ForageMapItemService {
 	public Map<Boolean, List<ForageMapItem>> findAll(OAuth2AuthenticationToken authentication)
 			throws UserNotFoundException, InvalidAuthenticationException {
 		UserDTO currentUser = authentication != null ? userService.getUserByAttributes(authentication.getPrincipal().getAttributes()) : anonymousUser;
-		if (userService.getUserRole(
-				currentUser.origin()
-		) == Role.ADMIN) {
+		if (currentUser.role().equals(Role.ADMIN)) {
 			return findAllForageMapItems();
 		} else {
 			return findAllForageMapItemsAvailableToUser(currentUser);
@@ -194,7 +193,7 @@ public class ForageMapItemService {
 		if (
 				forageMapItemDTO.ownership().owner().equals(currentUser.origin()) ||
 						forageMapItemDTO.ownership().isPublic() ||
-						userService.getUserRole(currentUser.origin()).equals(Role.ADMIN)
+						currentUser.role().equals(Role.ADMIN)
 		) {
 			return forageMapItemDTO;
 		} else {
@@ -225,7 +224,7 @@ public class ForageMapItemService {
 		if (
 				(forageMapItemToUpdate.ownership().owner().equals(forageMapItemDTO.ownership().owner()) &&
 				forageMapItemDTO.ownership().owner().equals(currentUser.origin()))
-				|| userService.getUserRole(currentUser.origin()).equals(Role.ADMIN)
+				|| currentUser.role().equals(Role.ADMIN)
 		) {
 			return converterService.toDTO(
 					forageMapItemRepository.save(
@@ -264,7 +263,7 @@ public class ForageMapItemService {
 				userService.getUserByAttributes(authentication.getPrincipal().getAttributes()) : anonymousUser;
 		if (
 				forageMapItemToDelete.ownership().owner().equals(currentUser.origin()) ||
-						userService.getUserRole(currentUser.origin()).equals(Role.ADMIN)
+						currentUser.role().equals(Role.ADMIN)
 		) {
 			forageMapItemRepository.deleteById(id);
 			return forageMapItemToDelete.position().latitude() + ", " + forageMapItemToDelete.position().longitude();

@@ -239,7 +239,8 @@ class ConverterServiceTest {
 						"test",
 						"test",
 						"test",
-						"test"
+						"test",
+						Role.USER
 				)
 		);
 		assertEquals(expectedUser, actualUser);
@@ -251,7 +252,8 @@ class ConverterServiceTest {
 				"test",
 				"test",
 				"test",
-				"test"
+				"test",
+				Role.USER
 		);
 		UserDTO actualUserDTO = converterService.toDTO(
 				new User(
