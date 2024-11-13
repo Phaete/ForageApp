@@ -94,7 +94,8 @@ public class UserService {
 					origin,
 					Optional.ofNullable(attributes.get("name")).map(Object::toString).orElse(null),
 					Optional.ofNullable(attributes.get("email")).map(Object::toString).orElse(null),
-					origin.startsWith("github") ? attributes.get("avatar_url").toString() : attributes.get("picture").toString()
+					origin.startsWith("github") ? attributes.get("avatar_url").toString() : attributes.get("picture").toString(),
+					Role.USER
 			);
 		}
 		return null;
@@ -150,7 +151,7 @@ public class UserService {
 	public UserDTO updateUser(UserDTO userDTO, OAuth2AuthenticationToken authentication) throws UserNotFoundException, InvalidAuthenticationException {
 		UserDTO currentUser = getUserByAttributes(authentication.getPrincipal().getAttributes());
 
-		if (currentUser.origin().equals(userDTO.origin()) || getUserRole(userDTO.origin()).equals(Role.ADMIN)) {
+		if (currentUser.origin().equals(userDTO.origin()) || userDTO.role().equals(Role.ADMIN)) {
 			return converterService.toDTO(
 					userRepository.save(
 							converterService.fromDTO(
@@ -161,15 +162,5 @@ public class UserService {
 		} else {
 			throw new InvalidAuthenticationException("You are not authenticated to update this user.");
 		}
-	}
-
-	/**
-	 * Retrieves the role of a user.
-	 *
-	 * @param origin the origin of the user
-	 * @return the role of the specified user or GUEST if the user does not exist
-	 */
-	public Role getUserRole(String origin) {
-		return userRepository.findByOrigin(origin).map(User::role).orElse(Role.GUEST);
 	}
 }

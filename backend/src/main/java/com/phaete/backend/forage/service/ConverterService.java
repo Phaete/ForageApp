@@ -151,7 +151,8 @@ public class ConverterService {
 				user.origin(),
 				user.name(),
 				user.email(),
-				user.imageUrl()
+				user.imageUrl(),
+				user.role()
 		);
 	}
 }

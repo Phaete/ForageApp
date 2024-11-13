@@ -28,7 +28,8 @@ class UserServiceTest {
 				"origin",
 				"name",
 				"email",
-				"imageUrl"
+				"imageUrl",
+				Role.USER
 		);
 		when(idService.generateId()).thenReturn("1");
 		when(userRepository.save(any(User.class))).thenReturn(
@@ -81,7 +82,8 @@ class UserServiceTest {
 				"github:1234",
 				"name",
 				"email",
-				"imageUrl"
+				"imageUrl",
+				Role.USER
 		);
 		when(userRepository.findByOrigin(any(String.class))).thenReturn(Optional.empty());
 
@@ -102,7 +104,8 @@ class UserServiceTest {
 				"google:1234",
 				"name",
 				"email",
-				"imageUrl"
+				"imageUrl",
+				Role.USER
 		);
 		when(userRepository.findByOrigin(any(String.class))).thenReturn(Optional.empty());
 
@@ -184,7 +187,8 @@ class UserServiceTest {
 				"forage-app:1234",
 				"name",
 				"email",
-				"imageUrl"
+				"imageUrl",
+				Role.USER
 		);
 		when(userRepository.findByOrigin(any(String.class))).thenReturn(Optional.of(
 						new User(
@@ -215,7 +219,8 @@ class UserServiceTest {
 				"github:1234",
 				"name",
 				"email",
-				"imageUrl"
+				"imageUrl",
+				Role.USER
 		);
 		when(userRepository.findByOrigin(any(String.class))).thenReturn(Optional.of(
 				new User(
@@ -245,7 +250,8 @@ class UserServiceTest {
 				"google:1234",
 				"name",
 				"email",
-				"imageUrl"
+				"imageUrl",
+				Role.USER
 		);
 		when(userRepository.findByOrigin(any(String.class))).thenReturn(Optional.of(
 				new User(
@@ -287,7 +293,8 @@ class UserServiceTest {
 				"github:1234",
 				"name123",
 				"email",
-				"imageUrl"
+				"imageUrl",
+				Role.USER
 		);
 		when(userRepository.findByOrigin(any(String.class))).thenReturn(Optional.of(
 				new User(
@@ -343,7 +350,8 @@ class UserServiceTest {
 				"github:1234",
 				"name123",
 				"email",
-				"imageUrl"
+				"imageUrl",
+				Role.USER
 		);
 		when(userRepository.findByOrigin("github:1234")).thenReturn(Optional.of(
 				new User(
@@ -413,7 +421,8 @@ class UserServiceTest {
 				"github:1",
 				"name1",
 				"email",
-				"imageUrl"
+				"imageUrl",
+				Role.ADMIN
 		);
 		when(userRepository.findByOrigin("github:1")).thenReturn(Optional.of(
 				new User(
@@ -488,7 +497,8 @@ class UserServiceTest {
 						"github:1234",
 						"name123",
 						"email",
-						"imageUrl"
+						"imageUrl",
+						Role.USER
 				),
 				new OAuth2AuthenticationToken(
 						new DefaultOAuth2User(
@@ -543,7 +553,8 @@ class UserServiceTest {
 						"github:1234",
 						"name123",
 						"email",
-						"imageUrl"
+						"imageUrl",
+						Role.USER
 				),
 				new OAuth2AuthenticationToken(
 						new DefaultOAuth2User(null,

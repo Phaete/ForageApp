@@ -1,7 +1,8 @@
 import {User} from "../../types/User.ts";
 
 export type NavbarComponentProps = {
-	login: () => void,
+	loginGithub: () => void,
+	loginGoogle: () => void,
 	logout: () => void,
 	user: User | null
 }

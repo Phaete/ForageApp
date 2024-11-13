@@ -42,9 +42,14 @@ function App() {
 			.catch(error => console.log(error))
 	}
 
-	function login(){
+	function loginGithub(){
 		const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
 		window.open(host+'/oauth2/authorization/github', '_self')
+	}
+
+	function loginGoogle(){
+		const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
+		window.open(host+'/oauth2/authorization/google', '_self')
 	}
 
 	function logout() {
@@ -60,7 +65,8 @@ function App() {
 						origin: r.data.origin,
 						name: r.data.name,
 						email: r.data.email,
-						imageUrl: r.data.imageUrl
+						imageUrl: r.data.imageUrl,
+						role: r.data.role
 					}
 				)
 			})
@@ -77,14 +83,18 @@ function App() {
 
 	return (
 		<div className={"full-size flex flex-col justify-center"}>
-			<NavbarComponent user={user} logout={logout} login={login}/>
+			<NavbarComponent
+				user={user}
+				logout={logout}
+				loginGithub={loginGithub}
+				loginGoogle={loginGoogle}/>
 			<Content>
 				<Routes>
 					<Route path={"/"} element={
 						user !== null ?
 							<Dashboard user={user}/>
 						:
-							<LandingPage login={login} logout={logout} getMe={getMe} user={user}/>
+							<LandingPage/>
 					} />
 					<Route path={"/map"} element={
 						<MapView

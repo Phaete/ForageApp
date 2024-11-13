@@ -1,17 +1,14 @@
-import {LandingPageProps} from "./LandingPageProps.ts";
 import {Container} from "react-bootstrap";
 
-export default function LandingPage(props: Readonly<LandingPageProps>) {
-
-	function login() {
-		props.login()
-	}
+export default function LandingPage() {
 
 	return (
-		<Container>
-			<h1>Discover Nature's Bounty</h1>
-			<p>Easily track wild edible plants and mushrooms in your area.</p>
-			{props.user ? <button onClick={props.logout}>Logout</button> : <button onClick={login}>Login</button>}
+		<Container className={"flex flex-col"}>
+			<img src={"src/forage/assets/images/Logo.png"}
+				 alt={"Forage Tracker Logo"}
+				 width={"300px"}
+				 className={"align-self-center align-self-md-baseline"}/>
+			<p className={"align-self-center align-self-md-baseline"}>Easily track wild edible plants and mushrooms in your area.</p>
 		</Container>
 	)
 }
